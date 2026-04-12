@@ -652,9 +652,9 @@ body {
           </div>
           <div class="card" style="margin:0;">
             <label style="display:block;font-weight:700;margin-bottom:6px;color:#24423d;">Pattern I Notice</label>
-            <textarea id="noaaPattern" class="journal-textarea" placeholder="I notice that..." style="min-height:90px;" oninput="autoSave('noaa_pattern',this.value);updateNoaaPreview()"></textarea>
+            <textarea id="noaaPattern" class="journal-textarea" data-key="noaa_pattern" placeholder="I notice that..." style="min-height:90px;" oninput="autoSave('noaa_pattern',this.value);updateNoaaPreview()"></textarea>
             <label style="display:block;font-weight:700;margin-bottom:6px;margin-top:12px;color:#24423d;">Why This Matters for Fire Risk</label>
-            <textarea id="noaaRisk" class="journal-textarea" placeholder="This matters for fire risk because..." style="min-height:90px;" oninput="autoSave('noaa_risk',this.value);updateNoaaPreview()"></textarea>
+            <textarea id="noaaRisk" class="journal-textarea" data-key="noaa_risk" placeholder="This matters for fire risk because..." style="min-height:90px;" oninput="autoSave('noaa_risk',this.value);updateNoaaPreview()"></textarea>
             <div style="margin-top:12px;">
               <button class="btn btn--back" onclick="showNoaaChoices()">← Back to Data Choices</button>
             </div>
@@ -1129,24 +1129,43 @@ body {
 
       <!-- Loop Canvas -->
       <div style="border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;background:var(--gray-50);position:relative;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <div class="loop-dropzone" data-zone="step1" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')">
+        <div class="loop-ring-container">
+          <!-- SVG arrows forming the circular loop -->
+          <svg class="loop-arrows-svg" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="loopArrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+                <path d="M0,0 L10,4 L0,8 Z" fill="#9aa2ad"/>
+              </marker>
+            </defs>
+            <!-- Step 1 (top) → Step 2 (right) -->
+            <path d="M340,95 C430,110 445,180 445,240" fill="none" stroke="#cdd2d8" stroke-width="3" marker-end="url(#loopArrow)"/>
+            <!-- Step 2 (right) → Step 3 (bottom) -->
+            <path d="M445,320 C445,390 420,430 340,445" fill="none" stroke="#cdd2d8" stroke-width="3" marker-end="url(#loopArrow)"/>
+            <!-- Step 3 (bottom) → Step 4 (left) -->
+            <path d="M180,445 C100,430 75,390 75,320" fill="none" stroke="#cdd2d8" stroke-width="3" marker-end="url(#loopArrow)"/>
+            <!-- Step 4 (left) → Step 1 (top) -->
+            <path d="M75,240 C75,180 100,110 180,95" fill="none" stroke="#cdd2d8" stroke-width="3" marker-end="url(#loopArrow)"/>
+          </svg>
+
+          <!-- Drop zones positioned around the circle -->
+          <div class="loop-dropzone loop-dz-top" data-zone="step1" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')">
             <span class="dz-step">Step 1</span>
             <div class="dz-content" data-empty="Drop here"></div>
           </div>
-          <div class="loop-dropzone" data-zone="step2" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')">
+          <div class="loop-dropzone loop-dz-right" data-zone="step2" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')">
             <span class="dz-step">Step 2</span>
             <div class="dz-content" data-empty="Drop here"></div>
           </div>
-          <div class="loop-dropzone" data-zone="step3" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')">
+          <div class="loop-dropzone loop-dz-bottom" data-zone="step3" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')">
             <span class="dz-step">Step 3</span>
             <div class="dz-content" data-empty="Drop here"></div>
           </div>
-          <div class="loop-dropzone" data-zone="step4" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')">
+          <div class="loop-dropzone loop-dz-left" data-zone="step4" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')">
             <span class="dz-step">Step 4</span>
             <div class="dz-content" data-empty="Drop here"></div>
           </div>
         </div>
+
         <p style="text-align:center;margin:12px 0 0;color:var(--gray-400);font-size:0.9rem;">Step 1 → Step 2 → Step 3 → Step 4 → Step 1 (repeats)</p>
         <div style="margin-top:12px;background:rgba(255,255,255,0.75);border:1px solid var(--gray-200);border-radius:10px;padding:10px;font-size:0.9rem;color:var(--gray-600);">
           <strong>Example:</strong> Over-clearing → erosion → fewer plants → hotter soil → faster next fire
@@ -1276,14 +1295,58 @@ body {
   transition: transform 0.1s;
 }
 .loop-chip:active { cursor: grabbing; transform: scale(0.95); }
+
+/* Circular loop ring container */
+.loop-ring-container {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+}
+.loop-arrows-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Drop zones positioned around the circle */
 .loop-dropzone {
   border: 2px dashed var(--gray-300);
   border-radius: var(--radius);
-  padding: 12px;
-  background: rgba(255,255,255,0.8);
-  min-height: 80px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.92);
+  min-height: 70px;
+  width: 180px;
   transition: all 0.2s;
+  position: absolute;
+  z-index: 2;
+  box-shadow: var(--shadow-sm);
 }
+.loop-dz-top {
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.loop-dz-right {
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.loop-dz-bottom {
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.loop-dz-left {
+  left: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .loop-dropzone.dragover {
   border-color: var(--green);
   background: var(--green-light);
@@ -1310,7 +1373,7 @@ body {
   border-radius: 999px;
   padding: 6px 10px;
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
 }
 .dz-placed .remove-x {
   cursor: pointer;
@@ -1327,11 +1390,44 @@ body {
   flex-shrink: 0;
 }
 .dz-placed .remove-x:hover { color: red; border-color: red; }
-/* NOAA panel responsive */
+
+/* Responsive: stack on small screens */
 @media(max-width:700px) {
   .noaa-panel-grid { grid-template-columns: 1fr !important; }
   .loop-builder-grid { grid-template-columns: 1fr !important; }
   .loop-reflect-grid { grid-template-columns: 1fr !important; }
+  .loop-ring-container {
+    aspect-ratio: auto;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .loop-arrows-svg { display: none; }
+  .loop-dropzone {
+    position: static;
+    transform: none;
+    width: 100%;
+  }
+  /* Show inline arrow indicators on mobile */
+  .loop-dz-top::after,
+  .loop-dz-right::after,
+  .loop-dz-bottom::after {
+    content: '↓';
+    display: block;
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--gray-300);
+    margin-top: 6px;
+  }
+  .loop-dz-left::after {
+    content: '↺ back to Step 1';
+    display: block;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--gray-300);
+    margin-top: 6px;
+  }
 }
 </style>
 
