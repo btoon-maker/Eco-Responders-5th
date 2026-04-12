@@ -390,6 +390,16 @@ body {
   font-size: 0.8rem;
   color: var(--gray-700);
 }
+.timer-display {
+  font-family: 'Open Sans', Arial, sans-serif;
+  background: var(--green-light);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  white-space: nowrap;
+}
 /* Progress bar */
 .progress-wrap {
   height: 4px;
@@ -458,6 +468,7 @@ body {
   <span class="brand">Eco-Responders: After the Fire</span>
   <div class="actions">
     <span class="resume-code-display" id="resumeCodeDisplay" title="Your resume code"></span>
+    <span class="timer-display" id="timerDisplay" title="Time on mission">⏱ 00:00</span>
     <button class="btn btn--back" onclick="showResumeModal()">Resume</button>
     <button class="btn btn--back" onclick="exportJournal()">Export Journal</button>
   </div>
@@ -1440,7 +1451,8 @@ let state = {
   history: [],
   resumeCode: null,
   planChoice: null,
-  loopModel: {}
+  loopModel: {},
+  elapsedSeconds: 0
 };
 
 // ===== LOCAL STORAGE =====
@@ -1768,68 +1780,153 @@ function restoreLoopState() {
 }
 
 // ===== EXPORT JOURNAL =====
+function formatTime(totalSeconds) {
+  const hrs = Math.floor(totalSeconds / 3600);
+  const mins = Math.floor((totalSeconds % 3600) / 60);
+  const secs = totalSeconds % 60;
+  if (hrs > 0) return `${hrs}h ${String(mins).padStart(2,'0')}m ${String(secs).padStart(2,'0')}s`;
+  return `${mins}m ${String(secs).padStart(2,'0')}s`;
+}
+
 function exportJournal() {
   state.journal = collectAllJournals();
-  let text = '=== ECO-RESPONDERS: AFTER THE FIRE ===\n';
-  text += '=== FIELD JOURNAL EXPORT ===\n';
-  text += 'Date: ' + new Date().toLocaleDateString() + '\n';
-  text += 'Resume Code: ' + (state.resumeCode || 'N/A') + '\n\n';
+  const totalTime = state.elapsedSeconds || 0;
 
-  // Decisions
+  let text = '============================================================\n';
+  text += '   ECO-RESPONDERS: AFTER THE FIRE — FIELD JOURNAL EXPORT\n';
+  text += '============================================================\n\n';
+  text += 'Date: ' + new Date().toLocaleDateString() + '\n';
+  text += 'Resume Code: ' + (state.resumeCode || 'N/A') + '\n';
+  text += 'Total Time on Mission: ' + formatTime(totalTime) + '\n';
+  text += '\n';
+
+  // ---- Decision Points ----
+  text += '============================================================\n';
+  text += '   DECISIONS\n';
+  text += '============================================================\n\n';
+
   if (state.decisions.dp1) {
-    text += '--- Decision Point 1 ---\n';
-    text += 'Choice: ' + (state.decisions.dp1 === 'noaa' ? 'Analyze NOAA weather data first' : 'Go straight to the fire zone') + '\n\n';
+    text += '--- Decision Point 1: Where will you begin? ---\n';
+    text += 'Choice: ' + (state.decisions.dp1 === 'noaa' ? 'Analyze NOAA weather data first' : 'Go straight to the fire zone for field observations') + '\n\n';
   }
   if (state.decisions.dp2) {
-    text += '--- Decision Point 2 ---\n';
+    text += '--- Decision Point 2: Which evidence will you prioritize? ---\n';
     const dp2Labels = { human:'Human Impacts', ecosystem:'Ecosystem Recovery', both:'Both Perspectives' };
     text += 'Choice: ' + (dp2Labels[state.decisions.dp2] || state.decisions.dp2) + '\n\n';
   }
+  if (state.journal.plan_choice) {
+    text += '--- Decision Point 3: Recovery Plan Recommendation ---\n';
+    text += 'Choice: ' + state.journal.plan_choice + '\n\n';
+  }
 
-  // Journal entries
-  const labels = {
-    noaa_indicator: 'NOAA Indicator Investigated',
-    noaa_pattern: 'NOAA Pattern Noticed',
-    noaa_risk: 'NOAA Fire Risk Reasoning',
-    '3a1_reflection': 'NOAA Data Reflection',
-    '3a1_challenge': 'NOAA Challenge (Optional)',
-    '3a2_inference': 'Fire Zone Inference (NOAA Path)',
-    '3b1_observations': 'Field Observations',
-    '3b1_bonus': 'Fire-Adapted Plant Research (Optional)',
-    '3b2_weather': 'Weather Inference (Field Path)',
-    '5a_impacts': 'Human Impacts Analysis',
-    '5b_ecosystem': 'Ecosystem Recovery Analysis',
-    '5c_integrated': 'Integrated Thinking',
-    section6_synthesis: 'Team Briefing Synthesis',
-    section6_bonus: 'Fire-Smart Home Design (Optional)',
-    section7_reflection: 'Reflection & Transfer',
-    plan_choice: 'Plan Recommendation Choice',
-    section8_decision: 'Plan Justification',
-    section9_feedback: 'Feedback Loop Reflection',
-    loop_repeats: 'When the Loop Repeats',
-    loop_help: 'One Change that Could Help',
-    section11_psa: 'Fire-Smart PSA',
-    section11_bonus: 'PSA Extension (Optional)',
-    section12_reflection1: 'Final Reflection #1',
-    section12_reflection2: 'Final Reflection #2',
-    section12_scientist: 'Think Like a Scientist'
-  };
+  // ---- Journal entries with prompts ----
+  text += '============================================================\n';
+  text += '   FIELD JOURNAL RESPONSES\n';
+  text += '============================================================\n\n';
 
-  Object.entries(labels).forEach(([key, label]) => {
-    if (state.journal[key] && state.journal[key].trim()) {
-      text += '--- ' + label + ' ---\n';
-      text += state.journal[key] + '\n\n';
-    }
+  const entries = [
+    { section: 'Section 3A — NOAA Data Investigation',
+      items: [
+        { key:'noaa_indicator', label:'NOAA Indicator Investigated', prompt:'(Student-selected data indicator from the NOAA Data Review Simulator)' },
+        { key:'noaa_pattern', label:'Pattern I Notice', prompt:'Prompt: Describe the pattern you see in the NOAA data indicator you investigated.' },
+        { key:'noaa_risk', label:'Why This Matters for Fire Risk', prompt:'Prompt: Explain why the pattern you noticed matters for fire risk.' },
+        { key:'3a1_reflection', label:'NOAA Data Reflection', prompt:'Prompt: After reviewing NOAA data, record one pattern that increased fire risk and explain its effect on plants and animals.' },
+        { key:'3a1_challenge', label:'Mission Challenge (Optional)', prompt:'Prompt: Predict what might happen to the forest next year if rainfall continues to drop and temperatures stay high. Use data to support your prediction.' }
+      ]},
+    { section: 'Section 3A-2 — NOAA Inference',
+      items: [
+        { key:'3a2_inference', label:'Fire Zone Inference', prompt:'Prompt: Infer what the fire zone looks like based on your climate data. Use one piece of evidence to support your idea.' }
+      ]},
+    { section: 'Section 3B — Field Observations',
+      items: [
+        { key:'3b1_observations', label:'Field Observations', prompt:'Prompt: Record two observations showing how the fire affected people or wildlife.' },
+        { key:'3b1_bonus', label:'Mission Challenge (Optional)', prompt:'Prompt: Research a local fire-adapted plant. How does it help stabilize soil or promote regrowth?' }
+      ]},
+    { section: 'Section 3B-2 — Weather Inference',
+      items: [
+        { key:'3b2_weather', label:'Weather Inference', prompt:'Prompt: Infer what the weather patterns were before the fire. Support your answer with at least two clues from your observations.' }
+      ]},
+    { section: 'Section 5A — Human Impacts',
+      items: [
+        { key:'5a_impacts', label:'Human Impacts Analysis', prompt:'Prompt: What human choices made the biggest difference in survival rates? Support with one data pattern.' }
+      ]},
+    { section: 'Section 5B — Ecosystem Recovery',
+      items: [
+        { key:'5b_ecosystem', label:'Ecosystem Recovery Analysis', prompt:'Prompt: How are living systems responding differently to fire damage? What evidence shows positive and negative recovery?' }
+      ]},
+    { section: 'Section 5C — Integrated Thinking',
+      items: [
+        { key:'5c_integrated', label:'Integrated Thinking', prompt:'Prompt: How do human actions and ecosystem recovery influence each other? Explain using one example.' }
+      ]},
+    { section: 'Section 6 — Team Briefing',
+      items: [
+        { key:'section6_synthesis', label:'Team Briefing Synthesis', prompt:'Prompt: Write one cause-and-effect link between a human decision and a natural outcome. Explain why understanding both sides helps create a stronger recovery plan.' },
+        { key:'section6_bonus', label:'Mission Challenge (Optional)', prompt:'Prompt: Design a "Fire-Smart Home." Draw or describe one building feature that could protect homes from future wildfires.' }
+      ]},
+    { section: 'Section 7 — Reflection & Transfer',
+      items: [
+        { key:'section7_reflection', label:'Reflection', prompt:'Prompt: How can human choices help or harm both people and wildlife after a fire?' }
+      ]},
+    { section: 'Section 8 — Plan Recommendation',
+      items: [
+        { key:'section8_decision', label:'Plan Justification', prompt:'Prompt: Which plan do you recommend? Cite two pieces of evidence to justify your choice.' }
+      ]},
+    { section: 'Section 9 — Feedback Loops',
+      items: [
+        { key:'section9_feedback', label:'Feedback Loop Reflection', prompt:'Prompt: What happens as the loop repeats? How could humans change this loop to help the system recover?' }
+      ]},
+    { section: 'Section 10 — Feedback Loop Model',
+      items: [
+        { key:'loop_repeats', label:'When the Loop Repeats', prompt:'Prompt: Explain what happens when your feedback loop repeats. Does it make the ecosystem stronger or weaker?' },
+        { key:'loop_help', label:'One Change that Could Help', prompt:'Prompt: How could humans change one part of the loop to improve recovery?' }
+      ]},
+    { section: 'Section 11 — Real-World Transfer & Student Voice',
+      items: [
+        { key:'section11_psa', label:'Fire-Smart PSA', prompt:'Prompt: Write a short PSA or message sharing what your community can do to stay fire-smart.' },
+        { key:'section11_bonus', label:'Mission Challenge (Optional)', prompt:'Prompt: Turn your PSA into a digital poster, infographic, or 30-second video to teach your community how to stay fire-smart.' }
+      ]},
+    { section: 'Section 12 — Final Reflection',
+      items: [
+        { key:'section12_reflection1', label:'Final Reflection #1', prompt:'Prompt: Pick two of: (1) What evidence helped you understand how natural and human factors interact? (2) How did your choices influence your explanation? (3) How can people and ecosystems recover together?' },
+        { key:'section12_reflection2', label:'Final Reflection #2', prompt:'Prompt: (Second reflection choice from the options above)' },
+        { key:'section12_scientist', label:'Think Like a Scientist', prompt:'Prompt: How does your message show cause and effect? What evidence supports your recommendation?' }
+      ]}
+  ];
+
+  entries.forEach(group => {
+    // Check if any entries in this group have responses
+    const hasAny = group.items.some(item => state.journal[item.key] && state.journal[item.key].trim());
+    if (!hasAny) return;
+
+    text += '------------------------------------------------------------\n';
+    text += group.section + '\n';
+    text += '------------------------------------------------------------\n\n';
+
+    group.items.forEach(item => {
+      if (state.journal[item.key] && state.journal[item.key].trim()) {
+        text += item.label + '\n';
+        text += item.prompt + '\n\n';
+        text += 'Response:\n';
+        text += state.journal[item.key] + '\n\n';
+      }
+    });
   });
 
-  // Loop model
+  // Loop model placements
   if (state.loopModel && Object.values(state.loopModel).some(v => v)) {
-    text += '--- Feedback Loop Model ---\n';
+    text += '------------------------------------------------------------\n';
+    text += 'Feedback Loop Model — Drag-and-Drop Placements\n';
+    text += '------------------------------------------------------------\n\n';
     ['step1','step2','step3','step4'].forEach(s => {
-      if (state.loopModel[s]) text += s.replace('step','Step ') + ': ' + state.loopModel[s] + '\n';
+      const val = state.loopModel[s];
+      text += s.replace('step','Step ') + ': ' + (val || '[empty]') + '\n';
     });
     text += '\n';
   }
+
+  text += '============================================================\n';
+  text += '   END OF JOURNAL EXPORT\n';
+  text += '============================================================\n';
 
   const blob = new Blob([text], { type:'text/plain' });
   const url = URL.createObjectURL(blob);
@@ -1841,6 +1938,53 @@ function exportJournal() {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+// ===== LESSON TIMER =====
+let timerInterval = null;
+let timerRunning = false;
+
+function startTimer() {
+  if (timerRunning) return;
+  timerRunning = true;
+  timerInterval = setInterval(() => {
+    state.elapsedSeconds = (state.elapsedSeconds || 0) + 1;
+    updateTimerDisplay();
+    // Save every 30 seconds to avoid excessive writes
+    if (state.elapsedSeconds % 30 === 0) saveState();
+  }, 1000);
+}
+
+function stopTimer() {
+  if (!timerRunning) return;
+  timerRunning = false;
+  clearInterval(timerInterval);
+  timerInterval = null;
+  saveState();
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('timerDisplay');
+  if (!el) return;
+  const total = state.elapsedSeconds || 0;
+  const hrs = Math.floor(total / 3600);
+  const mins = Math.floor((total % 3600) / 60);
+  const secs = total % 60;
+  if (hrs > 0) {
+    el.textContent = '⏱ ' + hrs + ':' + String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+  } else {
+    el.textContent = '⏱ ' + String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+  }
+}
+
+// Pause timer when tab is hidden or page unloads; resume when visible
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    stopTimer();
+  } else {
+    startTimer();
+  }
+});
+window.addEventListener('beforeunload', () => { stopTimer(); });
 
 // ===== INIT =====
 function init() {
@@ -1855,6 +1999,10 @@ function init() {
   } else {
     updateProgress();
   }
+
+  // Restore timer display and start it
+  updateTimerDisplay();
+  startTimer();
 
   // Resize handler for NOAA chart
   window.addEventListener('resize', () => {
