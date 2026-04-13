@@ -2083,7 +2083,9 @@ function selectPlan(el, planName) {
   autoSave('plan_choice', planName);
   updateDecisionTracker();
   saveState();
-  function updateDecisionTracker() {
+}
+
+function updateDecisionTracker() {
   const dp1 = document.getElementById('tracker-dp1');
   const dp2 = document.getElementById('tracker-dp2');
   const plan = document.getElementById('tracker-plan');
@@ -2091,7 +2093,6 @@ function selectPlan(el, planName) {
   if (dp1) dp1.textContent = state.decisions.dp1_label || 'Not chosen yet';
   if (dp2) dp2.textContent = state.decisions.dp2_label || 'Not chosen yet';
   if (plan) plan.textContent = state.planChoice || 'Not chosen yet';
-}
 }
 
 // ===== NOAA SIMULATOR =====
