@@ -546,37 +546,53 @@ body {
   animation: hs-pulse 2s ease-out infinite;
 }
 @keyframes hs-pulse {
-  0%   { transform: scale(1);   opacity: 1; }
+  0%   { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.6); opacity: 0; }
 }
-.hotspot-btn.hs-downtown  { top: 36%; left: 40%; }
+.hotspot-btn.hs-downtown { top: 36%; left: 40%; }
 .hotspot-btn.hs-residential { top: 60%; left: 62%; }
-.hotspot-btn.hs-forest    { top: 60%; left: 18%; }
+.hotspot-btn.hs-forest { top: 60%; left: 18%; }
 
 .hs-info-panel {
-  display: none !important;
-  position: fixed !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  width: 92% !important;
-  max-width: 440px !important;
-  background: var(--white) !important;
-  border: 3px solid var(--green) !important;
-  border-radius: var(--radius-lg) !important;
-  box-shadow: var(--shadow-lg) !important;
-  z-index: 1100 !important;
-  overflow: hidden !important;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(88%, 440px);
+  max-width: 440px;
+  max-height: 88%;
+  background: var(--white);
+  border: 3px solid var(--green);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: 20;
+  overflow: hidden;
+  overflow-y: auto;
   animation: hs-fadeIn .3s ease;
 }
 
 .hs-info-panel.hs-show {
-  display: block !important;
+  display: block;
 }
+
+.hs-overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 15;
+}
+
+.hs-overlay.hs-show {
+  display: block;
+}
+
 @keyframes hs-fadeIn {
   from { opacity: 0; transform: translate(-50%, -45%); }
   to   { opacity: 1; transform: translate(-50%, -50%); }
 }
+
 .hs-info-panel img {
   width: 100%;
   height: 200px;
@@ -613,8 +629,10 @@ body {
 }
 .hs-close-btn {
   position: absolute;
-  top: 8px; right: 10px;
-  width: 32px; height: 32px;
+  top: 8px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   border: 2px solid var(--green);
   background: rgba(0,0,0,.55);
@@ -625,28 +643,35 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  z-index: 25;
   transition: background .2s;
 }
-.hs-close-btn:hover { background: rgba(34,139,34,.6); }
+.hs-close-btn:hover {
+  background: rgba(34,139,34,.6);
+}
+
 .hs-overlay {
-  display: none !important;
-  position: fixed !important;
-  inset: 0 !important;
-  background: rgba(0,0,0,.55) !important;
-  z-index: 1090 !important;
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 15;
 }
 
 .hs-overlay.hs-show {
-  display: block !important;
+  display: block;
 }
+
 .hs-instructions {
   text-align: center;
   margin: 12px 0 14px;
   font-size: clamp(0.8rem, 2vw, 0.95rem);
   color: var(--gray-600);
 }
-.hs-instructions span { color: var(--green-dark); font-weight: 600; }
+.hs-instructions span {
+  color: var(--green-dark);
+  font-weight: 600;
+}
 .hotspot-btn.hs-visited {
   border-color: var(--green);
   background: rgba(34,139,34,0.25);
@@ -947,70 +972,74 @@ body {
     <p class="narrative-text">Nearby, houses with metal roofs stand untouched; those with wood shingles are gone.</p>
   </div>
 
-  <!-- ===== HOTSPOT MAP INTERACTIVE ===== -->
+ <!-- ===== HOTSPOT MAP INTERACTIVE ===== -->
 <div class="card" style="background:#eef3ea;border:none;">
   <h3 style="text-align:center;color:#2f4a34;font-size:1.15rem;margin-bottom:6px;">🔥 Forest Glen — After the Wildfire</h3>
-    <p style="text-align:center;font-size:0.9rem;color:#4f5f56;margin-bottom:10px;">Explore the map to discover what happened to Forest Glen.</p>
-      <p class="hs-instructions">👆 Your team has marked key investigation zones across Forest Glen. <span>Where will you investigate first?</span></p> 
+  <p style="text-align:center;font-size:0.9rem;color:#4f5f56;margin-bottom:10px;">Explore the map to discover what happened to Forest Glen.</p>
+  <p class="hs-instructions">👆 Your team has marked key investigation zones across Forest Glen. <span>Where will you investigate first?</span></p>
+
   <div class="hotspot-map-wrap">
-<img class="hotspot-map-img" src="images/EcoResponders_Forest Glen_Map_After.png" alt="Map of Forest Glen after wildfire">
+    <img class="hotspot-map-img" src="images/EcoResponders_Forest Glen_Map_After.png" alt="Map of Forest Glen after wildfire">
 
-<button class="hotspot-btn hs-downtown" data-hs-target="hs-panel-downtown" data-hs-location="Downtown District" aria-label="Explore Downtown District">        <span class="hs-icon">🏢</span>
-      </button>
-      <button class="hotspot-btn hs-residential" data-hs-target="hs-panel-residential" data-hs-location="Residential Area" aria-label="Explore Residential Area">
-        <span class="hs-icon">🏠</span>
-      </button>
-      <button class="hotspot-btn hs-forest" data-hs-target="hs-panel-forest" data-hs-location="Forest Region" aria-label="Explore Forest Region">
-        <span class="hs-icon">🌲</span>
-      </button>
+    <button class="hotspot-btn hs-downtown" data-hs-target="hs-panel-downtown" data-hs-location="Downtown District" aria-label="Explore Downtown District">
+      <span class="hs-icon">🏢</span>
+    </button>
+
+    <button class="hotspot-btn hs-residential" data-hs-target="hs-panel-residential" data-hs-location="Residential Area" aria-label="Explore Residential Area">
+      <span class="hs-icon">🏠</span>
+    </button>
+
+    <button class="hotspot-btn hs-forest" data-hs-target="hs-panel-forest" data-hs-location="Forest Region" aria-label="Explore Forest Region">
+      <span class="hs-icon">🌲</span>
+    </button>
+
+    <!-- Hotspot Overlay -->
+    <div class="hs-overlay" id="hsOverlay"></div>
+
+    <!-- Downtown Panel -->
+    <div class="hs-info-panel" id="hs-panel-downtown">
+      <button class="hs-close-btn" aria-label="Close">&times;</button>
+      <img src="images/EvoResponders_Forest Glen_Buisness_After.png" alt="Downtown district after wildfire">
+      <div class="hs-info-body">
+        <h3>🏢 Downtown District</h3>
+        <p>The downtown buildings show heavy fire and smoke damage. Walls are charred, windows shattered, and metal structures have warped from extreme heat.</p>
+        <div class="hs-clue-box">
+          <strong>🔍 Science Clue: </strong>
+          <span>Fires need three things to burn: <em>fuel, oxygen, and heat</em> (the fire triangle). Which of these three do you think was hardest to remove in a downtown area full of old buildings?</span>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- Hotspot Overlay -->
-  <div class="hs-overlay" id="hsOverlay"></div>
+    <!-- Residential Panel -->
+    <div class="hs-info-panel" id="hs-panel-residential">
+      <button class="hs-close-btn" aria-label="Close">&times;</button>
+      <img src="images/EcoResponders_Forest Glen_Home_After.png" alt="Residential area after wildfire">
+      <div class="hs-info-body">
+        <h3>🏠 Residential Area</h3>
+        <p>Homes in the residential area have been reduced to rubble. Only a stone chimney remains standing among the ash and debris. Personal belongings are scattered.</p>
+        <div class="hs-clue-box">
+          <strong>🔍 Science Clue: </strong>
+          <span>The stone chimney survived, but wooden walls did not. What property of <em>stone vs. wood</em> explains why one material resisted fire better than the other?</span>
+        </div>
+      </div>
+    </div>
 
-  <!-- Downtown Panel -->
-  <div class="hs-info-panel" id="hs-panel-downtown">
-    <button class="hs-close-btn" aria-label="Close">&times;</button>
-<img src="images/EvoResponders_Forest Glen_Buisness_After.png" alt="Downtown district after wildfire">
-    <div class="hs-info-body">
-      <h3>🏢 Downtown District</h3>
-      <p>The downtown buildings show heavy fire and smoke damage. Walls are charred, windows shattered, and metal structures have warped from extreme heat.</p>
-      <div class="hs-clue-box">
-        <strong>🔍 Science Clue: </strong>
-        <span>Fires need three things to burn: <em>fuel, oxygen, and heat</em> (the fire triangle). Which of these three do you think was hardest to remove in a downtown area full of old buildings?</span>
+    <!-- Forest Panel -->
+    <div class="hs-info-panel" id="hs-panel-forest">
+      <button class="hs-close-btn" aria-label="Close">&times;</button>
+      <img src="images/EcoResponders_Forest Glen_Forest_After.png" alt="Forest region after wildfire">
+      <div class="hs-info-body">
+        <h3>🌲 Forest Region</h3>
+        <p>The forest has been devastated. Tree trunks are blackened and bare, fallen logs cover the ground, and thick haze fills the air. The forest floor is coated in ash.</p>
+        <div class="hs-clue-box">
+          <strong>🔍 Science Clue: </strong>
+          <span>After a wildfire, the first plants to return are often small grasses and wildflowers. Why do you think <em>small plants grow back before big trees</em>?</span>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- Residential Panel -->
-  <div class="hs-info-panel" id="hs-panel-residential">
-    <button class="hs-close-btn" aria-label="Close">&times;</button>
-<img src="images/EcoResponders_Forest Glen_Home_After.png" alt="Residential area after wildfire">
-    <div class="hs-info-body">
-      <h3>🏠 Residential Area</h3>
-      <p>Homes in the residential area have been reduced to rubble. Only a stone chimney remains standing among the ash and debris. Personal belongings are scattered.</p>
-      <div class="hs-clue-box">
-        <strong>🔍 Science Clue: </strong>
-        <span>The stone chimney survived, but wooden walls did not. What property of <em>stone vs. wood</em> explains why one material resisted fire better than the other?</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Forest Panel -->
-  <div class="hs-info-panel" id="hs-panel-forest">
-    <button class="hs-close-btn" aria-label="Close">&times;</button>
-<img src="images/EcoResponders_Forest Glen_Forest_After.png" alt="Forest region after wildfire">
-    <div class="hs-info-body">
-      <h3>🌲 Forest Region</h3>
-      <p>The forest has been devastated. Tree trunks are blackened and bare, fallen logs cover the ground, and thick haze fills the air. The forest floor is coated in ash.</p>
-      <div class="hs-clue-box">
-        <strong>🔍 Science Clue: </strong>
-        <span>After a wildfire, the first plants to return are often small grasses and wildflowers. Why do you think <em>small plants grow back before big trees</em>?</span>
-      </div>
-    </div>
-  </div>
-  <!-- ===== END HOTSPOT MAP INTERACTIVE ===== -->
+</div>
+<!-- ===== END HOTSPOT MAP INTERACTIVE ===== -->
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
