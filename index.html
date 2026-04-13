@@ -845,7 +845,7 @@ body {
 <div class="section active" id="section-0" data-section="0">
   <div class="card card--hero">
     <h1 class="title-main">Eco-Responders: After the Fire</h1>
-    <p class="subtitle">"You've been called to investigate what happened after a wildfire in Forest Glen. Your decisions will help shape the community's recovery."</p>
+    <p class="subtitle">You’ve been called to Maple Valley after a wildfire. Your job is to investigate what changed, study the evidence, and help the community recover.</p>
     <div class="btn-row btn-row--center" style="margin-top:32px;">
       <button class="btn btn--primary" style="background:var(--yellow);color:var(--black);box-shadow:0 4px 14px rgba(255,198,39,0.4);font-size:1.15rem;padding:16px 36px;" onclick="beginLessonTiming(); goTo('section-1')">Start Mission</button>
     </div>
@@ -889,7 +889,7 @@ body {
     <h2 class="title-section">After the Fire</h2>
     <p class="narrative-text">The air smells faintly of pine and smoke, reminders that nature is constantly changing.</p>
     <p class="narrative-text">As an Eco-Responder, you've learned that every fire tells two stories: one of loss and one of renewal.</p>
-    <p class="narrative-text">This week, your team is on alert. Just over the ridge, a town called Forest Glen was hit by a wildfire two weeks ago.</p>
+    <p class="narrative-text">This week, your team is on alert. Just over the ridge, a town called Forest Glen was hit by a wildfire two weeks ago.Your team must figure out what changed after the fire and what should happen next.</p>
     <p class="narrative-text">Your town, Maple Valley, sits just downwind.</p>
     <img src="images/EcoResponders_MapleValley_Map_01.png" alt="Map showing Forest Glen wildfire and Maple Valley downwind" class="lesson-image">
     <img src="images/EcoResponders_TeamBadge_01.png" alt="Eco-Responders team badge" class="lesson-image lesson-image-small">
@@ -962,7 +962,7 @@ body {
   </div>
 
   <div class="card card--decision">
-    <p class="decision-question">Where will you begin?</p>
+    <p class="decision-question">Where will you begin? What you investigate first may change what your team notices most.</p>
     <div class="decision-grid">
       <button class="btn btn--decision" onclick="makeDecision('dp1','noaa'); goTo('section-3a1')">
         <strong>📊 Analyze NOAA weather data first</strong><br>
@@ -985,8 +985,8 @@ body {
   <div class="card card--narrative">
     <h2 class="title-section">NOAA Data Investigation</h2>
     <img src="images/EcoResponders_NOAA_Lab_01.png" alt="Student analyzing NOAA drought data in mobile lab" class="lesson-image">
-    <p class="narrative-text">You arrive at the mobile lab, and your tablet connects to NOAA's drought archive.</p>
-    <p class="dialogue">"See the trend? Less rain and more heat mean lower fuel moisture," Jordan mutters. "That's a dangerous mix. The plants themselves become fuel."</p>
+    <p class="narrative-text">You arrive at the mobile lab, and Jordan pulls up the latest weather and fire-condition data on your tablet.</p>
+    <p class="dialogue">"We don't have time to check everything first," he says. "Choose the clue you think will tell us the most about why fire risk is rising."</p>
   </div>
 
   <!-- NOAA Interactive Simulator -->
@@ -994,7 +994,7 @@ body {
     <div id="noaa-simulator">
       <div style="background:linear-gradient(135deg,#dfeee6,#edf5f9);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:20px;margin-bottom:18px;">
         <h3 style="margin:0 0 6px;font-size:1.4rem;color:#214a42;">NOAA Data Review Simulator</h3>
-        <p style="margin:0;color:var(--gray-600);">Jordan opens the NOAA dashboard. "We don't have time to check everything first," he says. "Choose the clue you think will tell us the most about why fire risk is rising."</p>
+        <p style="margin:0;color:var(--gray-600);">Determine which data your want to prioritize </p>
       </div>
       <div id="noaaChoices" class="decision-grid"></div>
       <div id="noaaPanel" style="display:none;">
@@ -2500,7 +2500,7 @@ text += '\n';
     { key: 'noaa_indicator', label: 'NOAA Indicator Chosen', prompt: '' },
     { key: 'noaa_pattern', label: 'NOAA Pattern Noticed', prompt: 'What pattern do you notice in the data?' },
     { key: 'noaa_risk', label: 'Why This Matters for Fire Risk', prompt: 'Why does this matter for fire risk?' },
-    { key: '3a1_reflection', label: 'NOAA Data Reflection', prompt: 'Your team is waiting for your data report. What pattern suggests fire risk is increasing? Explain how this pattern could affect plants and animals in Forest Glen.' },
+    { key: '3a1_reflection', label: 'NOAA Data Reflection', prompt: 'What pattern do you notice in the data, and what might it mean for wildfire risk?' },
     { key: '3a1_challenge', label: 'Mission Challenge: Future Prediction', prompt: 'Predict what might happen to the forest next year if rainfall continues to drop and temperatures stay high. Use data to support your prediction.' },
     { key: '3a2_inference', label: 'Field Prediction from Climate Data', prompt: 'Based on the climate data, what do you think the fire zone looks like right now? Share one piece of evidence from your investigation to support your field prediction.' },
     { key: '3b1_observations', label: 'Field Observations', prompt: 'You are documenting the scene for your Eco-Responder team. What two observations show how the fire affected people or wildlife?' },
