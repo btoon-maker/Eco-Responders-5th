@@ -554,21 +554,25 @@ body {
 .hotspot-btn.hs-forest    { top: 60%; left: 18%; }
 
 .hs-info-panel {
-  display: none;
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 92%;
-  max-width: 440px;
-  background: var(--white);
-  border: 3px solid var(--green);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  z-index: 1100;
-  overflow: hidden;
+  display: none !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 92% !important;
+  max-width: 440px !important;
+  background: var(--white) !important;
+  border: 3px solid var(--green) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-lg) !important;
+  z-index: 1100 !important;
+  overflow: hidden !important;
   animation: hs-fadeIn .3s ease;
 }
-.hs-info-panel.hs-show { display: block; }
+
+.hs-info-panel.hs-show {
+  display: block !important;
+}
 @keyframes hs-fadeIn {
   from { opacity: 0; transform: translate(-50%, -45%); }
   to   { opacity: 1; transform: translate(-50%, -50%); }
@@ -626,13 +630,16 @@ body {
 }
 .hs-close-btn:hover { background: rgba(34,139,34,.6); }
 .hs-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  z-index: 1090;
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0,0,0,.55) !important;
+  z-index: 1090 !important;
 }
-.hs-overlay.hs-show { display: block; }
+
+.hs-overlay.hs-show {
+  display: block !important;
+}
 .hs-instructions {
   text-align: center;
   margin: 12px 0 14px;
@@ -946,8 +953,9 @@ body {
     <p style="text-align:center;font-size:0.9rem;color:#4f5f56;margin-bottom:10px;">Explore the map to discover what happened to Forest Glen.</p>
       <p class="hs-instructions">👆 Your team has marked key investigation zones across Forest Glen. <span>Where will you investigate first?</span></p> 
   <div class="hotspot-map-wrap">
-<img class="hotspot-map-img" src="images/EcoResponders_Forest Glen_Map_After.png" alt="Map of Forest Glen after wildfire">      <button class="hotspot-btn hs-downtown" data-hs-target="hs-panel-downtown" data-hs-location="Downtown District" aria-label="Explore Downtown District">
-        <span class="hs-icon">🏢</span>
+<img class="hotspot-map-img" src="images/EcoResponders_Forest Glen_Map_After.png" alt="Map of Forest Glen after wildfire">
+
+<button class="hotspot-btn hs-downtown" data-hs-target="hs-panel-downtown" data-hs-location="Downtown District" aria-label="Explore Downtown District">        <span class="hs-icon">🏢</span>
       </button>
       <button class="hotspot-btn hs-residential" data-hs-target="hs-panel-residential" data-hs-location="Residential Area" aria-label="Explore Residential Area">
         <span class="hs-icon">🏠</span>
