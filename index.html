@@ -497,114 +497,6 @@ body {
   background:var(--white);
 }
 
-/* ===== HOTSPOT MAP ===== */
-.hotspot-map-wrap {
-  position:relative;
-  width:100%;
-  border:2px solid var(--yellow);
-  border-radius:var(--radius-lg);
-  overflow:hidden;
-  box-shadow:var(--shadow-md);
-  background:var(--gray-50);
-}
-.hotspot-map-image {
-  display:block;
-  width:100%;
-  height:auto;
-}
-.lesson-hotspot {
-  position:absolute;
-  width:clamp(40px, 7vw, 58px);
-  height:clamp(40px, 7vw, 58px);
-  border-radius:50%;
-  border:3px solid var(--yellow);
-  background:rgba(255, 198, 39, 0.34);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
-  z-index:3;
-}
-.lesson-hotspot:hover,
-.lesson-hotspot.active {
-  transform:scale(1.14);
-  background:rgba(255, 198, 39, 0.66);
-  box-shadow:0 0 0 6px rgba(255, 198, 39, 0.18);
-}
-.lesson-hotspot::before {
-  content:'';
-  position:absolute;
-  inset:-6px;
-  border-radius:50%;
-  border:2px solid rgba(255,198,39,0.45);
-  animation:hotspotPulse 2s ease-out infinite;
-}
-@keyframes hotspotPulse {
-  0% { transform:scale(1); opacity:1; }
-  100% { transform:scale(1.55); opacity:0; }
-}
-.hotspot-icon { font-size:clamp(16px, 3vw, 26px); line-height:1; pointer-events:none; }
-.hotspot-downtown { top:36%; left:40%; }
-.hotspot-residential { top:60%; left:62%; }
-.hotspot-forest { top:60%; left:18%; }
-.hotspot-instructions { margin-top:12px; text-align:center; color:var(--gray-600); font-size:.95rem; }
-.hotspot-overlay {
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
-  z-index:90;
-}
-.hotspot-overlay.show { display:block; }
-.info-panel {
-  display:none;
-  position:fixed;
-  top:50%; left:50%;
-  transform:translate(-50%, -50%);
-  width:min(92vw, 460px);
-  background:var(--white);
-  border-radius:var(--radius-lg);
-  border:3px solid var(--yellow);
-  box-shadow:var(--shadow-lg);
-  z-index:100;
-  overflow:hidden;
-}
-.info-panel.show { display:block; }
-.info-panel img {
-  display:block;
-  width:100%;
-  height:220px;
-  object-fit:cover;
-}
-.info-body { padding:18px; }
-.info-body h2 { margin-bottom:8px; color:var(--green-dark); }
-.clue-box {
-  margin-top:14px;
-  background:var(--yellow-light);
-  border-left:4px solid var(--yellow);
-  padding:12px 14px;
-  border-radius:0 10px 10px 0;
-}
-.close-btn {
-  position:absolute;
-  top:10px;
-  right:10px;
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  border:2px solid var(--yellow);
-  background:rgba(0,0,0,.55);
-  color:var(--white);
-  font-size:18px;
-  font-weight:800;
-  cursor:pointer;
-}
-.close-btn:hover { background:rgba(0,0,0,.75); }
-@media (max-width:640px) {
-  .psa-option-grid { grid-template-columns:1fr; }
-}
-
 /* ===== HOTSPOT MAP INTERACTIVE ===== */
 .hotspot-map-wrap {
   position: relative;
@@ -1053,8 +945,7 @@ body {
     <h3 style="text-align:center;color:var(--yellow);font-size:1.15rem;margin-bottom:6px;">🔥 Forest Glen — After the Wildfire</h3>
     <p style="text-align:center;font-size:0.9rem;color:var(--gray-300);margin-bottom:10px;">Explore the map to discover what happened to Forest Glen.</p>
     <div class="hotspot-map-wrap">
-      <img class="hotspot-map-img" src="https://raw.githubusercontent.com/MrJustice26/hotspot-images/main/EcoResponders_Forest Glen_Map_After.png" alt="Map of Forest Glen after wildfire">
-      <button class="hotspot-btn hs-downtown" data-hs-target="hs-panel-downtown" data-hs-location="Downtown District" aria-label="Explore Downtown District">
+<img class="hotspot-map-img" src="images/EcoResponders_Forest Glen_Map_After.png" alt="Map of Forest Glen after wildfire">      <button class="hotspot-btn hs-downtown" data-hs-target="hs-panel-downtown" data-hs-location="Downtown District" aria-label="Explore Downtown District">
         <span class="hs-icon">🏢</span>
       </button>
       <button class="hotspot-btn hs-residential" data-hs-target="hs-panel-residential" data-hs-location="Residential Area" aria-label="Explore Residential Area">
@@ -1073,7 +964,7 @@ body {
   <!-- Downtown Panel -->
   <div class="hs-info-panel" id="hs-panel-downtown">
     <button class="hs-close-btn" aria-label="Close">&times;</button>
-    <img src="https://raw.githubusercontent.com/MrJustice26/hotspot-images/main/EcoResponders_Forest Glen_Business_After.png" alt="Downtown district after wildfire">
+<img src="images/EcoResponders_Forest Glen_Buisness_After.png" alt="Downtown district after wildfire">
     <div class="hs-info-body">
       <h3>🏢 Downtown District</h3>
       <p>The downtown buildings show heavy fire and smoke damage. Walls are charred, windows shattered, and metal structures have warped from extreme heat.</p>
@@ -1087,7 +978,7 @@ body {
   <!-- Residential Panel -->
   <div class="hs-info-panel" id="hs-panel-residential">
     <button class="hs-close-btn" aria-label="Close">&times;</button>
-    <img src="https://raw.githubusercontent.com/MrJustice26/hotspot-images/main/EcoResponders_Forest Glen_Home_After.png" alt="Residential area after wildfire">
+<img src="images/EcoResponders_Forest Glen_Home_After.png" alt="Residential area after wildfire">
     <div class="hs-info-body">
       <h3>🏠 Residential Area</h3>
       <p>Homes in the residential area have been reduced to rubble. Only a stone chimney remains standing among the ash and debris. Personal belongings are scattered.</p>
@@ -1101,7 +992,7 @@ body {
   <!-- Forest Panel -->
   <div class="hs-info-panel" id="hs-panel-forest">
     <button class="hs-close-btn" aria-label="Close">&times;</button>
-    <img src="https://raw.githubusercontent.com/MrJustice26/hotspot-images/main/EcoResponders_Forest Glen_Forest_After.png" alt="Forest region after wildfire">
+<img src="images/EcoResponders_Forest Glen_Forest_After.png" alt="Forest region after wildfire">
     <div class="hs-info-body">
       <h3>🌲 Forest Region</h3>
       <p>The forest has been devastated. Tree trunks are blackened and bare, fallen logs cover the ground, and thick haze fills the air. The forest floor is coated in ash.</p>
@@ -2293,40 +2184,6 @@ function setupPsaOptions() {
   });
 }
 
-function setupHotspots() {
-  const hotspots = document.querySelectorAll('.lesson-hotspot');
-  const overlay = document.getElementById('hotspotOverlay');
-  const closeButtons = document.querySelectorAll('.close-btn');
-
-  function closeAllHotspotPanels() {
-    document.querySelectorAll('.info-panel.show').forEach(panel => panel.classList.remove('show'));
-    hotspots.forEach(h => h.classList.remove('active'));
-    if (overlay) overlay.classList.remove('show');
-  }
-
-  hotspots.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.dataset.target;
-      const panel = document.getElementById(targetId);
-      const locationName = btn.dataset.location;
-      const isOpen = panel && panel.classList.contains('show');
-      closeAllHotspotPanels();
-      if (!isOpen && panel) {
-        panel.classList.add('show');
-        btn.classList.add('active');
-        if (overlay) overlay.classList.add('show');
-        if (!state.hotspotLocations.includes(locationName)) {
-          state.hotspotLocations.push(locationName);
-          saveState();
-        }
-      }
-    });
-  });
-
-  closeButtons.forEach(btn => btn.addEventListener('click', closeAllHotspotPanels));
-  if (overlay) overlay.addEventListener('click', closeAllHotspotPanels);
-}
-
 // ===== EXPORT JOURNAL =====
 function formatTime(totalSeconds) {
   const hrs = Math.floor(totalSeconds / 3600);
@@ -2489,7 +2346,6 @@ function init() {
   initResumeCode();
   renderNoaaChoices();
   setupPsaOptions();
-  setupHotspots();
 
   if (hasState && state.currentSection) {
     restoreJournals();
@@ -2543,12 +2399,12 @@ function init() {
     btn.addEventListener('click', function() {
       const targetId = this.getAttribute('data-hs-target');
       const locationName = this.getAttribute('data-hs-location');
-      const panel = document.getElementById(targetId);
-      const isOpen = panel.classList.contains('hs-show');
-      hsCloseAll();
-      if (!isOpen) {
-        panel.classList.add('hs-show');
-        hsOverlay.classList.add('hs-show');
+const panel = document.getElementById(targetId);
+if (!panel) return;
+const isOpen = panel.classList.contains('hs-show');
+hsCloseAll();
+if (!isOpen) {
+  panel.classList.add('hs-show');
         this.classList.add('hs-active');
         trackHotspotLocation(locationName);
         markVisited();
