@@ -423,35 +423,98 @@ body {
 .decision-tracker-title {
   font-weight: 800;
   color: var(--green-dark);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-size: 0.95rem;
 }
-.decision-tracker-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-.tracker-item {
+.decision-tracker-path {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
   background: var(--white);
   border: 1px solid var(--gray-200);
-  border-radius: 10px;
-  padding: 10px 12px;
+  border-radius: var(--radius);
+  padding: 14px 16px;
   box-shadow: var(--shadow-sm);
 }
-.tracker-label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--gray-600);
-  margin-bottom: 4px;
+.tracker-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
 }
-.tracker-value {
-  font-size: 0.9rem;
-  color: var(--gray-800);
+.tracker-step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gray-200);
+  color: var(--gray-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+.tracker-step-icon.completed {
+  background: var(--green);
+  color: var(--white);
+}
+.tracker-step-body {
+  min-width: 0;
+}
+.tracker-step-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 1px;
+}
+.tracker-step-value {
+  font-size: 0.82rem;
+  color: var(--gray-600);
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tracker-step-value.chosen {
+  color: var(--green-dark);
+}
+.tracker-connector {
+  width: 24px;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-300);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.tracker-connector::after {
+  content: '→';
+  color: var(--gray-300);
+  font-weight: 700;
 }
 @media (max-width: 700px) {
-  .decision-tracker-grid {
-    grid-template-columns: 1fr;
+  .decision-tracker-path {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .tracker-connector {
+    width: 100%;
+    min-width: unset;
+    height: 16px;
+    justify-content: flex-start;
+    padding-left: 14px;
+  }
+  .tracker-connector::after {
+    content: '↓';
+  }
+  .tracker-step-value {
+    white-space: normal;
   }
 }
 .lesson-container { padding-top: 68px; }
@@ -728,26 +791,37 @@ body {
   <span class="brand">Eco-Responders: After the Fire</span>
   <div class="actions">
     <span class="resume-code-display" id="resumeCodeDisplay" title="Your resume code"></span>
-    <span class="timer-display" id="timerDisplay" title="Time on mission">⏱ 00:00</span>
+    <span class="timer-display" id="timerDisplay" title="Time on mission" style="display:none;">⏱ 00:00</span>
     <button class="btn btn--back" onclick="showResumeModal()">Resume</button>
     <button class="btn btn--back" onclick="exportJournal()">Export Journal</button>
   </div>
 </div>
 <div class="progress-wrap"><div class="progress-fill" id="progressBar"></div></div>
 <div class="decision-tracker" id="decisionTracker">
-  <div class="decision-tracker-title">🧭 Mission Path Tracker</div>
-  <div class="decision-tracker-grid">
-    <div class="tracker-item">
-      <div class="tracker-label">Decision 1</div>
-      <div class="tracker-value" id="tracker-dp1">Not chosen yet</div>
+  <div class="decision-tracker-title">🧭 Your Mission Path</div>
+  <div class="decision-tracker-path">
+    <div class="tracker-step" id="tracker-step-dp1">
+      <div class="tracker-step-icon" id="tracker-icon-dp1">1</div>
+      <div class="tracker-step-body">
+        <div class="tracker-step-label">Investigation Start</div>
+        <div class="tracker-step-value" id="tracker-dp1">Awaiting your choice...</div>
+      </div>
     </div>
-    <div class="tracker-item">
-      <div class="tracker-label">Decision 2</div>
-      <div class="tracker-value" id="tracker-dp2">Not chosen yet</div>
+    <div class="tracker-connector"></div>
+    <div class="tracker-step" id="tracker-step-dp2">
+      <div class="tracker-step-icon" id="tracker-icon-dp2">2</div>
+      <div class="tracker-step-body">
+        <div class="tracker-step-label">Evidence Focus</div>
+        <div class="tracker-step-value" id="tracker-dp2">Awaiting your choice...</div>
+      </div>
     </div>
-    <div class="tracker-item">
-      <div class="tracker-label">Final Plan</div>
-      <div class="tracker-value" id="tracker-plan">Not chosen yet</div>
+    <div class="tracker-connector"></div>
+    <div class="tracker-step" id="tracker-step-plan">
+      <div class="tracker-step-icon" id="tracker-icon-plan">3</div>
+      <div class="tracker-step-body">
+        <div class="tracker-step-label">Recovery Plan</div>
+        <div class="tracker-step-value" id="tracker-plan">Awaiting your choice...</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1843,7 +1917,13 @@ function initializeStateDefaults() {
 function saveState() {
   state.journal = collectAllJournals();
   initializeStateDefaults();
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    // Also save a backup keyed by resume code so it can be found later
+    if (state.resumeCode) {
+      localStorage.setItem(STORAGE_KEY + '_' + state.resumeCode, JSON.stringify(state));
+    }
+  } catch(e) {}
 }
 
 function loadState() {
@@ -1957,32 +2037,50 @@ function loadResumeCode() {
   const input = document.getElementById('resumeInput').value.trim().toUpperCase();
   if (!input) { document.getElementById('resumeError').textContent = 'Please enter a code.'; return; }
 
-  // Search all localStorage for matching code
+  // First check if there's a directly keyed backup for this code
+  try {
+    const directKey = STORAGE_KEY + '_' + input;
+    const directData = localStorage.getItem(directKey);
+    if (directData) {
+      const parsed = JSON.parse(directData);
+      if (parsed && parsed.resumeCode === input) {
+        Object.assign(state, parsed);
+        initializeStateDefaults();
+        saveState();
+        restoreJournals();
+        restoreLoopState();
+        updateDecisionTracker();
+        initResumeCode();
+        goTo(state.currentSection, false);
+        closeResumeModal();
+        return;
+      }
+    }
+  } catch(e) {}
+
+  // Fallback: search all localStorage keys for a matching resume code
   try {
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key === STORAGE_KEY || key.startsWith(STORAGE_KEY)) {
+      if (key && key.startsWith(STORAGE_KEY)) {
         const data = JSON.parse(localStorage.getItem(key));
         if (data && data.resumeCode === input) {
           Object.assign(state, data);
+          initializeStateDefaults();
+          saveState();
           restoreJournals();
+          restoreLoopState();
+          updateDecisionTracker();
+          initResumeCode();
           goTo(state.currentSection, false);
           closeResumeModal();
-          initResumeCode();
           return;
         }
       }
     }
   } catch(e) {}
 
-  if (state.resumeCode === input) {
-    restoreJournals();
-    goTo(state.currentSection, false);
-    closeResumeModal();
-    return;
-  }
-
-  document.getElementById('resumeError').textContent = 'Code not found. Please try again.';
+  document.getElementById('resumeError').textContent = 'Code not found. Resume codes work on the same browser/device where the lesson was started.';
 }
 
 // ===== NAVIGATION =====
@@ -2049,7 +2147,7 @@ function makeDecision(dpId, choice) {
         : choice;
   }
 
-  // updateDecisionTracker();
+  updateDecisionTracker();
   saveState();
 }
 
@@ -2086,13 +2184,46 @@ function selectPlan(el, planName) {
 }
 
 function updateDecisionTracker() {
-  const dp1 = document.getElementById('tracker-dp1');
-  const dp2 = document.getElementById('tracker-dp2');
-  const plan = document.getElementById('tracker-plan');
+  const dp1Val = document.getElementById('tracker-dp1');
+  const dp2Val = document.getElementById('tracker-dp2');
+  const planVal = document.getElementById('tracker-plan');
+  const dp1Icon = document.getElementById('tracker-icon-dp1');
+  const dp2Icon = document.getElementById('tracker-icon-dp2');
+  const planIcon = document.getElementById('tracker-icon-plan');
 
-  if (dp1) dp1.textContent = state.decisions.dp1_label || 'Not chosen yet';
-  if (dp2) dp2.textContent = state.decisions.dp2_label || 'Not chosen yet';
-  if (plan) plan.textContent = state.planChoice || 'Not chosen yet';
+  if (dp1Val) {
+    if (state.decisions.dp1_label) {
+      dp1Val.textContent = state.decisions.dp1_label;
+      dp1Val.classList.add('chosen');
+      if (dp1Icon) { dp1Icon.classList.add('completed'); dp1Icon.textContent = '✓'; }
+    } else {
+      dp1Val.textContent = 'Awaiting your choice...';
+      dp1Val.classList.remove('chosen');
+      if (dp1Icon) { dp1Icon.classList.remove('completed'); dp1Icon.textContent = '1'; }
+    }
+  }
+  if (dp2Val) {
+    if (state.decisions.dp2_label) {
+      dp2Val.textContent = state.decisions.dp2_label;
+      dp2Val.classList.add('chosen');
+      if (dp2Icon) { dp2Icon.classList.add('completed'); dp2Icon.textContent = '✓'; }
+    } else {
+      dp2Val.textContent = 'Awaiting your choice...';
+      dp2Val.classList.remove('chosen');
+      if (dp2Icon) { dp2Icon.classList.remove('completed'); dp2Icon.textContent = '2'; }
+    }
+  }
+  if (planVal) {
+    if (state.planChoice) {
+      planVal.textContent = state.planChoice;
+      planVal.classList.add('chosen');
+      if (planIcon) { planIcon.classList.add('completed'); planIcon.textContent = '✓'; }
+    } else {
+      planVal.textContent = 'Awaiting your choice...';
+      planVal.classList.remove('chosen');
+      if (planIcon) { planIcon.classList.remove('completed'); planIcon.textContent = '3'; }
+    }
+  }
 }
 
 // ===== NOAA SIMULATOR =====
@@ -2363,35 +2494,48 @@ text += '\n';
   text += '   JOURNAL RESPONSES\n';
   text += '============================================================\n\n';
 
-  const labelMap = {
-    role_reason: 'Why I chose this role',
-    section2_prediction: 'Prediction about the alert',
-    '3a_noaa_takeaway': 'NOAA evidence takeaway',
-    '3b1_observations': 'Field observations',
-    '3b1_bonus': 'Mission Challenge: Fire-adapted plant',
-    '3b2_cones': 'Why some cones open after fire',
-    '3b2_recovery': 'What should recover first',
-    section5_protection_reason: 'Protection choice reasoning',
-    section6_loop: 'Feedback loop explanation',
-    section7_recovery_reason: 'Recovery choice reasoning',
-    section8_monitoring: 'Monitoring plan',
-    section9_final_reflection: 'Final reflection',
-    section10_claim: 'Scientific claim',
-    section11_psa_written: 'Written PSA',
-    section11_psa_audio: 'Audio message script',
-    section11_psa_info_title: 'Infographic title',
-    section11_psa_info_points: 'Infographic key points',
-    section11_psa_info_visuals: 'Infographic visual ideas'
-  };
+  const journalEntries = [
+    { key: 'role_reason', label: 'Why I chose this role', prompt: '' },
+    { key: 'section2_prediction', label: 'Prediction about the alert', prompt: '' },
+    { key: 'noaa_indicator', label: 'NOAA Indicator Chosen', prompt: '' },
+    { key: 'noaa_pattern', label: 'NOAA Pattern Noticed', prompt: 'What pattern do you notice in the data?' },
+    { key: 'noaa_risk', label: 'Why This Matters for Fire Risk', prompt: 'Why does this matter for fire risk?' },
+    { key: '3a1_reflection', label: 'NOAA Data Reflection', prompt: 'Your team is waiting for your data report. What pattern suggests fire risk is increasing? Explain how this pattern could affect plants and animals in Forest Glen.' },
+    { key: '3a1_challenge', label: 'Mission Challenge: Future Prediction', prompt: 'Predict what might happen to the forest next year if rainfall continues to drop and temperatures stay high. Use data to support your prediction.' },
+    { key: '3a2_inference', label: 'Field Prediction from Climate Data', prompt: 'Based on the climate data, what do you think the fire zone looks like right now? Share one piece of evidence from your investigation to support your field prediction.' },
+    { key: '3b1_observations', label: 'Field Observations', prompt: 'You are documenting the scene for your Eco-Responder team. What two observations show how the fire affected people or wildlife?' },
+    { key: '3b1_bonus', label: 'Mission Challenge: Fire-adapted Plant', prompt: 'Research a local fire-adapted plant. How does it help stabilize soil or promote regrowth?' },
+    { key: '3b2_weather', label: 'Weather Conditions Inference', prompt: 'Based on what you observed, what weather conditions likely led to this fire? Use at least two field clues to support your explanation.' },
+    { key: '5a_impacts', label: 'Human Impacts Analysis', prompt: 'Your team is identifying which decisions helped homes survive. What human choices made the biggest difference? Support your answer using one data pattern.' },
+    { key: '5b_ecosystem', label: 'Ecosystem Recovery Observations', prompt: 'As you investigate the recovery zone, what signs show the ecosystem is changing? Identify one sign of recovery and one sign of continued damage.' },
+    { key: '5c_integrated', label: 'Integrated Perspectives', prompt: 'Your team notices that human decisions and ecosystem recovery are connected. Describe one example showing how human actions influenced ecosystem recovery.' },
+    { key: 'section6_synthesis', label: 'Team Briefing Synthesis', prompt: 'Based on the team briefing, identify one cause-and-effect connection between a human decision and a natural outcome. Explain how understanding both sides helps your team create a stronger recovery plan.' },
+    { key: 'section6_bonus', label: 'Mission Challenge: Fire-Smart Home', prompt: 'Design a "Fire-Smart Home." Draw or describe one building feature that could protect homes from future wildfires.' },
+    { key: 'section7_reflection', label: 'Human Choices Reflection', prompt: 'Maple Valley leaders are waiting for your recommendation. How can human choices help or harm both people and wildlife after a fire?' },
+    { key: 'section8_decision', label: 'Plan Recommendation', prompt: 'As an Eco-Responder, which plan do you recommend for Maple Valley? Use two pieces of evidence from your investigation to support your decision.' },
+    { key: 'section9_feedback', label: 'Feedback Loop Analysis', prompt: 'As the feedback loop repeats, what changes happen in the system? How could human decisions interrupt this loop and support recovery?' },
+    { key: 'loop_repeats', label: 'When the Loop Repeats', prompt: 'When the loop repeats, what happens?' },
+    { key: 'loop_help', label: 'One Change That Could Help', prompt: 'What is one change that could help?' },
+    { key: 'section11_psa_written', label: 'Written PSA', prompt: 'Write a short PSA explaining how your community can stay fire-smart. Your message may influence real decisions in Maple Valley.', psaFilter: 'Written PSA' },
+    { key: 'section11_psa_audio', label: 'Audio Message Script', prompt: 'Write a short script as if you are recording a public safety announcement for Maple Valley residents.', psaFilter: 'Audio Message Script' },
+    { key: 'section11_psa_info_title', label: 'Infographic Title', prompt: 'Plan an infographic that teaches Maple Valley how to stay fire-smart. What is the title?', psaFilter: 'Infographic Plan' },
+    { key: 'section11_psa_info_points', label: 'Infographic Key Points', prompt: 'What are the three key points for your infographic?', psaFilter: 'Infographic Plan' },
+    { key: 'section11_psa_info_visuals', label: 'Infographic Visual Ideas', prompt: 'What visual ideas (images, symbols, icons) will you use?', psaFilter: 'Infographic Plan' },
+    { key: 'section12_reflection1', label: 'Final Reflection 1', prompt: 'Pick two of the following reflection questions to answer: 1) What evidence helped you understand how natural and human factors interact? 2) How did your choices influence your explanation? 3) How can people and ecosystems recover together?' },
+    { key: 'section12_reflection2', label: 'Final Reflection 2', prompt: '(Continued from above)' },
+    { key: 'section12_scientist', label: 'Think Like a Scientist', prompt: 'How does your message show cause and effect? What evidence supports your recommendation?' }
+  ];
 
-  Object.entries(state.journal || {}).forEach(([key, value]) => {
-    if (value && String(value).trim()) {
-      if (key === 'section11_psa_written' && state.psaFormat !== 'Written PSA') return;
-      if (key === 'section11_psa_audio' && state.psaFormat !== 'Audio Message Script') return;
-      if (['section11_psa_info_title', 'section11_psa_info_points', 'section11_psa_info_visuals'].includes(key) && state.psaFormat !== 'Infographic Plan') return;
-      text += (labelMap[key] || key) + ':\n';
-      text += value + '\n\n';
+  journalEntries.forEach(entry => {
+    const value = (state.journal || {})[entry.key];
+    if (!value || !String(value).trim()) return;
+    if (entry.psaFilter && state.psaFormat !== entry.psaFilter) return;
+
+    text += '--- ' + entry.label + ' ---\n';
+    if (entry.prompt) {
+      text += 'Prompt: ' + entry.prompt + '\n';
     }
+    text += 'Response: ' + value + '\n\n';
   });
 
   const blob = new Blob([text], { type: 'text/plain' });
@@ -2457,6 +2601,15 @@ function init() {
   if (hasState && state.currentSection) {
     restoreJournals();
     restoreLoopState();
+    // Restore plan card selection visual
+    if (state.planChoice) {
+      const planLetter = (state.planChoice.match(/Plan ([ABC])/) || [])[1];
+      if (planLetter) {
+        document.querySelectorAll('.plan-card').forEach(c => {
+          if (c.dataset.plan === planLetter) c.classList.add('selected');
+        });
+      }
+    }
     goTo(state.currentSection, false);
     if (state.lessonStartTime && !state.lessonEndTime) {
       state.currentSectionStart = Date.now();
@@ -2466,7 +2619,7 @@ function init() {
   }
 
   updateTimerDisplay();
-  // updateDecisionTracker();
+  updateDecisionTracker();
   startTimer();
 
   window.addEventListener('resize', () => {
