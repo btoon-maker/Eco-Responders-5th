@@ -1179,7 +1179,7 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">What weather conditions likely led to this fire? Use at least two field clues to support your answer.</p>
+    <p class="journal-prompt">What weather conditions likely led to this fire? Use at least two field clues to support your answer. How might those conditions affect the number of plants and animals in this area?</p>
     <textarea class="journal-textarea" data-key="3b2_weather" oninput="autoSave('3b2_weather',this.value)" placeholder="Based on my field clues, I think the weather was..."></textarea>
     <div class="save-indicator" data-save="3b2_weather"></div>
   </div>
@@ -1264,7 +1264,7 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">What is one sign of recovery and one sign that the ecosystem still needs help?</p>
+    <p class="journal-prompt">What is one sign of recovery for plants or animals and one sign that the ecosystem still needs help?</p>
     <textarea class="journal-textarea" data-key="5b_ecosystem" oninput="autoSave('5b_ecosystem',this.value)" placeholder="One sign of recovery is... One sign the ecosystem still needs help is..."></textarea>
     <div class="save-indicator" data-save="5b_ecosystem"></div>
   </div>
@@ -1561,7 +1561,7 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">Which plan do you recommend for Maple Valley? Use two pieces of evidence from Forest Glen and your feedback loop thinking to support your choice.</p>
+    <p class="journal-prompt">Which plan do you recommend for Maple Valley? Use two pieces of evidence from Forest Glen and your feedback loop thinking to support your choice. Explain how your plan will protect plants, animals, or habitats.</p>
     <textarea class="journal-textarea" data-key="section8_decision" oninput="autoSave('section8_decision',this.value)" placeholder="I recommend Plan _ for Maple Valley because..."></textarea>
     <div class="save-indicator" data-save="section8_decision"></div>
   </div>
@@ -2508,16 +2508,16 @@ function exportJournal() {
     { key: '3a1_reflection', label: 'NOAA Data Reflection', prompt: 'What does your NOAA clue suggest about conditions in Forest Glen before the fire?' },
     { key: '3a2_inference', label: 'Field Prediction from Climate Data', prompt: 'Based on the NOAA evidence, what do you think Forest Glen looked like before the fire? Use one clue to support your idea.' },
     { key: '3b1_observations', label: 'Field Observations', prompt: 'What are two clues from Forest Glen that show how the fire affected people, wildlife, or the land?' },
-    { key: '3b2_weather', label: 'Weather Conditions Inference', prompt: 'What weather conditions likely led to this fire? Use at least two field clues to support your answer.' },
+    { key: '3b2_weather', label: 'Weather Conditions Inference', prompt: 'What weather conditions likely led to this fire? Use at least two field clues to support your answer. How might those conditions affect the number of plants and animals in this area?' },
     { key: '5a_impacts', label: 'Human Impacts Analysis', prompt: 'What human choice seems to have helped homes survive most? Use one data pattern to support your answer.' },
-    { key: '5b_ecosystem', label: 'Ecosystem Recovery Observations', prompt: 'What is one sign of recovery and one sign that the ecosystem still needs help?' },
+    { key: '5b_ecosystem', label: 'Ecosystem Recovery Observations', prompt: 'What is one sign of recovery for plants or animals and one sign that the ecosystem still needs help?' },
     { key: '5c_integrated', label: 'Integrated Perspectives', prompt: 'How did one human action affect ecosystem recovery in Forest Glen?' },
     { key: 'section6_synthesis', label: 'Team Briefing Synthesis', prompt: 'What is one cause-and-effect connection you noticed between a human decision and a natural outcome?' },
     { key: 'section7_reflection', label: 'Seeing the System (Bridge Reflection)', prompt: 'Choose one change in Forest Glen. What other changes could it cause in the system?' },
     { key: 'section9_feedback', label: 'Feedback Loop Analysis', prompt: 'What happens as a feedback loop repeats, and how could people help improve the system?' },
     { key: 'loop_repeats', label: 'When the Loop Repeats', prompt: 'What happens when the loop repeats?' },
     { key: 'loop_help', label: 'One Action That Could Improve the System', prompt: 'What is one action that could improve the system?' },
-    { key: 'section8_decision', label: 'Maple Valley Plan Recommendation', prompt: 'Which plan do you recommend for Maple Valley? Use two pieces of evidence from Forest Glen and your feedback loop thinking to support your choice.' },
+    { key: 'section8_decision', label: 'Maple Valley Plan Recommendation', prompt: 'Which plan do you recommend for Maple Valley? Use two pieces of evidence from Forest Glen and your feedback loop thinking to support your choice. Explain how your plan will protect plants, animals, or habitats.' },
     { key: 'section11_psa_written', label: 'Written PSA for Maple Valley', prompt: 'Write a short PSA for Maple Valley residents. Explain what they should do and why it matters.', psaFilter: 'Written PSA' },
     { key: 'section11_psa_audio', label: 'Audio Message Script for Maple Valley', prompt: 'Write a short public safety script for Maple Valley residents.', psaFilter: 'Audio Message Script' },
     { key: 'section11_psa_info_title', label: 'Infographic Title', prompt: 'Plan an infographic that teaches Maple Valley residents how to stay fire-smart. What is the title?', psaFilter: 'Infographic Plan' },
