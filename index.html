@@ -845,7 +845,7 @@ body {
 <div class="section active" id="section-0" data-section="0">
   <div class="card card--hero">
     <h1 class="title-main">Eco-Responders: After the Fire</h1>
-    <p class="subtitle">You’ve been called to Forest Glen after a wildfire. Your job is to investigate what changed, study the evidence, and help the community recover.</p>
+    <p class="subtitle">You’ve been called to Forest Glen after a wildfire. Your job is to investigate what changed, study the evidence, and help your community prepare.</p>
     <div class="btn-row btn-row--center" style="margin-top:32px;">
       <button class="btn btn--primary" style="background:var(--yellow);color:var(--black);box-shadow:0 4px 14px rgba(255,198,39,0.4);font-size:1.15rem;padding:16px 36px;" onclick="beginLessonTiming(); goTo('section-1')">Start Mission</button>
     </div>
@@ -882,14 +882,13 @@ body {
     </div></div>
   </div>
 </div>
-
 <!-- ============ SECTION 1: STORY INTRODUCTION ============ -->
 <div class="section" id="section-1" data-section="1">
   <div class="card card--narrative">
     <h2 class="title-section">After the Fire</h2>
     <p class="narrative-text">The air smells faintly of pine and smoke, reminders that nature is constantly changing.</p>
     <p class="narrative-text">As an Eco-Responder, you've learned that every fire tells two stories: one of loss and one of renewal.</p>
-    <p class="narrative-text">This week, your team is on alert. Just over the ridge, a town called Forest Glen was hit by a wildfire two weeks ago.Your team must figure out what changed after the fire and what should happen next.</p>
+    <p class="narrative-text">This week, your team is on alert. Just over the ridge, a town called Forest Glen was hit by a wildfire two weeks ago. Your team must figure out what changed after the fire and what should happen next.</p>
     <p class="narrative-text">Your town, Maple Valley, sits just downwind.</p>
     <img src="images/EcoResponders_MapleValley_Map_01.png" alt="Map showing Forest Glen wildfire and Maple Valley downwind" class="lesson-image">
     <img src="images/EcoResponders_TeamBadge_01.png" alt="Eco-Responders team badge" class="lesson-image lesson-image-small">
@@ -905,11 +904,8 @@ body {
       <p><strong>🔍 Your Mission</strong></p>
       <p>Add notes in your Field Journal as you move through each part of the story. Use your clues and ideas to make a final plan that helps Maple Valley rebuild safely for both people and wildlife.</p>
       <p>You'll also make choices that guide what you see and discover along the way.</p>
-      <p>You will encounter two kinds of challenges:</p>
-      <p><strong>🔬 Think Like a Scientist</strong></p>
-      <p>Found inside your Field Journal. These help you connect your evidence to clear explanations, just like real scientists do.</p>
-      <p><strong>Mission Challenges</strong></p>
-      <p>Found in the lesson. These are optional deeper dives for students who want to explore more.</p>
+      <p><strong>📓 Field Journal</strong></p>
+      <p>Your journal entries will help you track evidence, explain your thinking, and prepare your final recommendation for Maple Valley.</p>
     </div></div>
   </div>
 
@@ -979,7 +975,6 @@ body {
     <button class="btn btn--back" onclick="goTo('section-1')">← Back</button>
   </div>
 </div>
-
 <!-- ============ SECTION 3A-1: NOAA DATA PAGE 1 ============ -->
 <div class="section" id="section-3a1" data-section="3a1">
   <div class="card card--narrative">
@@ -994,7 +989,7 @@ body {
     <div id="noaa-simulator">
       <div style="background:linear-gradient(135deg,#dfeee6,#edf5f9);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:20px;margin-bottom:18px;">
         <h3 style="margin:0 0 6px;font-size:1.4rem;color:#214a42;">NOAA Data Review Simulator</h3>
-        <p style="margin:0;color:var(--gray-600);">Determine which data your want to prioritize </p>
+        <p style="margin:0;color:var(--gray-600);">Determine which data you want to prioritize.</p>
       </div>
       <div id="noaaChoices" class="decision-grid"></div>
       <div id="noaaPanel" style="display:none;">
@@ -1027,26 +1022,11 @@ body {
 
   <p class="narrative-text" style="margin-top:16px;">With your data uploaded, you now need to understand the field conditions.</p>
 
-  <!-- Journal -->
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">Your team is waiting for your data report. What pattern suggests fire risk is increasing? Explain how this pattern could affect plants and animals in Forest Glen.</p>
-    <textarea class="journal-textarea" data-key="3a1_reflection" oninput="autoSave('3a1_reflection',this.value)" placeholder="Write your reflection here..."></textarea>
+    <p class="journal-prompt">What does your NOAA clue suggest about conditions in Forest Glen before the fire?</p>
+    <textarea class="journal-textarea" data-key="3a1_reflection" oninput="autoSave('3a1_reflection',this.value)" placeholder="My NOAA clue suggests that..."></textarea>
     <div class="save-indicator" data-save="3a1_reflection"></div>
-  </div>
-
-  <!-- Optional Challenge -->
-  <div class="card card--challenge">
-    <div class="expandable" id="expand-3a1-challenge" style="border:none;margin:0;background:transparent;">
-      <button class="expandable-header" onclick="toggleExpand('expand-3a1-challenge')" style="background:transparent;">
-        Mission Challenge (Optional) <span class="expandable-arrow">▼</span>
-      </button>
-      <div class="expandable-body"><div class="expandable-content">
-        <p>Predict what might happen to the forest next year if rainfall continues to drop and temperatures stay high. Use data to support your prediction.</p>
-        <textarea class="journal-textarea" data-key="3a1_challenge" oninput="autoSave('3a1_challenge',this.value)" placeholder="Write your prediction here..."></textarea>
-        <div class="save-indicator" data-save="3a1_challenge"></div>
-      </div></div>
-    </div>
   </div>
 
   <div class="btn-row btn-row--between">
@@ -1071,8 +1051,8 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">Based on the climate data, what do you think the fire zone looks like right now? Share one piece of evidence from your investigation to support your field prediction.</p>
-    <textarea class="journal-textarea" data-key="3a2_inference" oninput="autoSave('3a2_inference',this.value)" placeholder="Based on the data, I think the fire zone looks like..."></textarea>
+    <p class="journal-prompt">Based on the NOAA evidence, what do you think Forest Glen looked like before the fire? Use one clue to support your idea.</p>
+    <textarea class="journal-textarea" data-key="3a2_inference" oninput="autoSave('3a2_inference',this.value)" placeholder="Based on the NOAA evidence, I think Forest Glen looked like..."></textarea>
     <div class="save-indicator" data-save="3a2_inference"></div>
   </div>
 
@@ -1080,8 +1060,8 @@ body {
     <button class="btn btn--back" onclick="goTo('section-3a1')">← Back</button>
     <button class="btn btn--primary" onclick="goTo('section-4')">Continue →</button>
   </div>
+  
 </div>
-
 <!-- ============ SECTION 3B-1: FIELD OBSERVATION PAGE 1 ============ -->
 <div class="section" id="section-3b1" data-section="3b1">
   <div class="card card--narrative">
@@ -1172,22 +1152,9 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">You are documenting the scene for your Eco-Responder team. What two observations show how the fire affected people or wildlife?</p>
-    <textarea class="journal-textarea" data-key="3b1_observations" oninput="autoSave('3b1_observations',this.value)" placeholder="Two observations I made..."></textarea>
+    <p class="journal-prompt">What are two clues from Forest Glen that show how the fire affected people, wildlife, or the land?</p>
+    <textarea class="journal-textarea" data-key="3b1_observations" oninput="autoSave('3b1_observations',this.value)" placeholder="Two clues I noticed were..."></textarea>
     <div class="save-indicator" data-save="3b1_observations"></div>
-  </div>
-
-  <div class="card card--challenge">
-    <div class="expandable" id="expand-3b1-challenge" style="border:none;margin:0;background:transparent;">
-      <button class="expandable-header" onclick="toggleExpand('expand-3b1-challenge')" style="background:transparent;">
-        Mission Challenge (Optional) <span class="expandable-arrow">▼</span>
-      </button>
-      <div class="expandable-body"><div class="expandable-content">
-        <p>Research a local fire-adapted plant. How does it help stabilize soil or promote regrowth?</p>
-        <textarea class="journal-textarea" data-key="3b1_bonus" oninput="autoSave('3b1_bonus',this.value)" placeholder="Write about a fire-adapted plant..."></textarea>
-        <div class="save-indicator" data-save="3b1_bonus"></div>
-      </div></div>
-    </div>
   </div>
 
   <div class="btn-row btn-row--between">
@@ -1212,8 +1179,8 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">Based on what you observed, what weather conditions likely led to this fire? Use at least two field clues to support your explanation.</p>
-    <textarea class="journal-textarea" data-key="3b2_weather" oninput="autoSave('3b2_weather',this.value)" placeholder="Based on my observations, I think the weather was..."></textarea>
+    <p class="journal-prompt">What weather conditions likely led to this fire? Use at least two field clues to support your answer.</p>
+    <textarea class="journal-textarea" data-key="3b2_weather" oninput="autoSave('3b2_weather',this.value)" placeholder="Based on my field clues, I think the weather was..."></textarea>
     <div class="save-indicator" data-save="3b2_weather"></div>
   </div>
 
@@ -1222,7 +1189,6 @@ body {
     <button class="btn btn--primary" onclick="goTo('section-4')">Continue →</button>
   </div>
 </div>
-
 <!-- ============ SECTION 4: CONVERGENCE + DECISION 2 ============ -->
 <div class="section" id="section-4" data-section="4">
   <div class="card card--narrative">
@@ -1266,14 +1232,14 @@ body {
     <img src="images/EcoResponders_HomeSurvivalGraph_01.png" alt="Student analyzing home survival data" class="lesson-image">
     <p class="narrative-text">You open the FEMA report for Forest Glen.</p>
     <p class="narrative-text">The report shows that 22 of 30 homes with metal roofs survived, but only 4 of 30 homes with wood-shingle roofs survived.</p>
-    <p class="dialogue">"Notice the pattern." Jordan says.</p>
+    <p class="dialogue">"Notice the pattern," Jordan says.</p>
     <p class="narrative-text">You create a quick bar graph to compare the results.</p>
   </div>
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">Your team is identifying which decisions helped homes survive. What human choices made the biggest difference? Support your answer using one data pattern.</p>
-    <textarea class="journal-textarea" data-key="5a_impacts" oninput="autoSave('5a_impacts',this.value)" placeholder="The human choices that made the biggest difference were..."></textarea>
+    <p class="journal-prompt">What human choice seems to have helped homes survive most? Use one data pattern to support your answer.</p>
+    <textarea class="journal-textarea" data-key="5a_impacts" oninput="autoSave('5a_impacts',this.value)" placeholder="The human choice that seems to have helped most was..."></textarea>
     <div class="save-indicator" data-save="5a_impacts"></div>
   </div>
 
@@ -1298,8 +1264,8 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">As you investigate the recovery zone, what signs show the ecosystem is changing? Identify one sign of recovery and one sign of continued damage.</p>
-    <textarea class="journal-textarea" data-key="5b_ecosystem" oninput="autoSave('5b_ecosystem',this.value)" placeholder="Living systems are responding by..."></textarea>
+    <p class="journal-prompt">What is one sign of recovery and one sign that the ecosystem still needs help?</p>
+    <textarea class="journal-textarea" data-key="5b_ecosystem" oninput="autoSave('5b_ecosystem',this.value)" placeholder="One sign of recovery is... One sign the ecosystem still needs help is..."></textarea>
     <div class="save-indicator" data-save="5b_ecosystem"></div>
   </div>
 
@@ -1325,8 +1291,8 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">Your team notices that human decisions and ecosystem recovery are connected. Describe one example showing how human actions influenced ecosystem recovery.</p>
-    <textarea class="journal-textarea" data-key="5c_integrated" oninput="autoSave('5c_integrated',this.value)" placeholder="Human actions and ecosystem recovery are connected because..."></textarea>
+    <p class="journal-prompt">How did one human action affect ecosystem recovery in Forest Glen?</p>
+    <textarea class="journal-textarea" data-key="5c_integrated" oninput="autoSave('5c_integrated',this.value)" placeholder="One human action affected ecosystem recovery because..."></textarea>
     <div class="save-indicator" data-save="5c_integrated"></div>
   </div>
 
@@ -1335,7 +1301,6 @@ body {
     <button class="btn btn--primary" onclick="goTo('section-6')">Continue →</button>
   </div>
 </div>
-
 <!-- ============ SECTION 6: TEAM BRIEFING ============ -->
 <div class="section" id="section-6" data-section="6">
   <div class="card card--narrative">
@@ -1391,24 +1356,9 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">Now that you've seen all three reports, connect the evidence.</p>
-    <p class="journal-prompt">Based on the team briefing, identify one cause-and-effect connection between a human decision and a natural outcome</p>
-    <p class="journal-prompt">Explain how understanding both sides helps your team create a stronger recovery plan.</p>
-    <textarea class="journal-textarea" data-key="section6_synthesis" oninput="autoSave('section6_synthesis',this.value)" placeholder="One cause-and-effect link I see is..."></textarea>
+    <p class="journal-prompt">What is one cause-and-effect connection you noticed between a human decision and a natural outcome?</p>
+    <textarea class="journal-textarea" data-key="section6_synthesis" oninput="autoSave('section6_synthesis',this.value)" placeholder="One cause-and-effect connection I noticed was..."></textarea>
     <div class="save-indicator" data-save="section6_synthesis"></div>
-  </div>
-
-  <div class="card card--challenge">
-    <div class="expandable" id="expand-s6-challenge" style="border:none;margin:0;background:transparent;">
-      <button class="expandable-header" onclick="toggleExpand('expand-s6-challenge')" style="background:transparent;">
-        Mission Challenge (Optional) <span class="expandable-arrow">▼</span>
-      </button>
-      <div class="expandable-body"><div class="expandable-content">
-        <p>Design a "Fire-Smart Home." Draw or describe one building feature that could protect homes from future wildfires.</p>
-        <textarea class="journal-textarea" data-key="section6_bonus" oninput="autoSave('section6_bonus',this.value)" placeholder="My Fire-Smart Home design..."></textarea>
-        <div class="save-indicator" data-save="section6_bonus"></div>
-      </div></div>
-    </div>
   </div>
 
   <div class="btn-row btn-row--between">
@@ -1417,7 +1367,7 @@ body {
   </div>
 </div>
 
-<!-- ==<!-- ============ SECTION 7: SEEING THE SYSTEM (BRIDGE TO FEEDBACK LOOPS) ============ -->
+<!-- ============ SECTION 7: SEEING THE SYSTEM (BRIDGE TO FEEDBACK LOOPS) ============ -->
 <div class="section" id="section-7" data-section="7">
   <div class="card card--narrative">
     <h2 class="title-section">Seeing the System</h2>
@@ -1434,17 +1384,16 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">Think about everything you learned in Forest Glen. How can one change (like losing plants, soil, or shade) cause other changes to people, wildlife, water, or the risk of the next fire?</p>
+    <p class="journal-prompt">Choose one change in Forest Glen. What other changes could it cause in the system?</p>
     <textarea class="journal-textarea" data-key="section7_reflection" oninput="autoSave('section7_reflection',this.value)" placeholder="One change in Forest Glen could lead to..."></textarea>
     <div class="save-indicator" data-save="section7_reflection"></div>
   </div>
 
   <div class="btn-row btn-row--between">
     <button class="btn btn--back" onclick="goTo('section-6')">← Back</button>
-    <button class="btn btn--primary" onclick="goTo('section-9')">Continue →</button>
+    <button class="btn btn--primary" onclick="goTo('section-8')">Continue →</button>
   </div>
 </div>
-
 
 <!-- ============ SECTION 8: FEEDBACK LOOPS (INTRO) ============ -->
 <div class="section" id="section-8" data-section="8">
@@ -1465,8 +1414,7 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">As a feedback loop repeats, what changes happen in the system?</p>
-    <p class="journal-prompt">How could human decisions interrupt this loop and support recovery?</p>
+    <p class="journal-prompt">What happens as a feedback loop repeats, and how could people help improve the system?</p>
     <textarea class="journal-textarea" data-key="section9_feedback" oninput="autoSave('section9_feedback',this.value)" placeholder="As the loop repeats..."></textarea>
     <div class="save-indicator" data-save="section9_feedback"></div>
   </div>
@@ -1476,7 +1424,6 @@ body {
     <button class="btn btn--primary" onclick="goTo('section-9')">Continue →</button>
   </div>
 </div>
-
 <!-- ============ SECTION 9: FEEDBACK LOOP MODEL (INTERACTIVE) ============ -->
 <div class="section" id="section-9" data-section="9">
   <div class="card card--narrative">
@@ -1492,7 +1439,7 @@ body {
   <!-- Drag-and-Drop Feedback Loop Builder -->
   <div class="card">
     <h3 style="margin-bottom:6px;font-weight:800;">Feedback Loop Model: How One Change Leads to Another</h3>
-    <p style="color:var(--gray-600);margin-bottom:16px;"><strong style="color:#b45309;">Build Your Eco-Responder Feedback Model</strong>: Use the word bank to fill in the feedback loop & show how one environmental change leads to another. You do not need to use all the boxes if you don't want to.</p>
+    <p style="color:var(--gray-600);margin-bottom:16px;"><strong style="color:#b45309;">Build Your Eco-Responder Feedback Model</strong>: Use the word bank to fill in the feedback loop and show how one environmental change leads to another. You do not need to use all the boxes if you want to.</p>
 
     <div style="display:grid;grid-template-columns:280px 1fr;gap:16px;align-items:start;" class="loop-builder-grid">
       <!-- Word Bank -->
@@ -1552,21 +1499,18 @@ body {
         <div style="margin-top:12px;background:rgba(255,255,255,0.75);border:1px solid var(--gray-200);border-radius:10px;padding:10px;font-size:0.9rem;color:var(--gray-600);">
           <strong>Example:</strong> Over-clearing → erosion → fewer plants → hotter soil → faster next fire
         </div>
-        <div style="margin-top:10px;background:rgba(255,255,255,0.75);border:1px solid var(--gray-200);border-radius:10px;padding:10px;font-size:0.9rem;">
-          <strong style="color:#b45309;">Think Like a Scientist</strong>: If one condition changed, like rainfall or replanting, which part of the loop would change first?
-        </div>
       </div>
     </div>
 
     <!-- Reflection -->
     <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;" class="loop-reflect-grid">
       <div>
-        <label style="display:block;font-weight:700;margin-bottom:6px;">When the Loop Repeats...</label>
-        <textarea class="journal-textarea" data-key="loop_repeats" id="loopRepeats" oninput="autoSave('loop_repeats',this.value)" placeholder="When this loop repeats..." style="min-height:100px;"></textarea>
+        <label style="display:block;font-weight:700;margin-bottom:6px;">What happens when the loop repeats?</label>
+        <textarea class="journal-textarea" data-key="loop_repeats" id="loopRepeats" oninput="autoSave('loop_repeats',this.value)" placeholder="When the loop repeats..." style="min-height:100px;"></textarea>
       </div>
       <div>
-        <label style="display:block;font-weight:700;margin-bottom:6px;">One Change that Could Help...</label>
-        <textarea class="journal-textarea" data-key="loop_help" id="loopHelp" oninput="autoSave('loop_help',this.value)" placeholder="One change that could help is..." style="min-height:100px;"></textarea>
+        <label style="display:block;font-weight:700;margin-bottom:6px;">What is one action that could improve the system?</label>
+        <textarea class="journal-textarea" data-key="loop_help" id="loopHelp" oninput="autoSave('loop_help',this.value)" placeholder="One action that could improve the system is..." style="min-height:100px;"></textarea>
       </div>
     </div>
   </div>
@@ -1617,7 +1561,7 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">As an Eco-Responder, which plan do you recommend for <strong>Maple Valley's future</strong>? Use two pieces of evidence from Forest Glen — and what you learned about feedback loops — to support your decision.</p>
+    <p class="journal-prompt">Which plan do you recommend for Maple Valley? Use two pieces of evidence from Forest Glen and your feedback loop thinking to support your choice.</p>
     <textarea class="journal-textarea" data-key="section8_decision" oninput="autoSave('section8_decision',this.value)" placeholder="I recommend Plan _ for Maple Valley because..."></textarea>
     <div class="save-indicator" data-save="section8_decision"></div>
   </div>
@@ -1627,7 +1571,6 @@ body {
     <button class="btn btn--primary" onclick="goTo('section-11')">Continue →</button>
   </div>
 </div>
-
 <!-- ============ SECTION 11: A MESSAGE FOR MAPLE VALLEY (PSA) ============ -->
 <div class="section" id="section-11" data-section="11">
   <div class="card card--narrative">
@@ -1642,7 +1585,7 @@ body {
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
     <p class="journal-prompt">Your Eco-Responder team is sending a fire-smart message to <strong>Maple Valley residents</strong>.</p>
-    <p class="journal-prompt"><strong>How will you share your message?</strong></p>
+    <p class="journal-prompt">Choose the format that will best help Maple Valley residents prepare before the next fire season.</p>
 
     <div class="psa-option-grid">
       <button type="button" class="psa-option-btn" data-psa-format="Written PSA">✍️ Written PSA</button>
@@ -1651,13 +1594,13 @@ body {
     </div>
 
     <div id="psa-written-panel" class="psa-response-panel">
-      <p class="journal-prompt">Write a short PSA that tells Maple Valley residents how to prepare before the next fire season. Use evidence from Forest Glen to explain why.</p>
+      <p class="journal-prompt">Write a short PSA for Maple Valley residents. Explain what they should do and why it matters.</p>
       <textarea class="journal-textarea" data-key="section11_psa_written" placeholder="Attention Maple Valley! Here's what we learned from Forest Glen — and what we can do now to stay fire-smart..." style="min-height:150px;"></textarea>
       <div class="save-indicator" data-save="section11_psa_written"></div>
     </div>
 
     <div id="psa-audio-panel" class="psa-response-panel">
-      <p class="journal-prompt">Write a short script as if you are recording a public safety announcement for Maple Valley residents.</p>
+      <p class="journal-prompt">Write a short public safety script for Maple Valley residents.</p>
       <textarea class="journal-textarea" data-key="section11_psa_audio" placeholder="Hello Maple Valley residents. This is your Eco-Responder team. Forest Glen showed us..." style="min-height:150px;"></textarea>
       <div class="save-indicator" data-save="section11_psa_audio"></div>
     </div>
@@ -1710,13 +1653,6 @@ body {
     <div class="save-indicator" data-save="section12_reflection2"></div>
   </div>
 
-  <div class="card card--journal">
-    <div class="journal-label">🔬 Think Like a Scientist</div>
-    <p class="journal-prompt">How does your Maple Valley message show cause and effect? What evidence from Forest Glen supports your recommendation?</p>
-    <textarea class="journal-textarea" data-key="section12_scientist" oninput="autoSave('section12_scientist',this.value)" placeholder="My message shows cause and effect because..."></textarea>
-    <div class="save-indicator" data-save="section12_scientist"></div>
-  </div>
-
   <div class="card card--hero" style="background:linear-gradient(135deg,#1a5e1a,#2a9a2a);">
     <h2 style="font-size:1.8rem;margin-bottom:12px;">🏅 Mission Complete!</h2>
     <p class="subtitle">You've completed your Eco-Responder mission. Export your Field Journal to save your work.</p>
@@ -1731,8 +1667,7 @@ body {
 </div>
 
 </div><!-- end lesson-container -->
-
-<style>
+  <style>
 /* Loop builder styles */
 .loop-chip {
   border: 1px solid rgba(15,23,42,0.18);
@@ -1884,7 +1819,176 @@ body {
 }
 </style>
 
+<script>
+// ===== STATE MANAGEMENT =====
+let state = {
+  currentSection: 'section-0',
+  decisions: {},
+  journal: {},
+  history: [],
+  resumeCode: null,
+  planChoice: null,
+  loopModel: {},
+  elapsedSeconds: 0,
+  hotspotLocations: [],
+  lessonStartTime: null,
+  lessonEndTime: null,
+  totalTimeOnTask: 0,
+  timePerSection: {},
+  currentSectionStart: null,
+  psaFormat: null
+};
+  <style>
+/* Loop builder styles */
+.loop-chip {
+  border: 1px solid rgba(15,23,42,0.18);
+  background: var(--white);
+  color: var(--gray-800);
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: grab;
+  user-select: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.1s;
+}
+.loop-chip:active { cursor: grabbing; transform: scale(0.95); }
 
+/* Circular loop ring container */
+.loop-ring-container {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+}
+.loop-arrows-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Drop zones positioned around the circle */
+.loop-dropzone {
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.92);
+  min-height: 70px;
+  width: 180px;
+  transition: all 0.2s;
+  position: absolute;
+  z-index: 2;
+  box-shadow: var(--shadow-sm);
+}
+.loop-dz-top {
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.loop-dz-right {
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.loop-dz-bottom {
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.loop-dz-left {
+  left: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.loop-dropzone.dragover {
+  border-color: var(--green);
+  background: var(--green-light);
+}
+.dz-step {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.dz-content:empty::before {
+  content: attr(data-empty);
+  color: var(--gray-400);
+  font-size: 0.9rem;
+}
+.dz-placed {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.dz-placed .remove-x {
+  cursor: pointer;
+  color: var(--gray-400);
+  font-weight: 800;
+  border: 1px solid var(--gray-200);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+.dz-placed .remove-x:hover { color: red; border-color: red; }
+
+/* Responsive: stack on small screens */
+@media(max-width:700px) {
+  .noaa-panel-grid { grid-template-columns: 1fr !important; }
+  .loop-builder-grid { grid-template-columns: 1fr !important; }
+  .loop-reflect-grid { grid-template-columns: 1fr !important; }
+  .loop-ring-container {
+    aspect-ratio: auto;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .loop-arrows-svg { display: none; }
+  .loop-dropzone {
+    position: static;
+    transform: none;
+    width: 100%;
+  }
+  /* Show inline arrow indicators on mobile */
+  .loop-dz-top::after,
+  .loop-dz-right::after,
+  .loop-dz-bottom::after {
+    content: '↓';
+    display: block;
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--gray-300);
+    margin-top: 6px;
+  }
+  .loop-dz-left::after {
+    content: '↺ back to Step 1';
+    display: block;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--gray-300);
+    margin-top: 6px;
+  }
+}
+</style>
 
 <script>
 // ===== STATE MANAGEMENT =====
@@ -2152,7 +2256,7 @@ function makeDecision(dpId, choice) {
   updateDecisionTracker();
   saveState();
 }
-
+  <script>
 // ===== AUTO SAVE =====
 let saveTimers = {};
 function autoSave(key, value) {
@@ -2230,10 +2334,42 @@ function updateDecisionTracker() {
 
 // ===== NOAA SIMULATOR =====
 const indicators = {
-  rainfall: { name:"Rainfall", unit:"Inches of Rain", color:"#4d7ea8", explanation:"Rainfall tells us how much water fell from the sky.", tip:"Look at whether the numbers go up, go down, or stay about the same over the years.", years:["2020","2021","2022","2023","2024","2025","2026"], values:[26,24,21,18,15,13,11] },
-  temperature: { name:"Temperature", unit:"Average Summer °F", color:"#c97a52", explanation:"Temperature shows how warm the area has been.", tip:"Pay attention to whether the hottest years are also the most recent years.", years:["2020","2021","2022","2023","2024","2025","2026"], values:[82,84,85,87,89,91,93] },
-  wind: { name:"Wind", unit:"Average Wind Speed (mph)", color:"#5a8f7b", explanation:"Wind conditions change from year to year. Look for patterns and consider what those changes might mean.", tip:"Notice which years stand out. A pattern does not always have to be a straight line up or down.", years:["2020","2021","2022","2023","2024","2025","2026"], values:[9,11,13,10,15,14,18] },
-  fuelMoisture: { name:"Fuel Moisture", unit:"Plant Moisture (%)", color:"#7a9a46", explanation:"Fuel moisture tells us how much water is inside grasses, leaves, and small plants.", tip:"Think about what happens when plants lose water. Dry fuel can catch fire faster.", years:["2020","2021","2022","2023","2024","2025","2026"], values:[82,78,73,67,61,55,49] }
+  rainfall: {
+    name: "Rainfall",
+    unit: "Inches of Rain",
+    color: "#4d7ea8",
+    explanation: "Rainfall tells us how much water fell from the sky.",
+    tip: "What does the rainfall trend suggest about how dry the land may have been?",
+    years: ["2020","2021","2022","2023","2024","2025","2026"],
+    values: [26,24,21,18,15,13,11]
+  },
+  temperature: {
+    name: "Temperature",
+    unit: "Average Summer °F",
+    color: "#c97a52",
+    explanation: "Temperature shows how warm the area has been.",
+    tip: "What does the temperature trend suggest about how easily plants could dry out?",
+    years: ["2020","2021","2022","2023","2024","2025","2026"],
+    values: [82,84,85,87,89,91,93]
+  },
+  wind: {
+    name: "Wind",
+    unit: "Average Wind Speed (mph)",
+    color: "#5a8f7b",
+    explanation: "Wind conditions change from year to year. Look for patterns and consider what those changes might mean.",
+    tip: "How could strong wind change what happens once a fire starts?",
+    years: ["2020","2021","2022","2023","2024","2025","2026"],
+    values: [9,11,13,10,15,14,18]
+  },
+  fuelMoisture: {
+    name: "Fuel Moisture",
+    unit: "Plant Moisture (%)",
+    color: "#7a9a46",
+    explanation: "Fuel moisture tells us how much water is inside grasses, leaves, and small plants.",
+    tip: "What does low fuel moisture suggest about how easily grasses and leaves could burn?",
+    years: ["2020","2021","2022","2023","2024","2025","2026"],
+    values: [82,78,73,67,61,55,49]
+  }
 };
 
 let currentIndicator = null;
@@ -2295,36 +2431,81 @@ function drawNoaaChart(item) {
 
   // Grid
   ctx.strokeStyle = '#cfdad4'; ctx.lineWidth = 1;
-  for (let i=0;i<=4;i++) { const y=pad.top+(plotH/4)*i; ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(w-pad.right,y); ctx.stroke(); }
+  for (let i=0;i<=4;i++) {
+    const y = pad.top + (plotH/4)*i;
+    ctx.beginPath();
+    ctx.moveTo(pad.left,y);
+    ctx.lineTo(w-pad.right,y);
+    ctx.stroke();
+  }
 
   // Axes
   ctx.strokeStyle = '#7d948d'; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(pad.left,pad.top); ctx.lineTo(pad.left,h-pad.bottom); ctx.lineTo(w-pad.right,h-pad.bottom); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(pad.left,pad.top);
+  ctx.lineTo(pad.left,h-pad.bottom);
+  ctx.lineTo(w-pad.right,h-pad.bottom);
+  ctx.stroke();
 
   // Y labels
-  ctx.fillStyle = '#4b605a'; ctx.font = '14px Open Sans, Arial, sans-serif'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-  for (let i=0;i<=4;i++) { const v=nMax-((nMax-nMin)/4)*i; const y=pad.top+(plotH/4)*i; ctx.fillText(Math.round(v), pad.left-8, y); }
+  ctx.fillStyle = '#4b605a';
+  ctx.font = '14px Open Sans, Arial, sans-serif';
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'middle';
+  for (let i=0;i<=4;i++) {
+    const v = nMax-((nMax-nMin)/4)*i;
+    const y = pad.top+(plotH/4)*i;
+    ctx.fillText(Math.round(v), pad.left-8, y);
+  }
 
   // Data
   const xStep = plotW / (yrs.length-1);
-  const pts = vals.map((v,i) => ({ x:pad.left+xStep*i, y:pad.top+((nMax-v)/(nMax-nMin||1))*plotH, v, yr:yrs[i] }));
+  const pts = vals.map((v,i) => ({
+    x: pad.left+xStep*i,
+    y: pad.top+((nMax-v)/(nMax-nMin||1))*plotH,
+    v,
+    yr: yrs[i]
+  }));
 
-  ctx.strokeStyle = item.color; ctx.lineWidth = 4; ctx.beginPath();
-  pts.forEach((p,i) => { if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y); });
+  ctx.strokeStyle = item.color;
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  pts.forEach((p,i) => {
+    if(i===0) ctx.moveTo(p.x,p.y);
+    else ctx.lineTo(p.x,p.y);
+  });
   ctx.stroke();
 
   pts.forEach(p => {
-    ctx.fillStyle = item.color; ctx.beginPath(); ctx.arc(p.x,p.y,6,0,Math.PI*2); ctx.fill();
-    ctx.fillStyle = '#29433d'; ctx.font = '12px Open Sans, Arial, sans-serif'; ctx.textAlign = 'center';
-    ctx.textBaseline = 'top'; ctx.fillText(p.yr, p.x, h-pad.bottom+12);
-    ctx.textBaseline = 'bottom'; ctx.fillText(p.v, p.x, p.y-10);
+    ctx.fillStyle = item.color;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,6,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle = '#29433d';
+    ctx.font = '12px Open Sans, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(p.yr, p.x, h-pad.bottom+12);
+    ctx.textBaseline = 'bottom';
+    ctx.fillText(p.v, p.x, p.y-10);
   });
 
   // Y axis label
-  ctx.save(); ctx.translate(18,h/2); ctx.rotate(-Math.PI/2);
-  ctx.fillStyle = '#29433d'; ctx.font = '14px Open Sans, Arial, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(item.unit,0,0); ctx.restore();
+  ctx.save();
+  ctx.translate(18,h/2);
+  ctx.rotate(-Math.PI/2);
+  ctx.fillStyle = '#29433d';
+  ctx.font = '14px Open Sans, Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(item.unit,0,0);
+  ctx.restore();
+
   // X axis label
-  ctx.fillStyle = '#29433d'; ctx.font = '15px Open Sans, Arial, sans-serif'; ctx.textAlign = 'center'; ctx.fillText('Year', pad.left+plotW/2, h-18);
+  ctx.fillStyle = '#29433d';
+  ctx.font = '15px Open Sans, Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Year', pad.left+plotW/2, h-18);
 }
 
 // ===== FEEDBACK LOOP DRAG & DROP =====
@@ -2391,7 +2572,6 @@ function restoreLoopState() {
   });
 }
 
-
 function setupPsaOptions() {
   const optionButtons = document.querySelectorAll('.psa-option-btn');
   const panels = {
@@ -2422,7 +2602,7 @@ function setupPsaOptions() {
     el.addEventListener('input', () => autoSave(el.dataset.key, el.value));
   });
 }
-
+</script>
 // ===== EXPORT JOURNAL =====
 function formatTime(totalSeconds) {
   const hrs = Math.floor(totalSeconds / 3600);
@@ -2502,30 +2682,26 @@ function exportJournal() {
     { key: 'noaa_indicator', label: 'NOAA Indicator Chosen', prompt: '' },
     { key: 'noaa_pattern', label: 'NOAA Pattern Noticed', prompt: 'What pattern do you notice in the data?' },
     { key: 'noaa_risk', label: 'Why This Matters for Fire Risk', prompt: 'Why does this matter for fire risk?' },
-    { key: '3a1_reflection', label: 'NOAA Data Reflection', prompt: 'What pattern do you notice in the data, and what might it mean for wildfire risk?' },
-    { key: '3a1_challenge', label: 'Mission Challenge: Future Prediction', prompt: 'Predict what might happen to the forest next year if rainfall continues to drop and temperatures stay high. Use data to support your prediction.' },
-    { key: '3a2_inference', label: 'Field Prediction from Climate Data', prompt: 'Based on the climate data, what do you think the fire zone looks like right now? Share one piece of evidence from your investigation to support your field prediction.' },
-    { key: '3b1_observations', label: 'Field Observations', prompt: 'You are documenting the scene for your Eco-Responder team. What two observations show how the fire affected people or wildlife?' },
-    { key: '3b1_bonus', label: 'Mission Challenge: Fire-adapted Plant', prompt: 'Research a local fire-adapted plant. How does it help stabilize soil or promote regrowth?' },
-    { key: '3b2_weather', label: 'Weather Conditions Inference', prompt: 'Based on what you observed, what weather conditions likely led to this fire? Use at least two field clues to support your explanation.' },
-    { key: '5a_impacts', label: 'Human Impacts Analysis', prompt: 'Your team is identifying which decisions helped homes survive. What human choices made the biggest difference? Support your answer using one data pattern.' },
-    { key: '5b_ecosystem', label: 'Ecosystem Recovery Observations', prompt: 'As you investigate the recovery zone, what signs show the ecosystem is changing? Identify one sign of recovery and one sign of continued damage.' },
-    { key: '5c_integrated', label: 'Integrated Perspectives', prompt: 'Your team notices that human decisions and ecosystem recovery are connected. Describe one example showing how human actions influenced ecosystem recovery.' },
-    { key: 'section6_synthesis', label: 'Team Briefing Synthesis', prompt: 'Based on the team briefing, identify one cause-and-effect connection between a human decision and a natural outcome. Explain how understanding both sides helps your team create a stronger recovery plan.' },
-    { key: 'section6_bonus', label: 'Mission Challenge: Fire-Smart Home', prompt: 'Design a "Fire-Smart Home." Draw or describe one building feature that could protect homes from future wildfires.' },
-    { key: 'section7_reflection', label: 'Seeing the System (Bridge Reflection)', prompt: 'How can one change in Forest Glen cause other changes to people, wildlife, water, or future fire risk?' },
-    { key: 'section9_feedback', label: 'Feedback Loop Analysis', prompt: 'As the feedback loop repeats, what changes happen in the system? How could human decisions interrupt this loop and support recovery?' },
-    { key: 'loop_repeats', label: 'When the Loop Repeats', prompt: 'When the loop repeats, what happens?' },
-    { key: 'loop_help', label: 'One Change That Could Help', prompt: 'What is one change that could help?' },
-    { key: 'section8_decision', label: 'Maple Valley Plan Recommendation', prompt: "Which plan do you recommend for Maple Valley's future? Use two pieces of evidence from Forest Glen and what you learned about feedback loops to support your decision." },
-    { key: 'section11_psa_written', label: 'Written PSA for Maple Valley', prompt: 'Write a short PSA that tells Maple Valley residents how to prepare before the next fire season. Use evidence from Forest Glen to explain why.', psaFilter: 'Written PSA' },
-    { key: 'section11_psa_audio', label: 'Audio Message Script for Maple Valley', prompt: 'Write a short script as if you are recording a public safety announcement for Maple Valley residents.', psaFilter: 'Audio Message Script' },
+    { key: '3a1_reflection', label: 'NOAA Data Reflection', prompt: 'What does your NOAA clue suggest about conditions in Forest Glen before the fire?' },
+    { key: '3a2_inference', label: 'Field Prediction from Climate Data', prompt: 'Based on the NOAA evidence, what do you think Forest Glen looked like before the fire? Use one clue to support your idea.' },
+    { key: '3b1_observations', label: 'Field Observations', prompt: 'What are two clues from Forest Glen that show how the fire affected people, wildlife, or the land?' },
+    { key: '3b2_weather', label: 'Weather Conditions Inference', prompt: 'What weather conditions likely led to this fire? Use at least two field clues to support your answer.' },
+    { key: '5a_impacts', label: 'Human Impacts Analysis', prompt: 'What human choice seems to have helped homes survive most? Use one data pattern to support your answer.' },
+    { key: '5b_ecosystem', label: 'Ecosystem Recovery Observations', prompt: 'What is one sign of recovery and one sign that the ecosystem still needs help?' },
+    { key: '5c_integrated', label: 'Integrated Perspectives', prompt: 'How did one human action affect ecosystem recovery in Forest Glen?' },
+    { key: 'section6_synthesis', label: 'Team Briefing Synthesis', prompt: 'What is one cause-and-effect connection you noticed between a human decision and a natural outcome?' },
+    { key: 'section7_reflection', label: 'Seeing the System (Bridge Reflection)', prompt: 'Choose one change in Forest Glen. What other changes could it cause in the system?' },
+    { key: 'section9_feedback', label: 'Feedback Loop Analysis', prompt: 'What happens as a feedback loop repeats, and how could people help improve the system?' },
+    { key: 'loop_repeats', label: 'When the Loop Repeats', prompt: 'What happens when the loop repeats?' },
+    { key: 'loop_help', label: 'One Action That Could Improve the System', prompt: 'What is one action that could improve the system?' },
+    { key: 'section8_decision', label: 'Maple Valley Plan Recommendation', prompt: 'Which plan do you recommend for Maple Valley? Use two pieces of evidence from Forest Glen and your feedback loop thinking to support your choice.' },
+    { key: 'section11_psa_written', label: 'Written PSA for Maple Valley', prompt: 'Write a short PSA for Maple Valley residents. Explain what they should do and why it matters.', psaFilter: 'Written PSA' },
+    { key: 'section11_psa_audio', label: 'Audio Message Script for Maple Valley', prompt: 'Write a short public safety script for Maple Valley residents.', psaFilter: 'Audio Message Script' },
     { key: 'section11_psa_info_title', label: 'Infographic Title', prompt: 'Plan an infographic that teaches Maple Valley residents how to stay fire-smart. What is the title?', psaFilter: 'Infographic Plan' },
     { key: 'section11_psa_info_points', label: 'Infographic Key Points', prompt: 'What are the three key points for your infographic?', psaFilter: 'Infographic Plan' },
     { key: 'section11_psa_info_visuals', label: 'Infographic Visual Ideas', prompt: 'What visual ideas (images, symbols, icons) will you use?', psaFilter: 'Infographic Plan' },
     { key: 'section12_reflection1', label: 'Mission Debrief Reflection 1', prompt: 'Pick two of the following reflection questions to answer: 1) What evidence from Forest Glen helped you understand how natural and human factors interact? 2) How did your choices along the way shape your final recommendation? 3) How can people and ecosystems prepare and recover together?' },
-    { key: 'section12_reflection2', label: 'Mission Debrief Reflection 2', prompt: '(Continued from above)' },
-    { key: 'section12_scientist', label: 'Think Like a Scientist', prompt: 'How does your Maple Valley message show cause and effect? What evidence from Forest Glen supports your recommendation?' }
+    { key: 'section12_reflection2', label: 'Mission Debrief Reflection 2', prompt: '(Continued from above)' }
   ];
 
   journalEntries.forEach(entry => {
@@ -2690,216 +2866,3 @@ init();
 </script>
 </body>
 </html>
-
-<!-- ============ SECTION 9: FEEDBACK LOOPS ============ -->
-<div class="section" id="section-9" data-section="9">
-  <div class="card card--narrative">
-    <h2 class="title-section">Feedback Loops</h2>
-    <img src="images/EcoResponders_FeedbackLoop_Intro_01.png" alt="Initial feedback loop model on tablet" class="lesson-image">
-    <p class="narrative-text">Jordan pulls up your team's model.</p>
-    <p class="dialogue">"This," Jordan explains, "is a feedback loop. It's how one change in the environment can cause a cycle that keeps repeating and makes the original problem stronger or weaker."</p>
-    <p class="narrative-text">He taps the screen, and a new loop appears.</p>
-    <p class="dialogue">"Sometimes humans can break a loop or create a new one."</p>
-    <p class="dialogue">"Adding trees, improving soil, or managing fire-smart zones can flip a damaging loop into a healing one."</p>
-    <p class="narrative-text">He glances at you.</p>
-    <p class="dialogue">"Your next task: find the loops that matter most here in Maple Valley, and figure out how to balance them."</p>
-    <img src="images/EcoResponders_FeedbackLoop_Expanded_01.png" alt="Expanded feedback loop model showing intervention" class="lesson-image">
-  </div>
-
-  <div class="card card--journal">
-    <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">As the feedback loop repeats, what changes happen in the system?</p>
-    <p class="journal-prompt">How could human decisions interrupt this loop and support recovery?</p>
-    <textarea class="journal-textarea" data-key="section9_feedback" oninput="autoSave('section9_feedback',this.value)" placeholder="As the loop repeats..."></textarea>
-    <div class="save-indicator" data-save="section9_feedback"></div>
-  </div>
-
-  <div class="btn-row btn-row--between">
-    <button class="btn btn--back" onclick="goTo('section-7')">← Back</button>
-    <button class="btn btn--primary" onclick="goTo('section-10')">Continue →</button>
-  </div>
-</div>
-
-<!-- ============ SECTION 10: INTERACTIVE MODELING ============ -->
-<div class="section" id="section-10" data-section="10">
-  <div class="card card--narrative">
-    <h2 class="title-section">Feedback Loop Model</h2>
-    <p class="narrative-text">Back in the command van, you open the modeling app.</p>
-    <p class="narrative-text">Arrows link climate → vegetation → wildlife → human choices.</p>
-    <p class="dialogue">"Add the feedback loop," Jordan points out.</p>
-    <p class="dialogue">"Fewer trees = less shade = hotter ground = drier fuel next season."</p>
-    <p class="narrative-text">Every loop shows how one small change can ripple through the system.</p>
-    <p class="narrative-text">Your final model uploads to the city network, and soon, the results ripple across town.</p>
-  </div>
-
-  <div class="card">
-    <h3 style="margin-bottom:6px;font-weight:800;">Feedback Loop Model: How One Change Leads to Another</h3>
-    <p style="color:var(--gray-600);margin-bottom:16px;"><strong style="color:#b45309;">Build Your Eco-Responder Feedback Model</strong>: Use the word bank to fill in the feedback loop and show how one environmental change leads to another.</p>
-
-    <div class="interactive-embed feedback-embed">
-      <iframe src="feedback-loop-builder.html" title="Feedback Loop Builder"></iframe>
-    </div>
-  </div>
-
-  <div class="card card--journal">
-    <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">When the loop repeats, what happens?</p>
-    <textarea class="journal-textarea" data-key="loop_repeats" oninput="autoSave('loop_repeats',this.value)" placeholder="When the loop repeats..."></textarea>
-    <div class="save-indicator" data-save="loop_repeats"></div>
-
-    <p class="journal-prompt" style="margin-top:14px;">What is one change that could help?</p>
-    <textarea class="journal-textarea" data-key="loop_help" oninput="autoSave('loop_help',this.value)" placeholder="One change that could help is..."></textarea>
-    <div class="save-indicator" data-save="loop_help"></div>
-  </div>
-
-  <div class="btn-row btn-row--between">
-    <button class="btn btn--back" onclick="goTo('section-9')">← Back</button>
-    <button class="btn btn--primary" onclick="goTo('section-8')">Continue →</button>
-  </div>
-</div>
-
-<!-- ============ SECTION 8: DECISION & RECOMMENDATION ============ -->
-<div class="section" id="section-8" data-section="8">
-  <div class="card card--narrative">
-    <h2 class="title-section">Recommendation for the Mayor</h2>
-    <img src="images/EcoResponders_TownHallMeeting_01.png" alt="Mayor presenting to town hall" class="lesson-image">
-    <p class="narrative-text">Back in Maple Valley, the town hall hums with voices.</p>
-    <p class="narrative-text">Families, planners, and neighbors are here because of what happened in Forest Glen.</p>
-    <p class="narrative-text">Mayor Elena steps to the podium.</p>
-    <p class="dialogue">"Forest Glen's fire changed more than trees," she begins. "It changed how we think about safety, building, and the land itself."</p>
-    <p class="dialogue">"Maple Valley wasn't burned — but we were close. Forest Glen's loss is a warning to us."</p>
-    <p class="dialogue">"If we prepare wisely now, we can protect both our homes and our habitats before the next fire season."</p>
-    <p class="narrative-text">She points to your feedback loop on the big screen.</p>
-    <p class="dialogue">"Our Eco-Responders have shown us how one choice leads to another. So let's use that."</p>
-    <p class="narrative-text">Mayor Elena shares three forward-thinking plans for Maple Valley.</p>
-    <p class="narrative-text">Each plan balances human needs and environmental health differently.</p>
-  </div>
-
-  <div class="card card--decision">
-    <p class="decision-question">Which plan should Maple Valley choose? Use the evidence from Forest Glen and what you learned about feedback loops to decide.</p>
-    <div class="plan-grid">
-      <div class="plan-card" onclick="selectPlan(this,'Plan A: Rebuild Fast')" data-plan="A">
-        <h4>Plan A: Build Fast</h4>
-        <p class="plan-summary">Expand Maple Valley quickly with few new fire-safety rules.</p>
-        <p class="plan-science">Feels quick, but sets up loops of erosion and higher future fire risk.</p>
-      </div>
-      <div class="plan-card" onclick="selectPlan(this,'Plan B: Rebuild Smarter')" data-plan="B">
-        <h4>Plan B: Rebuild Smarter</h4>
-        <p class="plan-summary">Use fire-resistant materials and plant native vegetation.</p>
-        <p class="plan-science">Breaks damaging loops and lowers ignition risk before a fire starts.</p>
-      </div>
-      <div class="plan-card" onclick="selectPlan(this,'Plan C: Balanced Plan')" data-plan="C">
-        <h4>Plan C: Balanced Plan</h4>
-        <p class="plan-summary">Prepare in stages, with defensible space and habitat protection.</p>
-        <p class="plan-science">Supports both people and ecosystem — starts a healing loop.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card card--journal">
-    <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">As an Eco-Responder, which plan do you recommend for <strong>Maple Valley's future</strong>? Use two pieces of evidence from Forest Glen — and what you learned about feedback loops — to support your decision.</p>
-    <textarea class="journal-textarea" data-key="section8_decision" oninput="autoSave('section8_decision',this.value)" placeholder="I recommend Plan _ for Maple Valley because..."></textarea>
-    <div class="save-indicator" data-save="section8_decision"></div>
-  </div>
-
-  <div class="btn-row btn-row--between">
-    <button class="btn btn--back" onclick="goTo('section-10')">← Back</button>
-    <button class="btn btn--primary" onclick="goTo('section-11')">Continue →</button>
-  </div>
-</div>
-
-<!-- ============ SECTION 11: A MESSAGE FOR MAPLE VALLEY (PSA) ============ -->
-<div class="section" id="section-11" data-section="11">
-  <div class="card card--narrative">
-    <h2 class="title-section">A Message for Maple Valley</h2>
-    <img src="images/EcoResponders_ForestRecovery_01.png" alt="Student overlooking the valley" class="lesson-image">
-    <p class="narrative-text">Word spreads fast. Maple Valley neighbors are asking questions — they heard about Forest Glen, and they want to know what they can do.</p>
-    <p class="dialogue">"You've studied the evidence," Jordan says. "Now it's your turn to help your neighbors get fire-smart before the next fire season."</p>
-    <p class="narrative-text">Your Eco-Responder team has been asked to create a message for <strong>Maple Valley residents</strong> — a PSA (Public Service Announcement) that uses what Forest Glen taught you.</p>
-    <p class="narrative-text">You realize your mission was never just about studying a disaster. It's about helping a community prevent the next one.</p>
-  </div>
-
-  <div class="card card--journal">
-    <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">Your Eco-Responder team is sending a fire-smart message to <strong>Maple Valley residents</strong>.</p>
-    <p class="journal-prompt"><strong>How will you share your message?</strong></p>
-
-    <div class="psa-option-grid">
-      <button type="button" class="psa-option-btn" data-psa-format="Written PSA">✍️ Written PSA</button>
-      <button type="button" class="psa-option-btn" data-psa-format="Audio Message Script">🎙️ Audio Message Script</button>
-      <button type="button" class="psa-option-btn" data-psa-format="Infographic Plan">🖼️ Infographic Plan</button>
-    </div>
-
-    <div id="psa-written-panel" class="psa-response-panel">
-      <p class="journal-prompt">Write a short PSA that tells Maple Valley residents how to prepare before the next fire season. Use evidence from Forest Glen to explain why.</p>
-      <textarea class="journal-textarea" data-key="section11_psa_written" placeholder="Attention Maple Valley! Here's what we learned from Forest Glen — and what we can do now to stay fire-smart..." style="min-height:150px;"></textarea>
-      <div class="save-indicator" data-save="section11_psa_written"></div>
-    </div>
-
-    <div id="psa-audio-panel" class="psa-response-panel">
-      <p class="journal-prompt">Write a short script as if you are recording a public safety announcement for Maple Valley residents.</p>
-      <textarea class="journal-textarea" data-key="section11_psa_audio" placeholder="Hello Maple Valley residents. This is your Eco-Responder team. Forest Glen showed us..." style="min-height:150px;"></textarea>
-      <div class="save-indicator" data-save="section11_psa_audio"></div>
-    </div>
-
-    <div id="psa-infographic-panel" class="psa-response-panel">
-      <p class="journal-prompt">Plan an infographic that teaches Maple Valley residents how to stay fire-smart before the next fire season.</p>
-
-      <label class="psa-field-label" for="section11_psa_info_title">Infographic title</label>
-      <input id="section11_psa_info_title" class="psa-text-input" type="text" data-key="section11_psa_info_title" placeholder="Fire-Smart Maple Valley">
-      <div class="save-indicator" data-save="section11_psa_info_title"></div>
-
-      <label class="psa-field-label" for="section11_psa_info_points">Three key points</label>
-      <textarea id="section11_psa_info_points" class="journal-textarea" data-key="section11_psa_info_points" placeholder="1. Clear dry brush around homes&#10;2. Use fire-resistant materials&#10;3. Follow weather alerts"></textarea>
-      <div class="save-indicator" data-save="section11_psa_info_points"></div>
-
-      <label class="psa-field-label" for="section11_psa_info_visuals">Visual ideas (images, symbols, icons)</label>
-      <textarea id="section11_psa_info_visuals" class="journal-textarea" data-key="section11_psa_info_visuals" placeholder="Flame icon, house with cleared space, weather alert symbol..."></textarea>
-      <div class="save-indicator" data-save="section11_psa_info_visuals"></div>
-    </div>
-  </div>
-
-  <div class="btn-row btn-row--between">
-    <button class="btn btn--back" onclick="goTo('section-8')">← Back</button>
-    <button class="btn btn--primary" onclick="goTo('section-12')">Continue →</button>
-  </div>
-</div>
-
-<!-- ============ SECTION 12: MISSION DEBRIEF ============ -->
-<div class="section" id="section-12" data-section="12">
-  <div class="card card--narrative">
-    <h2 class="title-section">Mission Debrief</h2>
-    <img src="images/EcoResponders_FireSmartTown_01.png" alt="Student biking past Fire-Smart Zone sign" class="lesson-image">
-    <p class="narrative-text">A week later, you bike past a brand new sign:</p>
-    <p class="narrative-text" style="font-size:1.2rem;font-weight:700;color:var(--green-dark);text-align:center;">"Maple Valley — Fire-Smart Zone."</p>
-    <p class="narrative-text">Forest Glen cannot be undone. But because your team studied it carefully, Maple Valley is planning ahead.</p>
-    <p class="narrative-text">Jordan sends one last message:</p>
-    <p class="dialogue">"Outstanding work, Eco-Responder. Science and empathy together — that's real leadership."</p>
-    <img src="images/EcoResponders_MissionComplete_Badge.png" alt="Mission Complete badge" class="lesson-image lesson-image-small">
-  </div>
-
-  <div class="card card--journal">
-    <div class="journal-label">📓 Mission Debrief Reflection</div>
-    <p class="journal-prompt"><strong>Pick two of the following reflection questions to answer:</strong></p>
-    <p class="journal-prompt">1. What evidence from Forest Glen helped you understand how natural and human factors interact?</p>
-    <p class="journal-prompt">2. How did your choices along the way shape your final recommendation?</p>
-    <p class="journal-prompt">3. How can people and ecosystems prepare and recover together?</p>
-    <textarea class="journal-textarea" data-key="section12_reflection1" oninput="autoSave('section12_reflection1',this.value)" placeholder="Reflection question #__ : ..." style="min-height:130px;"></textarea>
-    <div class="save-indicator" data-save="section12_reflection1"></div>
-    <textarea class="journal-textarea" data-key="section12_reflection2" oninput="autoSave('section12_reflection2',this.value)" placeholder="Reflection question #__ : ..." style="min-height:130px;margin-top:12px;"></textarea>
-    <div class="save-indicator" data-save="section12_reflection2"></div>
-  </div>
-
-  <div class="card card--journal">
-    <div class="journal-label">🔬 Think Like a Scientist</div>
-    <p class="journal-prompt">How does your Maple Valley message show cause and effect? What evidence supports your recommendation?</p>
-    <textarea class="journal-textarea" data-key="section12_scientist" oninput="autoSave('section12_scientist',this.value)" placeholder="My message shows cause and effect because..."></textarea>
-    <div class="save-indicator" data-save="section12_scientist"></div>
-  </div>
-
-  <div class="btn-row btn-row--between">
-    <button class="btn btn--back" onclick="goTo('section-11')">← Back</button>
-    <button class="btn btn--primary" onclick="goTo('section-0')">Restart Mission ↺</button>
-  </div>
-</div>
