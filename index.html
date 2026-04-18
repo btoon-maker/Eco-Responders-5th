@@ -1818,178 +1818,6 @@ body {
   }
 }
 </style>
-
-<script>
-// ===== STATE MANAGEMENT =====
-let state = {
-  currentSection: 'section-0',
-  decisions: {},
-  journal: {},
-  history: [],
-  resumeCode: null,
-  planChoice: null,
-  loopModel: {},
-  elapsedSeconds: 0,
-  hotspotLocations: [],
-  lessonStartTime: null,
-  lessonEndTime: null,
-  totalTimeOnTask: 0,
-  timePerSection: {},
-  currentSectionStart: null,
-  psaFormat: null
-};
-  <style>
-/* Loop builder styles */
-.loop-chip {
-  border: 1px solid rgba(15,23,42,0.18);
-  background: var(--white);
-  color: var(--gray-800);
-  border-radius: 999px;
-  padding: 8px 12px;
-  cursor: grab;
-  user-select: none;
-  font-weight: 700;
-  font-size: 0.88rem;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.1s;
-}
-.loop-chip:active { cursor: grabbing; transform: scale(0.95); }
-
-/* Circular loop ring container */
-.loop-ring-container {
-  position: relative;
-  width: 100%;
-  max-width: 520px;
-  margin: 0 auto;
-  aspect-ratio: 1 / 1;
-}
-.loop-arrows-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Drop zones positioned around the circle */
-.loop-dropzone {
-  border: 2px dashed var(--gray-300);
-  border-radius: var(--radius);
-  padding: 10px 12px;
-  background: rgba(255,255,255,0.92);
-  min-height: 70px;
-  width: 180px;
-  transition: all 0.2s;
-  position: absolute;
-  z-index: 2;
-  box-shadow: var(--shadow-sm);
-}
-.loop-dz-top {
-  top: 2%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.loop-dz-right {
-  right: 2%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.loop-dz-bottom {
-  bottom: 2%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.loop-dz-left {
-  left: 2%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.loop-dropzone.dragover {
-  border-color: var(--green);
-  background: var(--green-light);
-}
-.dz-step {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: var(--gray-400);
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.dz-content:empty::before {
-  content: attr(data-empty);
-  color: var(--gray-400);
-  font-size: 0.9rem;
-}
-.dz-placed {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-.dz-placed .remove-x {
-  cursor: pointer;
-  color: var(--gray-400);
-  font-weight: 800;
-  border: 1px solid var(--gray-200);
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  flex-shrink: 0;
-}
-.dz-placed .remove-x:hover { color: red; border-color: red; }
-
-/* Responsive: stack on small screens */
-@media(max-width:700px) {
-  .noaa-panel-grid { grid-template-columns: 1fr !important; }
-  .loop-builder-grid { grid-template-columns: 1fr !important; }
-  .loop-reflect-grid { grid-template-columns: 1fr !important; }
-  .loop-ring-container {
-    aspect-ratio: auto;
-    position: static;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .loop-arrows-svg { display: none; }
-  .loop-dropzone {
-    position: static;
-    transform: none;
-    width: 100%;
-  }
-  /* Show inline arrow indicators on mobile */
-  .loop-dz-top::after,
-  .loop-dz-right::after,
-  .loop-dz-bottom::after {
-    content: '↓';
-    display: block;
-    text-align: center;
-    font-size: 1.3rem;
-    color: var(--gray-300);
-    margin-top: 6px;
-  }
-  .loop-dz-left::after {
-    content: '↺ back to Step 1';
-    display: block;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--gray-300);
-    margin-top: 6px;
-  }
-}
-</style>
-
 <script>
 // ===== STATE MANAGEMENT =====
 let state = {
@@ -2025,7 +1853,6 @@ function saveState() {
   initializeStateDefaults();
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    // Also save a backup keyed by resume code so it can be found later
     if (state.resumeCode) {
       localStorage.setItem(STORAGE_KEY + '_' + state.resumeCode, JSON.stringify(state));
     }
@@ -2141,9 +1968,11 @@ function closeResumeModal() {
 
 function loadResumeCode() {
   const input = document.getElementById('resumeInput').value.trim().toUpperCase();
-  if (!input) { document.getElementById('resumeError').textContent = 'Please enter a code.'; return; }
+  if (!input) {
+    document.getElementById('resumeError').textContent = 'Please enter a code.';
+    return;
+  }
 
-  // First check if there's a directly keyed backup for this code
   try {
     const directKey = STORAGE_KEY + '_' + input;
     const directData = localStorage.getItem(directKey);
@@ -2164,7 +1993,6 @@ function loadResumeCode() {
     }
   } catch(e) {}
 
-  // Fallback: search all localStorage keys for a matching resume code
   try {
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
@@ -2232,7 +2060,6 @@ function updateProgress() {
 function makeDecision(dpId, choice) {
   state.decisions[dpId] = choice;
 
-  // Friendly labels for export + on-screen tracker
   if (dpId === 'dp1') {
     state.decisions.dp1_label =
       choice === 'noaa'
@@ -2256,7 +2083,7 @@ function makeDecision(dpId, choice) {
   updateDecisionTracker();
   saveState();
 }
-  <script>
+
 // ===== AUTO SAVE =====
 let saveTimers = {};
 function autoSave(key, value) {
@@ -2405,7 +2232,7 @@ function showNoaaChoices() {
   currentIndicator = null;
 }
 
-function updateNoaaPreview() { /* preview handled by auto-save */ }
+function updateNoaaPreview() {}
 
 function drawNoaaChart(item) {
   const canvas = document.getElementById('noaaChart');
@@ -2429,8 +2256,8 @@ function drawNoaaChart(item) {
   const range = Math.max(1, maxV - minV);
   const nMin = Math.floor(minV - range*0.15), nMax = Math.ceil(maxV + range*0.15);
 
-  // Grid
-  ctx.strokeStyle = '#cfdad4'; ctx.lineWidth = 1;
+  ctx.strokeStyle = '#cfdad4'; 
+  ctx.lineWidth = 1;
   for (let i=0;i<=4;i++) {
     const y = pad.top + (plotH/4)*i;
     ctx.beginPath();
@@ -2439,15 +2266,14 @@ function drawNoaaChart(item) {
     ctx.stroke();
   }
 
-  // Axes
-  ctx.strokeStyle = '#7d948d'; ctx.lineWidth = 2;
+  ctx.strokeStyle = '#7d948d'; 
+  ctx.lineWidth = 2;
   ctx.beginPath();
   ctx.moveTo(pad.left,pad.top);
   ctx.lineTo(pad.left,h-pad.bottom);
   ctx.lineTo(w-pad.right,h-pad.bottom);
   ctx.stroke();
 
-  // Y labels
   ctx.fillStyle = '#4b605a';
   ctx.font = '14px Open Sans, Arial, sans-serif';
   ctx.textAlign = 'right';
@@ -2458,7 +2284,6 @@ function drawNoaaChart(item) {
     ctx.fillText(Math.round(v), pad.left-8, y);
   }
 
-  // Data
   const xStep = plotW / (yrs.length-1);
   const pts = vals.map((v,i) => ({
     x: pad.left+xStep*i,
@@ -2491,7 +2316,6 @@ function drawNoaaChart(item) {
     ctx.fillText(p.v, p.x, p.y-10);
   });
 
-  // Y axis label
   ctx.save();
   ctx.translate(18,h/2);
   ctx.rotate(-Math.PI/2);
@@ -2501,7 +2325,6 @@ function drawNoaaChart(item) {
   ctx.fillText(item.unit,0,0);
   ctx.restore();
 
-  // X axis label
   ctx.fillStyle = '#29433d';
   ctx.font = '15px Open Sans, Arial, sans-serif';
   ctx.textAlign = 'center';
@@ -2602,6 +2425,7 @@ function setupPsaOptions() {
     el.addEventListener('input', () => autoSave(el.dataset.key, el.value));
   });
 }
+
 // ===== EXPORT JOURNAL =====
 function formatTime(totalSeconds) {
   const hrs = Math.floor(totalSeconds / 3600);
@@ -2735,7 +2559,6 @@ function startTimer() {
   timerInterval = setInterval(() => {
     state.elapsedSeconds = (state.elapsedSeconds || 0) + 1;
     updateTimerDisplay();
-    // Save every 30 seconds to avoid excessive writes
     if (state.elapsedSeconds % 30 === 0) saveState();
   }, 1000);
 }
@@ -2762,7 +2585,6 @@ function updateTimerDisplay() {
   }
 }
 
-// Pause timer when tab is hidden or page unloads; resume when visible
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
     stopTimer();
@@ -2782,7 +2604,6 @@ function init() {
   if (hasState && state.currentSection) {
     restoreJournals();
     restoreLoopState();
-    // Restore plan card selection visual
     if (state.planChoice) {
       const planLetter = (state.planChoice.match(/Plan ([ABC])/) || [])[1];
       if (planLetter) {
@@ -2857,11 +2678,8 @@ function init() {
   document.querySelectorAll('.hs-close-btn').forEach(b => b.addEventListener('click', hsCloseAll));
   hsOverlay.addEventListener('click', hsCloseAll);
 
-  // Mark previously visited on load
   setTimeout(markVisited, 200);
 })();
 
 init();
 </script>
-</body>
-</html>
