@@ -984,7 +984,8 @@ body {
     <img src="images/EcoResponders_NOAA_Lab_01.png" alt="Student analyzing NOAA drought data in mobile lab" class="lesson-image">
     <p class="narrative-text">You arrive at the mobile lab, and Jordan pulls up the latest weather and fire-condition data on your tablet.</p>
     <p class="dialogue">"We don't have time to check everything first," he says. "Choose the clue you think will tell us the most about why fire risk is rising."</p>
-    <p class="subtle-prompt">Look for patterns in the data that could explain why the fire spread so quickly. <strong>How might these weather conditions affect plants, animals, or people in this area?</strong></p>
+    <p class="subtle-prompt">Look for patterns in the data that could explain why the fire spread so quickly. <strong>How might these weather conditions affect plants, animals, or people in this area? And how might these conditions change what plants or animals can live in this area?
+</strong></p>
   </div>
 
   <!-- NOAA Interactive Simulator -->
@@ -1277,7 +1278,7 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">What is one sign of recovery for plants or animals and one sign that the ecosystem still needs help?</p>
+    <p class="journal-prompt">What is one sign that plant or animal populations are recovering, and one sign they are still struggling? Use evidence from the report.</p>
     <textarea class="journal-textarea" data-key="5b_ecosystem" oninput="autoSave('5b_ecosystem',this.value)" placeholder="One sign of recovery is... One sign the ecosystem still needs help is..."></textarea>
     <div class="save-indicator" data-save="5b_ecosystem"></div>
   </div>
@@ -1300,7 +1301,7 @@ body {
       <li>In places where burned debris was cleared too quickly, more runoff flowed downhill.</li>
     </ul>
     <p class="dialogue">"Everything's connected," Jordan says. "Our recovery plans have to be connected, too."</p>
-    <p class="subtle-prompt"><strong>How does one human action lead to changes in the land, and how might those changes affect people again?</strong></p>
+    <p class="subtle-prompt"><strong>How might one human action change plant or animal populations, and how could those changes affect people again?</strong></p>
   </div>
 
   <div class="card card--journal">
@@ -1371,7 +1372,7 @@ body {
   </div>
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">What is one cause-and-effect chain you noticed between a human decision and a natural outcome? Explain how one change led to another.</p>
+    <p class="journal-prompt">What is one cause-and-effect chain you noticed between a human decision and changes in plant or animal populations?</p>
     <textarea class="journal-textarea" data-key="section6_synthesis" oninput="autoSave('section6_synthesis',this.value)" placeholder="One cause-and-effect connection I noticed was..."></textarea>
     <div class="save-indicator" data-save="section6_synthesis"></div>
   </div>
@@ -1577,7 +1578,7 @@ body {
 
   <div class="card card--journal">
     <div class="journal-label">📓 Field Journal</div>
-    <p class="journal-prompt">Which plan do you recommend for Maple Valley? Use two pieces of evidence from Forest Glen and your feedback loop thinking to support your choice. Explain how your plan will protect plants, animals, or habitats.</p>
+    <p class="journal-prompt">Which plan do you recommend for Maple Valley? Use evidence to explain how it will protect plant or animal populations.</p>
     <textarea class="journal-textarea" data-key="section8_decision" oninput="autoSave('section8_decision',this.value)" placeholder="I recommend Plan _ for Maple Valley because..."></textarea>
     <div class="save-indicator" data-save="section8_decision"></div>
   </div>
@@ -2530,14 +2531,14 @@ function exportJournal() {
     { key: '3b1_observations', label: 'Field Observations', prompt: 'What are two clues from Forest Glen that show how the fire affected people, wildlife, or the land?' },
     { key: '3b2_weather', label: 'Weather Conditions Inference', prompt: 'What weather conditions likely led to this fire? Use at least two field clues to support your answer. Then explain how those conditions might affect plants or animals in this area.' },
     { key: '5a_impacts', label: 'Human Impacts Analysis', prompt: 'What human choice helped homes survive the fire most? Use one data pattern to explain your answer.' },
-    { key: '5b_ecosystem', label: 'Ecosystem Recovery Observations', prompt: 'What is one sign of recovery for plants or animals and one sign that the ecosystem still needs help?' },
+    { key: '5b_ecosystem', label: 'Ecosystem Recovery Observations', prompt: 'What is one sign that plant or animal populations are recovering, and one sign they are still struggling? Use evidence from the report.' },
     { key: '5c_integrated', label: 'Integrated Perspectives', prompt: 'How did one human action affect the ecosystem, and how did that change impact people or the community?' },
-    { key: 'section6_synthesis', label: 'Team Briefing Synthesis', prompt: 'What is one cause-and-effect chain you noticed between a human decision and a natural outcome? Explain how one change led to another.' },
+    { key: 'section6_synthesis', label: 'Team Briefing Synthesis', prompt: 'What is one cause-and-effect chain you noticed between a human decision and changes in plant or animal populations?' },
     { key: 'section7_reflection', label: 'Seeing the System (Bridge Reflection)', prompt: 'Choose one change in Forest Glen. What other changes could it cause in the system? Explain how one change leads to another.' },
     { key: 'section9_feedback', label: 'Feedback Loop Analysis', prompt: 'What happens when a feedback loop keeps repeating? How could people change one part of the loop to improve the system?' },
     { key: 'loop_repeats', label: 'When the Loop Repeats', prompt: 'What happens when your feedback loop repeats over time?' },
     { key: 'loop_help', label: 'One Action That Could Improve the System', prompt: 'What is one action that could change part of your loop and improve the system?' },
-    { key: 'section8_decision', label: 'Maple Valley Plan Recommendation', prompt: 'Which plan do you recommend for Maple Valley? Use two pieces of evidence from Forest Glen and your feedback loop thinking to support your choice. Explain how your plan will protect plants, animals, or habitats.' },
+    { key: 'section8_decision', label: 'Maple Valley Plan Recommendation', prompt: 'Which plan do you recommend for Maple Valley? Use evidence to explain how it will protect plant or animal populations.' },
     { key: 'section11_psa_written', label: 'Written PSA for Maple Valley', prompt: 'Write a short PSA for Maple Valley residents. Use evidence from Forest Glen to explain what they should do and why it matters.', psaFilter: 'Written PSA' },
     { key: 'section11_psa_audio', label: 'Audio Message Script for Maple Valley', prompt: 'Write a short public safety script for Maple Valley residents.', psaFilter: 'Audio Message Script' },
     { key: 'section11_psa_info_title', label: 'Infographic Title', prompt: 'Plan an infographic that teaches Maple Valley residents how to stay fire-smart. What is the title?', psaFilter: 'Infographic Plan' },
