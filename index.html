@@ -2841,58 +2841,8 @@ function init() {
 })();
 
 // ===== TEXT-TO-SPEECH =====
-let currentUtterance = null;
-let isSpeaking = false;
-
 function toggleSpeech(button, container) {
-  if (isSpeaking) {
-    speechSynthesis.cancel();
-    isSpeaking = false;
-    button.innerText = "🔊 Listen";
-    return;
-  }
-
-  speechSynthesis.cancel();
-
-  const elements = container.querySelectorAll('.narrative-text, .dialogue, .title-section');
-  const fullText = [];
-
-  elements.forEach(el => {
-    fullText.push({
-      text: el.innerText,
-      type: el.classList.contains('dialogue') ? 'dialogue' : 'narrative'
-    });
-  });
-
-  speakChunks(fullText, button);
+  console.log('TTS temporarily disabled for debugging.');
 }
-
-function speakChunks(chunks, button) {
-  if (!chunks.length) {
-    isSpeaking = false;
-    button.innerText = "🔊 Listen";
-    return;
-  }
-
-  isSpeaking = true;
-  button.innerText = "⏹ Stop";
-
-  const chunk = chunks.shift();
-  const utterance = new SpeechSynthesisUtterance(chunk.text);
-
-  if (chunk.type === 'dialogue') {
-    utterance.pitch = 1.15;
-    utterance.rate = 1.05;
-  } else {
-    utterance.pitch = 1.0;
-    utterance.rate = 1.0;
-  }
-
-  utterance.onend = () => speakChunks(chunks, button);
-
-  currentUtterance = utterance;
-  speechSynthesis.speak(utterance);
-}
-  
 init();
 </script>
