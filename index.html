@@ -2805,10 +2805,23 @@ function toggleSpeech(button, container) {
   const text = container.innerText;
 
   const utterance = new SpeechSynthesisUtterance(text);
+  const voices = speechSynthesis.getVoices();
+
+// Smart voice selection (cross-device friendly)
+const preferredVoice =
+  voices.find(v => v.name.includes('Google')) ||
+  voices.find(v => v.name.includes('Female')) ||
+  voices.find(v => v.name.includes('Samantha')) ||
+  voices.find(v => v.name.includes('Zira')) ||
+  voices[0]; // fallback
+
+if (preferredVoice) {
+  utterance.voice = preferredVoice;
+}
 
   // subtle tuning
-  utterance.rate = 1;
-  utterance.pitch = 1;
+  utterance.rate = 0.95;
+  utterance.pitch = 1.05;
 
   utterance.onend = () => {
     isSpeaking = false;
