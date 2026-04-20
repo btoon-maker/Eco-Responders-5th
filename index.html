@@ -88,6 +88,9 @@ body {
 .card--narrative {
   border-left: 4px solid var(--green);
 }
+  .tts-btn {
+  display: inline-block;
+}
 .card--decision {
   border-left: 4px solid var(--yellow);
   background: linear-gradient(135deg, #fffcf0 0%, var(--white) 100%);
@@ -212,6 +215,23 @@ body {
 .btn-row--right { justify-content: flex-end; }
 .btn-row--between { justify-content: space-between; }
 .btn-row--center { justify-content: center; }
+  /* TTS Button */
+.tts-btn {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-300);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-bottom: 12px;
+  color: var(--gray-700);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.tts-btn:hover {
+  background: var(--gray-200);
+}
 /* Decision grid */
 .decision-grid {
   display: grid;
@@ -896,6 +916,9 @@ body {
 <!-- ============ SECTION 1: STORY INTRODUCTION ============ -->
 <div class="section" id="section-1" data-section="1">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">After the Fire</h2>
     <p class="narrative-text">The air smells faintly of pine and smoke, reminders that nature is constantly changing.</p>
     <p class="narrative-text">As an Eco-Responder, you've learned that every fire tells two stories: one of loss and one of renewal.</p>
@@ -960,6 +983,9 @@ body {
 <!-- ============ SECTION 2: DECISION POINT 1 ============ -->
 <div class="section" id="section-2" data-section="2">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Ping! Ping! Ping!</h2>
     <img src="images/EcoResponders_TabletAlert_01.png" alt="Student viewing FEMA mentor on tablet" class="lesson-image">
     <p class="narrative-text">Your Eco-Responder tablet flashes red.</p>
@@ -991,6 +1017,9 @@ body {
 <!-- ============ SECTION 3A-1: NOAA DATA PAGE 1 ============ -->
 <div class="section" id="section-3a1" data-section="3a1">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">NOAA Data Investigation</h2>
     <img src="images/EcoResponders_NOAA_Lab_01.png" alt="Student analyzing NOAA drought data in mobile lab" class="lesson-image">
     <p class="narrative-text">You arrive at the mobile lab, and Jordan pulls up the latest weather and fire-condition data on your tablet.</p>
@@ -1051,6 +1080,9 @@ body {
 <!-- ============ SECTION 3A-2: NOAA DATA PAGE 2 ============ -->
 <div class="section" id="section-3a2" data-section="3a2">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Satellite Images</h2>
     <img src="images/EcoResponders_DryForest_Satellite_01.png" alt="Student reviewing dry satellite terrain" class="lesson-image">
     <p class="narrative-text">Jordan closes the graphs.</p>
@@ -1078,6 +1110,9 @@ body {
 <!-- ============ SECTION 3B-1: FIELD OBSERVATION PAGE 1 ============ -->
 <div class="section" id="section-3b1" data-section="3b1">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Field Observations</h2>
     <img src="images/EcoResponders_ForestGlen_FieldDrive_01.png" alt="Students riding into the burned forest area" class="lesson-image">
     <p class="narrative-text">You ride beside Ranger Marisol into Forest Glen.</p>
@@ -1189,6 +1224,9 @@ body {
 <!-- ============ SECTION 3B-2: FIELD OBSERVATION PAGE 2 ============ -->
 <div class="section" id="section-3b2" data-section="3b2">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Field Observations</h2>
     <img src="images/EcoResponders_DryForest_FieldClues_01.png" alt="Student examining dry forest and cracked streambed" class="lesson-image">
     <p class="dialogue">"We still don't have NOAA's climate data," Marisol says.</p>
@@ -1198,7 +1236,7 @@ body {
     <p class="dialogue">"Use your field clues. Was this a wet year or a dry one? Cool or hot?" she asks.</p>
     <p class="dialogue">"Explain your reasoning."</p>
     <p class="narrative-text">Your observations complete the picture. Now it's time to decide what matters most.</p>
-    <p class="subtle-prompt"><strong></strong>As you examine the field clues, think about what they reveal about the conditions before the fire—and how those conditions might affect plants and animals.</strong></p>
+    <p class="subtle-prompt"><strong>As you examine the field clues, think about what they reveal about the conditions before the fire—and how those conditions might affect plants and animals.</strong></p>
   </div>
 
   <div class="card card--journal">
@@ -1216,6 +1254,9 @@ body {
 <!-- ============ SECTION 4: CONVERGENCE + DECISION 2 ============ -->
 <div class="section" id="section-4" data-section="4">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Team Regroup</h2>
     <img src="images/EcoResponders_TeamConvergence_01.png" alt="Student regrouping with FEMA mentor and ranger" class="lesson-image">
     <p class="narrative-text">You regroup with Jordan and Ranger Marisol.</p>
@@ -1251,6 +1292,9 @@ body {
 <!-- ============ SECTION 5A: HUMAN IMPACTS ============ -->
 <div class="section" id="section-5a" data-section="5a">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Human Impacts Report</h2>
     <img src="images/EcoResponders_HomeSurvivalGraph_01.png" alt="Student analyzing home survival data" class="lesson-image">
     <p class="narrative-text">You open the FEMA report for Forest Glen.</p>
@@ -1276,6 +1320,9 @@ body {
 <!-- ============ SECTION 5B: ECOSYSTEM RECOVERY ============ -->
 <div class="section" id="section-5b" data-section="5b">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Ecosystem Recovery Report</h2>
     <img src="images/EcoResponders_EcosystemRecovery_01.png" alt="Ranger showing regrowth and erosion impacts" class="lesson-image">
     <p class="narrative-text">You and Marisol walk to the nearby canyon slopes.</p>
@@ -1303,6 +1350,9 @@ body {
 <!-- ============ SECTION 5C: BOTH PERSPECTIVES ============ -->
 <div class="section" id="section-5c" data-section="5c">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Both Perspectives</h2>
     <img src="images/EcoResponders_IntegratedData_01.png" alt="Student analyzing combined human and ecosystem data" class="lesson-image">
     <p class="narrative-text">You split your tablet screen. One side shows how the fire affected homes. The other shows how the fire affected the land.</p>
@@ -1330,6 +1380,9 @@ body {
 <!-- ============ SECTION 6: TEAM BRIEFING ============ -->
 <div class="section" id="section-6" data-section="6">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Team Briefing</h2>
     <img src="images/EcoResponders_TeamBriefing_01.png" alt="Student reviewing team briefing" class="lesson-image">
     <p class="narrative-text">A green icon flashes on your tablet: "TEAM BRIEFING IN PROGRESS."</p>
@@ -1397,6 +1450,9 @@ body {
 <!-- ============ SECTION 7: SEEING THE SYSTEM (BRIDGE TO FEEDBACK LOOPS) ============ -->
 <div class="section" id="section-7" data-section="7">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Seeing the System</h2>
     <img src="images/EcoResponders_FireSmartComparison_01.png" alt="Split-screen showing damaged vs fire-smart neighborhood" class="lesson-image">
     <p class="narrative-text">After the briefing, two images appear on your tablet: one neighborhood destroyed, another still standing.</p>
@@ -1424,6 +1480,9 @@ body {
 <!-- ============ SECTION 8: FEEDBACK LOOPS (INTRO) ============ -->
 <div class="section" id="section-8" data-section="8">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Feedback Loops</h2>
     <p class="narrative-text">Your team gathers back at the command van.</p>
     <p class="narrative-text">Jordan leans over your tablet, loading the next model.</p>
@@ -1453,6 +1512,9 @@ body {
 <!-- ============ SECTION 9: FEEDBACK LOOP MODEL (INTERACTIVE) ============ -->
 <div class="section" id="section-9" data-section="9">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Feedback Loop Model</h2>
     <p class="narrative-text">Back in the command van, you open the modeling app.</p>
     <p class="narrative-text">Arrows link climate → vegetation → wildlife → human choices.</p>
@@ -1551,6 +1613,11 @@ body {
 <!-- ============ SECTION 10: PLANNING FORWARD FOR MAPLE VALLEY ============ -->
 <div class="section" id="section-10" data-section="10">
   <div class="card card--narrative">
+    <div class="card card--narrative">
+  <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+    🔊 Listen
+  </button>
+  <h2 class="title-section">Planning Forward for Maple Valley</h2>
     <h2 class="title-section">Planning Forward for Maple Valley</h2>
     <img src="images/EcoResponders_TownHallMeeting_01.png" alt="Mayor presenting to town hall" class="lesson-image">
     <p class="narrative-text">Days later, your feedback loop model reaches Maple Valley's town hall.</p>
@@ -1602,6 +1669,9 @@ body {
 <!-- ============ SECTION 11: A MESSAGE FOR MAPLE VALLEY (PSA) ============ -->
 <div class="section" id="section-11" data-section="11">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">A Message for Maple Valley</h2>
     <img src="images/EcoResponders_ForestRecovery_01.png" alt="Student overlooking the valley" class="lesson-image">
     <p class="narrative-text">Word spreads fast. Maple Valley neighbors are asking questions — they heard about Forest Glen, and they want to know what they can do.</p>
@@ -1661,6 +1731,9 @@ body {
 <!-- ============ SECTION 12: MISSION DEBRIEF ============ -->
 <div class="section" id="section-12" data-section="12">
   <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
     <h2 class="title-section">Mission Debrief</h2>
     <img src="images/EcoResponders_FireSmartTown_01.png" alt="Student biking past Fire-Smart Zone sign" class="lesson-image">
     <p class="narrative-text">A week later, you bike past a brand new sign:</p>
@@ -2086,6 +2159,60 @@ function updateProgress() {
   const idx = sectionOrder.indexOf(state.currentSection);
   const pct = idx >= 0 ? ((idx + 1) / totalSections) * 100 : 0;
   document.getElementById('progressBar').style.width = pct + '%';
+}
+// ===== TEXT-TO-SPEECH =====
+let currentUtterance = null;
+let isSpeaking = false;
+
+function toggleSpeech(button, container) {
+  if (isSpeaking) {
+    speechSynthesis.cancel();
+    isSpeaking = false;
+    button.innerText = "🔊 Listen";
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const elements = container.querySelectorAll('.narrative-text, .dialogue, .title-section');
+  const fullText = [];
+
+  elements.forEach(el => {
+    fullText.push({
+      text: el.innerText,
+      type: el.classList.contains('dialogue') ? 'dialogue' : 'narrative'
+    });
+  });
+
+  speakChunks(fullText, button);
+}
+
+function speakChunks(chunks, button) {
+  if (!chunks.length) {
+    isSpeaking = false;
+    button.innerText = "🔊 Listen";
+    return;
+  }
+
+  isSpeaking = true;
+  button.innerText = "⏹ Stop";
+
+  const chunk = chunks.shift();
+  const utterance = new SpeechSynthesisUtterance(chunk.text);
+
+  // 🎯 Subtle voice variation
+  if (chunk.type === 'dialogue') {
+    utterance.pitch = 1.15;
+    utterance.rate = 1.05;
+  } else {
+    utterance.pitch = 1.0;
+    utterance.rate = 1.0;
+  }
+
+  utterance.onend = () => speakChunks(chunks, button);
+
+  currentUtterance = utterance;
+  speechSynthesis.speak(utterance);
 }
 
 // ===== DECISIONS =====
@@ -2714,4 +2841,57 @@ function init() {
 })();
 
 init();
+// ===== TEXT-TO-SPEECH =====
+let currentUtterance = null;
+let isSpeaking = false;
+
+function toggleSpeech(button, container) {
+  if (isSpeaking) {
+    speechSynthesis.cancel();
+    isSpeaking = false;
+    button.innerText = "🔊 Listen";
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const elements = container.querySelectorAll('.narrative-text, .dialogue, .title-section');
+  const fullText = [];
+
+  elements.forEach(el => {
+    fullText.push({
+      text: el.innerText,
+      type: el.classList.contains('dialogue') ? 'dialogue' : 'narrative'
+    });
+  });
+
+  speakChunks(fullText, button);
+}
+
+function speakChunks(chunks, button) {
+  if (!chunks.length) {
+    isSpeaking = false;
+    button.innerText = "🔊 Listen";
+    return;
+  }
+
+  isSpeaking = true;
+  button.innerText = "⏹ Stop";
+
+  const chunk = chunks.shift();
+  const utterance = new SpeechSynthesisUtterance(chunk.text);
+
+  if (chunk.type === 'dialogue') {
+    utterance.pitch = 1.15;
+    utterance.rate = 1.05;
+  } else {
+    utterance.pitch = 1.0;
+    utterance.rate = 1.0;
+  }
+
+  utterance.onend = () => speakChunks(chunks, button);
+
+  currentUtterance = utterance;
+  speechSynthesis.speak(utterance);
+}
 </script>
