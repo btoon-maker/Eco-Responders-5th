@@ -2187,34 +2187,6 @@ function toggleSpeech(button, container) {
   speakChunks(fullText, button);
 }
 
-function speakChunks(chunks, button) {
-  if (!chunks.length) {
-    isSpeaking = false;
-    button.innerText = "🔊 Listen";
-    return;
-  }
-
-  isSpeaking = true;
-  button.innerText = "⏹ Stop";
-
-  const chunk = chunks.shift();
-  const utterance = new SpeechSynthesisUtterance(chunk.text);
-
-  // 🎯 Subtle voice variation
-  if (chunk.type === 'dialogue') {
-    utterance.pitch = 1.15;
-    utterance.rate = 1.05;
-  } else {
-    utterance.pitch = 1.0;
-    utterance.rate = 1.0;
-  }
-
-  utterance.onend = () => speakChunks(chunks, button);
-
-  currentUtterance = utterance;
-  speechSynthesis.speak(utterance);
-}
-
 // ===== DECISIONS =====
 function makeDecision(dpId, choice) {
   state.decisions[dpId] = choice;
@@ -2839,10 +2811,40 @@ function init() {
 
   setTimeout(markVisited, 200);
 })();
+// ===== TEXT-TO-SPEECH (SAFE VERSION) =====
+let isSpeaking = false;
 
-// ===== TEXT-TO-SPEECH =====
 function toggleSpeech(button, container) {
-  console.log('TTS temporarily disabled for debugging.');
+  if (!window.speechSynthesis) {
+    console.log('Speech not supported');
+    return;
+  }
+
+  if (isSpeaking) {
+    speechSynthesis.cancel();
+    isSpeaking = false;
+    button.innerText = "🔊 Listen";
+    return;
+  }
+
+  const text = container.innerText;
+
+  const utterance = new SpeechSynthesisUtterance(text);
+
+  // subtle tuning
+  utterance.rate = 1;
+  utterance.pitch = 1;
+
+  utterance.onend = () => {
+    isSpeaking = false;
+    button.innerText = "🔊 Listen";
+  };
+
+  isSpeaking = true;
+  button.innerText = "⏹ Stop";
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance);
 }
 init();
 </script>
