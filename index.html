@@ -2840,7 +2840,6 @@ function init() {
   setTimeout(markVisited, 200);
 })();
 
-init();
 // ===== TEXT-TO-SPEECH =====
 let currentUtterance = null;
 let isSpeaking = false;
@@ -2894,4 +2893,6 @@ function speakChunks(chunks, button) {
   currentUtterance = utterance;
   speechSynthesis.speak(utterance);
 }
+  
+init();
 </script>
