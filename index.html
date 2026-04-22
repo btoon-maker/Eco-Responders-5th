@@ -1269,346 +1269,117 @@ body {
   </div>
   <div class="card card--decision">
     <p class="decision-question">Your team has multiple pieces of evidence. Which report will you prioritize to guide your next steps?</p>
-        <p class="narrative-text">Each report offers a different perspective; you won’t see all of them this time.</p
-                                                                                                                    <div class="decision-buttons">
-  <button class="decision-btn" data-report="human" onclick="makeDecision('dp2','human'); chooseReport('human')">
-    <span class="btn-icon">🏠</span>
-    <div>
-      <div class="btn-text-title">Human Impacts</div>
-      <div class="btn-text-desc">Focus on how the fire affected homes, safety, and community.</div>
-    </div>
-    <span class="btn-arrow">→</span>
-  </button>
+        <p class="narrative-text">Each report offers a different perspective; you won’t see all of them this time.</p>
 
-  <button class="decision-btn" data-report="eco" onclick="makeDecision('dp2','ecosystem'); chooseReport('eco')">
-    <span class="btn-icon">🌿</span>
-    <div>
-      <div class="btn-text-title">Ecosystem Recovery</div>
-      <div class="btn-text-desc">Focus on how plants, animals, and soil are responding.</div>
+    <div class="decision-grid">
+      <button class="btn btn--decision" onclick="makeDecision('dp2','human'); goTo('section-5a')">
+        <strong>🏠 Human Impacts</strong><br>
+        <span style="color:var(--gray-600);font-size:0.9rem;">Focus on how the fire affected homes, safety, and community.</span>
+      </button>
+      <button class="btn btn--decision" onclick="makeDecision('dp2','ecosystem'); goTo('section-5b')">
+        <strong>🌿 Ecosystem Recovery</strong><br>
+        <span style="color:var(--gray-600);font-size:0.9rem;">Focus on how plants, animals, and soil are responding.</span>
+      </button>
+      <button class="btn btn--decision" onclick="makeDecision('dp2','both'); goTo('section-5c')">
+        <strong>🔗 Both Perspectives</strong><br>
+        <span style="color:var(--gray-600);font-size:0.9rem;">Investigate how human and ecosystem impacts connect.</span>
+      </button>
     </div>
-    <span class="btn-arrow">→</span>
-  </button>
-
-  <button class="decision-btn" data-report="combined" onclick="makeDecision('dp2','both'); chooseReport('combined')">
-    <span class="btn-icon">🔗</span>
-    <div>
-      <div class="btn-text-title">Both Perspectives</div>
-      <div class="btn-text-desc">Investigate how human and ecosystem impacts connect.</div>
-    </div>
-    <span class="btn-arrow">→</span>
-  </button>
-</div>
-
-  
   </div>
 
   <div class="btn-row">
     <button class="btn btn--back" onclick="goBack()">← Back</button>
   </div>
 </div>
+
 <!-- ============ SECTION 5A: HUMAN IMPACTS ============ -->
-<div id="section-5a" class="section" data-section="5a">
-  <button class="back-link" onclick="goTo('section-4')">← Back to report choices</button>
+<div class="section" id="section-5a" data-section="5a">
+  <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
+    <h2 class="title-section">Human Impacts Report</h2>
+    <img src="images/EcoResponders_HomeSurvivalGraph_01.png" alt="Student analyzing home survival data" class="lesson-image">
+    <p class="narrative-text">You open the FEMA report for Forest Glen.</p>
+    <p class="narrative-text">The report shows that 22 of 30 homes with metal roofs survived, but only 4 of 30 homes with wood-shingle roofs survived.</p>
+    <p class="dialogue">"Notice the pattern," Jordan says.</p>
+    <p class="narrative-text">You create a quick bar graph to compare the results.</p>
+    <p class="subtle-prompt"><strong>What might this pattern mean for people’s safety, and how communities prepare for future fires?</strong></p>
+  </div>
 
-  <div class="card theme-human">
-    <div class="report-header">
-      <span class="report-badge human">Field Report</span>
-    </div>
-    <h2 class="report-title">Human Impact Report</h2>
-    <p class="report-subtitle">Evidence from residential areas — explore each item to understand how human decisions affected fire outcomes.</p>
+  <div class="card card--journal">
+    <div class="journal-label">📓 Field Journal</div>
+    <p class="journal-prompt">What human choice helped homes survive the fire most? Use one data pattern to explain your answer.</p>
+    <textarea class="journal-textarea" data-key="5a_impacts" oninput="autoSave('5a_impacts',this.value)" placeholder="The human choice that seems to have helped most was..."></textarea>
+    <div class="save-indicator" data-save="5a_impacts"></div>
+  </div>
 
-    <div class="progress-line" style="color: var(--accent-human);">
-      <span class="progress-dots" id="dots-human">
-        <span class="progress-dot" data-idx="0"></span>
-        <span class="progress-dot" data-idx="1"></span>
-        <span class="progress-dot" data-idx="2"></span>
-      </span>
-      <span class="progress-count" id="count-human">0 / 3 examined</span>
-    </div>
-
-    <div class="accordion" id="accordion-human">
-      <div class="accordion-item" data-index="0">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-number">1</span>
-          Defensible Space
-          <span class="accordion-chevron">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
-            <p class="evidence-text">
-              Homes with 30 ft of cleared vegetation had a 70% survival rate.
-              Properties without defensible space were nearly all destroyed.
-            </p>
-            <p class="scientist-note">
-              "The 30-foot zone is the single biggest predictor of structure survival." — Cal Fire analyst
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item" data-index="1">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-number">2</span>
-          Roof Materials
-          <span class="accordion-chevron">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
-            <p class="evidence-text">
-              Metal-roofed structures survived at twice the rate of those with
-              wood shingles. Embers landing on wood ignited within minutes.
-            </p>
-            <p class="scientist-note">
-              Ember transport can carry fire over a mile ahead of the flame front.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item" data-index="2">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-number">3</span>
-          Evacuation Preparedness
-          <span class="accordion-chevron">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
-            <p class="evidence-text">
-              Communities with practiced evacuation plans cleared in under
-              45 minutes. Unprepared areas took over 2 hours, increasing risk.
-            </p>
-            <p class="scientist-note">
-              Preparation time is recovery time — the faster the exit, the faster the return.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="reflection-box">
-      <div class="reflection-label">Reflection</div>
-      <p class="reflection-prompt">
-        What does this report suggest about how human choices affected outcomes during the fire—and how might this influence decisions moving forward?
-      </p>
-      <textarea
-        class="reflection-textarea journal-textarea"
-        data-key="5a_impacts"
-        oninput="autoSave('5a_impacts',this.value)"
-        placeholder="Write your thinking here…"
-        id="reflection-human"
-      ></textarea>
-      <div class="save-indicator" data-save="5a_impacts"></div>
-    </div>
-
-    <div class="btn-row btn-row--between">
-      <button class="btn btn--back" onclick="goTo('section-4')">← Back</button>
-      <button class="btn btn--primary" onclick="goTo('section-6')">Continue →</button>
-    </div>
+  <div class="btn-row btn-row--between">
+    <button class="btn btn--back" onclick="goTo('section-4')">← Back</button>
+    <button class="btn btn--primary" onclick="goTo('section-6')">Continue →</button>
   </div>
 </div>
 
 <!-- ============ SECTION 5B: ECOSYSTEM RECOVERY ============ -->
-<div id="section-5b" class="section" data-section="5b">
-  <button class="back-link" onclick="goTo('section-4')">← Back to report choices</button>
+<div class="section" id="section-5b" data-section="5b">
+  <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
+    <h2 class="title-section">Ecosystem Recovery Report</h2>
+    <img src="images/EcoResponders_EcosystemRecovery_01.png" alt="Ranger showing regrowth and erosion impacts" class="lesson-image">
+    <p class="narrative-text">You and Marisol walk to the nearby canyon slopes.</p>
+    <p class="dialogue">"The manzanita's already back," Marisol says. "Roots that stayed alive underground start growing again."</p>
+    <p class="narrative-text">You notice bare slopes nearby turning to mud after rain.</p>
+    <p class="dialogue">"No roots, no stability," she explains. "That runoff carries nutrients away."</p>
+    <p class="narrative-text">A sensor alert pops up: nitrate levels in the creek have doubled since the fire, a sign that nutrients are washing away.</p>
+    <p class="narrative-text">Back at the mobile lab, Jordan uploads your photos into the shared investigation portal.</p>
+  <p class="subtle-prompt"><strong>How might these changes affect plants and animals over time in this ecosystem?</strong></p>
+  </div>
 
-  <div class="card theme-eco">
-    <div class="report-header">
-      <span class="report-badge eco">Field Report</span>
-    </div>
-    <h2 class="report-title">Ecosystem Recovery Report</h2>
-    <p class="report-subtitle">Post-fire ecological data — explore each item to understand how the natural system responded to the fire.</p>
+  <div class="card card--journal">
+    <div class="journal-label">📓 Field Journal</div>
+    <p class="journal-prompt">What is one sign that plant or animal populations are recovering, and one sign they are still struggling? Use evidence from the report.</p>
+    <textarea class="journal-textarea" data-key="5b_ecosystem" oninput="autoSave('5b_ecosystem',this.value)" placeholder="One sign of recovery is... One sign the ecosystem still needs help is..."></textarea>
+    <div class="save-indicator" data-save="5b_ecosystem"></div>
+  </div>
 
-    <div class="progress-line" style="color: var(--accent-eco);">
-      <span class="progress-dots" id="dots-eco">
-        <span class="progress-dot" data-idx="0"></span>
-        <span class="progress-dot" data-idx="1"></span>
-        <span class="progress-dot" data-idx="2"></span>
-      </span>
-      <span class="progress-count" id="count-eco">0 / 3 examined</span>
-    </div>
-
-    <div class="accordion" id="accordion-eco">
-      <div class="accordion-item" data-index="0">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-number">1</span>
-          Plant Regrowth
-          <span class="accordion-chevron">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
-            <p class="evidence-text">
-              Manzanita resprouted from root crowns within 8 weeks. Lupine
-              seeds, dormant for decades, germinated in the ash-enriched soil.
-            </p>
-            <p class="scientist-note">
-              Fire-adapted species treat wildfire as a reset signal, not a catastrophe.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item" data-index="1">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-number">2</span>
-          Erosion Patterns
-          <span class="accordion-chevron">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
-            <p class="evidence-text">
-              Bare slopes lost up to 12 tons of soil per acre after the first
-              major rainfall. Slopes with surviving root systems lost far less.
-            </p>
-            <p class="scientist-note">
-              Without ground cover, rain becomes a second disaster.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item" data-index="2">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-number">3</span>
-          Water Quality
-          <span class="accordion-chevron">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
-            <p class="evidence-text">
-              Nitrate runoff in streams spiked 4× above baseline in the
-              first month, then gradually declined as vegetation returned.
-            </p>
-            <p class="scientist-note">
-              Downstream ecosystems absorb the chemical footprint of upstream fire.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="reflection-box">
-      <div class="reflection-label">Reflection</div>
-      <p class="reflection-prompt">
-        What does this report suggest about how the fire affected the natural system—and what conditions support recovery?
-      </p>
-      <textarea
-        class="reflection-textarea journal-textarea"
-        data-key="5b_ecosystem"
-        oninput="autoSave('5b_ecosystem',this.value)"
-        placeholder="Write your thinking here…"
-        id="reflection-eco"
-      ></textarea>
-      <div class="save-indicator" data-save="5b_ecosystem"></div>
-    </div>
-
-    <div class="btn-row btn-row--between">
-      <button class="btn btn--back" onclick="goTo('section-4')">← Back</button>
-      <button class="btn btn--primary" onclick="goTo('section-6')">Continue →</button>
-    </div>
+  <div class="btn-row btn-row--between">
+    <button class="btn btn--back" onclick="goTo('section-4')">← Back</button>
+    <button class="btn btn--primary" onclick="goTo('section-6')">Continue →</button>
   </div>
 </div>
 
 <!-- ============ SECTION 5C: BOTH PERSPECTIVES ============ -->
-<div id="section-5c" class="section" data-section="5c">
-  <button class="back-link" onclick="goTo('section-4')">← Back to report choices</button>
+<div class="section" id="section-5c" data-section="5c">
+  <div class="card card--narrative">
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">
+  🔊 Listen
+</button>
+    <h2 class="title-section">Both Perspectives</h2>
+    <img src="images/EcoResponders_IntegratedData_01.png" alt="Student analyzing combined human and ecosystem data" class="lesson-image">
+    <p class="narrative-text">You split your tablet screen. One side shows how the fire affected homes. The other shows how the fire affected the land.</p>
+    <p class="narrative-text">You start matching connections between what people did and how the land responded.</p>
+    <ul style="margin:10px 0 14px 24px;color:var(--gray-700);">
+      <li>Areas with more homes still standing had less soil washing away.</li>
+      <li>In places where burned debris was cleared too quickly, more runoff flowed downhill.</li>
+    </ul>
+    <p class="dialogue">"Everything's connected," Jordan says. "Our recovery plans have to be connected, too."</p>
+    <p class="subtle-prompt"><strong>How might one human action change plant or animal populations, and how could those changes affect people again?</strong></p>
+  </div>
 
-  <div class="card theme-combined">
-    <div class="report-header">
-      <span class="report-badge combined">Analysis</span>
-    </div>
-    <h2 class="report-title">Combined Perspective</h2>
-    <p class="report-subtitle">Where human and ecological recovery connect — explore each item to understand how decisions impact the whole system.</p>
+  <div class="card card--journal">
+    <div class="journal-label">📓 Field Journal</div>
+    <p class="journal-prompt">How did one human action affect the ecosystem, and how did that change impact people or the community?</p>
+    <textarea class="journal-textarea" data-key="5c_integrated" oninput="autoSave('5c_integrated',this.value)" placeholder="One human action affected ecosystem recovery because..."></textarea>
+    <div class="save-indicator" data-save="5c_integrated"></div>
+  </div>
 
-    <div class="progress-line" style="color: var(--accent-combined);">
-      <span class="progress-dots" id="dots-combined">
-        <span class="progress-dot" data-idx="0"></span>
-        <span class="progress-dot" data-idx="1"></span>
-        <span class="progress-dot" data-idx="2"></span>
-      </span>
-      <span class="progress-count" id="count-combined">0 / 3 examined</span>
-    </div>
-
-    <div class="accordion" id="accordion-combined">
-      <div class="accordion-item" data-index="0">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-number">1</span>
-          Fire-Smart Communities
-          <span class="accordion-chevron">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
-            <p class="evidence-text">
-              Neighborhoods that combined defensible space with native
-              fire-adapted landscaping saw faster structural and ecological recovery.
-            </p>
-            <p class="scientist-note">
-              Working with fire ecology — not against it — protects both homes and habitat.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item" data-index="1">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-number">2</span>
-          Over-Clearing Effects
-          <span class="accordion-chevron">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
-            <p class="evidence-text">
-              Areas cleared beyond 100 ft experienced severe erosion and
-              slope instability, damaging the very structures they meant to protect.
-            </p>
-            <p class="scientist-note">
-              Too much clearing trades one risk for another — fire safety for landslide risk.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item" data-index="2">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <span class="accordion-number">3</span>
-          Community Recovery Planning
-          <span class="accordion-chevron">▼</span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
-            <p class="evidence-text">
-              Communities that included ecologists in their rebuilding plans
-              restored services and stability months ahead of those that didn't.
-            </p>
-            <p class="scientist-note">
-              Recovery is a system problem — it takes both human and ecological thinking.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="reflection-box">
-      <div class="reflection-label">Reflection</div>
-      <p class="reflection-prompt">
-        What does this analysis suggest about balancing human needs with ecological health—and how should this shape future planning?
-      </p>
-      <textarea
-        class="reflection-textarea journal-textarea"
-        data-key="5c_integrated"
-        oninput="autoSave('5c_integrated',this.value)"
-        placeholder="Write your thinking here…"
-        id="reflection-combined"
-      ></textarea>
-      <div class="save-indicator" data-save="5c_integrated"></div>
-    </div>
-
-    <div class="btn-row btn-row--between">
-      <button class="btn btn--back" onclick="goTo('section-4')">← Back</button>
-      <button class="btn btn--primary" onclick="goTo('section-6')">Continue →</button>
-    </div>
+  <div class="btn-row btn-row--between">
+    <button class="btn btn--back" onclick="goTo('section-4')">← Back</button>
+    <button class="btn btn--primary" onclick="goTo('section-6')">Continue →</button>
   </div>
 </div>
-
 <!-- ============ SECTION 6: TEAM BRIEFING ============ -->
 <div class="section" id="section-6" data-section="6">
   <div class="card card--narrative">
@@ -3065,55 +2836,6 @@ if (preferredVoice) {
   speechSynthesis.speak(utterance);
 }
 init();
-  function chooseReport(type) {
-  const sectionMap = {
-    human: 'section-5a',
-    eco: 'section-5b',
-    combined: 'section-5c'
-  };
-  goTo(sectionMap[type]);
-}
-
-function toggleAccordion(trigger) {
-  const item = trigger.closest('.accordion-item');
-  const accordion = trigger.closest('.accordion');
-  const report = accordion.id.replace('accordion-', '');
-  const index = parseInt(item.dataset.index);
-  const body = item.querySelector('.accordion-body');
-  const isOpen = item.classList.contains('open');
-
-  accordion.querySelectorAll('.accordion-item').forEach(ai => {
-    ai.classList.remove('open');
-    ai.querySelector('.accordion-body').style.maxHeight = '0';
-  });
-
-  if (!isOpen) {
-    item.classList.add('open');
-    body.style.maxHeight = body.scrollHeight + 'px';
-
-    if (!window.reportProgress) {
-      window.reportProgress = {
-        human: new Set(),
-        eco: new Set(),
-        combined: new Set()
-      };
-    }
-
-    window.reportProgress[report].add(index);
-    updateProgress(report);
-  }
-}
-
-function updateProgress(report) {
-  const opened = window.reportProgress[report];
-  const dots = document.querySelectorAll(`#dots-${report} .progress-dot`);
-  const count = document.getElementById(`count-${report}`);
-
-  dots.forEach(dot => {
-    const idx = parseInt(dot.dataset.idx);
-    if (opened.has(idx)) dot.classList.add('filled');
-  });
-
-  count.textContent = `${opened.size} / 3 examined`;
-}
 </script>
+
+
