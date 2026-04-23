@@ -1856,7 +1856,7 @@ n-bottom: 14px;
 
         <strong>🔍 Analyze NOAA weather data first</strong><br>
 
-        <span style="color:var(--gray-600);font-size:0.9rem;">Look for patterns in wind, humidity, and conditions that helped the fire spread.</span>
+        <span style="color:var(--gray-600);font-size:0.9rem;">Look for patterns in weather conditions to understand what was happening before the fire.</span>
 
       </button>
 
@@ -1896,9 +1896,11 @@ n-bottom: 14px;
 
     <p class="narrative-text">You arrive at the mobile lab, and Jordan pulls up the latest weather and fire-condition data on your tablet.</p>
 
-    <p class="dialogue">"We don't have time to check everything first," he says. "Choose the clue you think will tell us the most about why fire risk is rising."</p>
+    <p class="dialogue">"We don't have time to check everything first," he says. "Choose the clue you think will help you understand what was happening before the fire."</p>
 
-    <p class="subtle-prompt">Look for patterns in the data that could explain why the fire spread so quickly. <strong>How might these weather conditions affect plants, animals, or people in this area? And how might these conditions change what plants or animals can live in this area?</strong></p>
+    <p class="subtle-prompt">Look for patterns in the data to understand what conditions were like before the fire. <strong>What patterns do you notice in this data?
+What might these patterns suggest about the conditions before the fire?
+How could those conditions affect plants, animals, or people in this area?</strong></p>
 
   </div>
 
@@ -2045,17 +2047,17 @@ n-bottom: 14px;
 
     <p class="narrative-text">Jordan closes the graphs.</p>
 
-    <p class="dialogue">"If the weather looked like this, what do you think the team in Forest Glen might be seeing on the ground?"</p>
+    <p class="dialogue">"If conditions looked like this, what do you think the team in Forest Glen might be seeing on the ground?"</p>
 
-    <p class="narrative-text">You pull up the satellite overlay. The hills are dry and tan instead of green.</p>
+    <p class="narrative-text">You pull up the satellite overlay. The hills appear dry and tan instead of green.</p>
 
-    <p class="narrative-text">The humidity sensor reads 13%.</p>
+    <p class="narrative-text">The humidity sensor shows very low moisture in the air.</p>
 
     <p class="dialogue">"Use the data and satellite image to describe what the forest probably looks like," Jordan says.</p>
 
-    <p class="dialogue">"What might happen to soil, plants, or wildlife after months of these conditions?"</p>
+    <p class="dialogue">"What might these conditions mean for soil, plants, or wildlife in this area?"</p>
 
-    <p class="narrative-text">Your observations complete the picture. Now it's time to decide what matters most.</p>
+    <p class="narrative-text">Your observations help build the picture. Now it's time to decide what matters most.</p>
 
   </div>
 
@@ -2063,7 +2065,7 @@ n-bottom: 14px;
 
     <div class="journal-label">📓 Field Journal</div>
 
-    <p class="journal-prompt">Based on the NOAA data and satellite image, what do you think Forest Glen looked like before the fire, and what evidence supports your idea? Use one clue to support your idea.</p>
+    <p class="journal-prompt">Based on the NOAA data and satellite image, what do you think conditions were like in Forest Glen before the fire? Use one piece of evidence from your data to support your idea.</p>
 
     <textarea class="journal-textarea" data-key="3a2_inference" oninput="autoSave('3a2_inference',this.value)" placeholder="Based on the NOAA evidence, I think Forest Glen looked like..."></textarea>
 
@@ -2101,21 +2103,22 @@ n-bottom: 14px;
 
     <ul style="margin:10px 0 14px 24px;color:var(--gray-700);">
 
-      <li>Soil dry and crumbly; the organic layer burned away.</li>
+      <li>The soil is dry and crumbly; the organic layer has burned away.</li>
 
-      <li>Green sprouts poking through black earth.</li>
+      <li>Small green plants are starting to grow through the black earth.</li>
 
-      <li>Metal-roofed homes still standing; wood roofs gone.</li>
+      <li>Some buildings are damaged, while others are still standing.</li>
 
     </ul>
 
-    <p class="dialogue">"Soil's dry," she says. "Thin ash layer, but look, some pine cones cracked open."</p>
+    <p class="dialogue">"The soil is dry," she says. "There's a thin layer of ash… and some pine cones have cracked open."</p>
 
     <p class="narrative-text">You examine one: resin melted, seeds spilled onto the ground.</p>
 
     <p class="dialogue">"Serotinous cones," she explains. "Some trees need heat to start over."</p>
 
-    <p class="narrative-text">Nearby, houses with metal roofs stand untouched; those with wood shingles are gone.</p>
+    <p class="narrative-text">Nearby, some houses are damaged while others are still standing.</p>
+    <p class="dialogue">"There's a lot to notice here," she says. "You'll need to decide what to look at more closely."</p>
 
   </div>
 
@@ -2374,7 +2377,7 @@ n-bottom: 14px;
 
             <p class="notice"><strong>Notice</strong>You see small green plants growing. There are no big plants yet.</p>
 
-            <p class="think"><strong>Think</strong>Why might small plants grow back before big trees?</p>
+            <p class="think"><strong>Think</strong>Why might small plants grow back before big trees, and what might be missing??</p>
 
             <button class="close-popup" onclick="fgClosePopup('fg-popup-forest-plants')">Close ✕</button>
 
@@ -2596,7 +2599,7 @@ n-bottom: 14px;
 
             <p class="notice"><strong>Notice</strong>Some metal looks bent or warped.</p>
 
-            <p class="think"><strong>Think</strong>What does this tell you about how hot the fire was?</p>
+            <p class="think"><strong>Think</strong>What might this tell you about how hot the fire was in some places?</p>
 
             <button class="close-popup" onclick="fgClosePopup('fg-popup-dt-heat')">Close ✕</button>
 
@@ -2816,7 +2819,7 @@ n-bottom: 14px;
 
             <p class="notice"><strong>Notice</strong>Some objects are burned and some are not.</p>
 
-            <p class="think"><strong>Think</strong>What does this tell you about how the fire spread?</p>
+            <p class="think"><strong>Think</strong>What patterns do you notice about what burned and what didn’t?</p>
 
             <button class="close-popup" onclick="fgClosePopup('fg-popup-home-belongings')">Close ✕</button>
 
@@ -2828,7 +2831,7 @@ n-bottom: 14px;
 
           <div class="journal-header">📓 Science Journal</div>
 
-          <p>What did you notice in this area? What changed because of the fire? Use at least one piece of evidence from what you observed to explain your thinking.</p>
+          <p>What did you notice in this area? What changed because of the fire? Use at least one piece of evidence from what you observed to explain <strong></strong>why you think that change happened.</strong></p>
 
           <textarea
 
@@ -2879,19 +2882,19 @@ n-bottom: 14px;
 
     <p class="dialogue">"We still don't have NOAA's climate data," Marisol says.</p>
 
-    <p class="dialogue">"But you've seen the ground. What kind of weather would cause this?"</p>
+    <p class="dialogue">"But you've seen the ground. What do these clues make you wonder about the conditions before the fire?"</p>
 
     <p class="narrative-text">You notice brittle leaves that crumble in your hand.</p>
 
     <p class="narrative-text">The streambed nearby is cracked.</p>
 
-    <p class="dialogue">"Use your field clues. Was this a wet year or a dry one? Cool or hot?" she asks.</p>
+    <p class="dialogue">"Use your field clues," she says. "What might the conditions have been like before the fire?" she asks.</p>
 
     <p class="dialogue">"Explain your reasoning."</p>
 
     <p class="narrative-text">Your observations complete the picture. Now it's time to decide what matters most.</p>
 
-    <p class="subtle-prompt"><strong>As you examine the field clues, think about what they reveal about the conditions before the fire—and how those conditions might affect plants and animals.</strong></p>
+    <p class="subtle-prompt"><strong>As you examine the field clues, think about what they reveal about what changed, and what might have led to those changes.</strong></p>
 
   </div>
 
@@ -2899,7 +2902,7 @@ n-bottom: 14px;
 
     <div class="journal-label">📓 Field Journal</div>
 
-    <p class="journal-prompt">What weather conditions likely led to this fire? Use at least two field clues to support your answer. Then explain how those conditions might affect plants or animals in this area.</p>
+    <p class="journal-prompt">What do your field clues suggest about what conditions may have contributed to this fire? Use at least two field clues to support your answer. Then explain how those conditions might affect plants or animals in this area.</p>
 
     <textarea class="journal-textarea" data-key="3b2_weather" oninput="autoSave('3b2_weather',this.value)" placeholder="Based on my field clues, I think the weather was... This would affect plants/animals because..."></textarea>
 
@@ -2931,15 +2934,15 @@ n-bottom: 14px;
 
     <p class="narrative-text">You regroup with Jordan and Ranger Marisol.</p>
 
-    <p class="narrative-text">The valley stays quiet for a while, and there is not much more to do yet.</p>
+    <p class="narrative-text">The valley stays quiet for a while as your team reviews what you’ve discovered.</p>
 
     <p class="dialogue">"Head home, get some rest, and be ready to return," Marisol says.</p>
 
-    <p class="narrative-text">Two weeks later, you meet Jordan and Ranger Marisol again.</p>
+    <p class="narrative-text">Later, you meet Jordan and Ranger Marisol again.</p>
 
     <p class="narrative-text">Three new reports appear on your tablet.</p>
 
-    <p class="dialogue">"What we do next depends on the evidence we study first," Jordan says.</p>
+    <p class="dialogue">"What we do next depends on how we use the evidence we’ve gathered" Jordan says.</p>
 
     <img src="images/EcoResponders_Reports_02.png" alt="Student viewing reports on tablet" class="lesson-image">
 
@@ -2951,7 +2954,7 @@ n-bottom: 14px;
 
     <h2 class="dp2-heading">Choose Your Investigation Report</h2>
 
-    <p class="dp2-description">Three field reports have come in from the burn zone. Each examines the fire's aftermath through a different lens. Pick the one that matches your investigation focus.</p>
+    <p class="dp2-description">Three field reports have come in from the burn zone. Each examines the fire's aftermath through a different lens. Pick the one that best matches the evidence you want to explore further.</p>
 
     <div class="dp2-options">
 
@@ -3029,13 +3032,11 @@ n-bottom: 14px;
 
     <p class="narrative-text">You open the FEMA report for Forest Glen.</p>
 
-    <p class="narrative-text">The report shows that 22 of 30 homes with metal roofs survived, but only 4 of 30 homes with wood-shingle roofs survived.</p>
-
-    <p class="dialogue">"Notice the pattern," Jordan says.</p>
+    <p class="narrative-text">The report compares how different homes held up after the fire..</p>
 
     <p class="narrative-text">You create a quick bar graph to compare the results.</p>
 
-    <p class="subtle-prompt"><strong>What might this pattern mean for people's safety, and how communities prepare for future fires?</strong></p>
+    <p class="subtle-prompt"><strong>What patterns do you notice in the data? What might those patterns suggest?</strong></p>
 
   </div>
 
@@ -3087,7 +3088,7 @@ n-bottom: 14px;
 
           <div class="ri-body-inner">
 
-            <p class="ri-evidence">Homes with 30 ft of cleared vegetation had a 70% survival rate. Properties without defensible space were nearly all destroyed.</p>
+            <p class="ri-evidence">Homes with cleared space around them were more likely to survive than those without it.</p>
 
             <p class="ri-scientist">"The 30-foot zone is the single biggest predictor of structure survival." — Cal Fire analyst</p>
 
@@ -3113,7 +3114,7 @@ n-bottom: 14px;
 
           <div class="ri-body-inner">
 
-            <p class="ri-evidence">Metal-roofed structures survived at twice the rate of those with wood shingles. Embers landing on wood ignited within minutes.</p>
+            <p class="ri-evidence">Homes with metal roofs survived more often than those with wood shingles. Embers landing on wood ignited within minutes.</p>
 
             <p class="ri-scientist">Ember transport can carry fire over a mile ahead of the flame front.</p>
 
@@ -3139,7 +3140,7 @@ n-bottom: 14px;
 
           <div class="ri-body-inner">
 
-            <p class="ri-evidence">Communities with practiced evacuation plans cleared in under 45 minutes. Unprepared areas took over 2 hours, increasing risk.</p>
+            <p class="ri-evidence">Communities with practiced evacuation plans cleared out faster than those without them.</p>
 
             <p class="ri-scientist">Preparation time is recovery time — the faster the exit, the faster the return.</p>
 
@@ -3157,7 +3158,7 @@ n-bottom: 14px;
 
     <div class="journal-label">📓 Field Journal</div>
 
-    <p class="journal-prompt">What human choice helped homes survive the fire most? Use one data pattern to explain your answer.</p>
+    <p class="journal-prompt">What human choices seem to have helped homes survive the fire? Use one data pattern to explain your answer.</p>
 
     <textarea class="journal-textarea" data-key="5a_impacts" oninput="autoSave('5a_impacts',this.value)" placeholder="The human choice that seems to have helped most was..."></textarea>
 
@@ -3187,17 +3188,19 @@ n-bottom: 14px;
 
     <img src="images/EcoResponders_EcosystemRecovery_01.png" alt="Ranger showing regrowth and erosion impacts" class="lesson-image">
 
-    <p class="narrative-text">You and Marisol walk to the nearby canyon slopes.</p>
+    <p class="narrative-text">You and Marisol review what you observed in the nearby canyon slopes.</p>
 
-    <p class="dialogue">"The manzanita's already back," Marisol says. "Roots that stayed alive underground start growing again."</p>
+    <p class="dialogue">"The manzanita may come back quickly," Marisol says. "Roots that stay alive underground can start growing again."</p>
 
     <p class="narrative-text">You notice bare slopes nearby turning to mud after rain.</p>
 
-    <p class="dialogue">"No roots, no stability," she explains. "That runoff carries nutrients away."</p>
+    <p class="dialogue">"Without roots, the soil may not stay in place," she explains. "That runoff can carry nutrients away."</p>
 
-    <p class="narrative-text">A sensor alert pops up: nitrate levels in the creek have doubled since the fire, a sign that nutrients are washing away.</p>
+     <p class="narrative-text">Using your evidence, your team builds a model to predict how the ecosystem might change over time.</p>
+    
+    <p class="narrative-text">Your model suggests that nitrate levels in the creek could increase after the fire, as nutrients wash away.</p>
 
-    <p class="narrative-text">Back at the mobile lab, Jordan uploads your photos into the shared investigation portal.</p>
+    <p class="narrative-text">Back at the mobile lab, Jordan uploads your observations into the shared investigation portal.</p>
 
     <p class="subtle-prompt"><strong>How might these changes affect plants and animals over time in this ecosystem?</strong></p>
 
@@ -3215,7 +3218,7 @@ n-bottom: 14px;
 
     <p class="ri-title">Ecosystem Recovery Report</p>
 
-    <p class="ri-subtitle">Post-fire ecological data from the first 12 months — tap each item to examine.</p>
+    <p class="ri-subtitle">Model of how the ecosystem may change over the first 12 months — tap each item to explore.</p>
 
     <div class="ri-progress">
 
@@ -3253,7 +3256,7 @@ n-bottom: 14px;
 
             <p class="ri-evidence">Manzanita resprouted from root crowns within 8 weeks. Lupine seeds, dormant for decades, germinated in the ash-enriched soil.</p>
 
-            <p class="ri-scientist">Fire-adapted species treat wildfire as a reset signal, not a catastrophe.</p>
+            <p class="ri-scientist">Some fire-adapted species may respond to wildfire as a reset, allowing new growth to begin.</p>
 
           </div>
 
@@ -3279,7 +3282,7 @@ n-bottom: 14px;
 
             <p class="ri-evidence">Bare slopes lost up to 12 tons of soil per acre after the first major rainfall. Slopes with surviving root systems lost far less.</p>
 
-            <p class="ri-scientist">Without ground cover, rain becomes a second disaster.</p>
+            <p class="ri-scientist">Without ground cover, rain can carry soil away more easily.</p>
 
           </div>
 
@@ -3305,7 +3308,7 @@ n-bottom: 14px;
 
             <p class="ri-evidence">Nitrate runoff in streams spiked 4× above baseline in the first month, then gradually declined as vegetation returned.</p>
 
-            <p class="ri-scientist">Downstream ecosystems absorb the chemical footprint of upstream fire.</p>
+            <p class="ri-scientist">Changes upstream may affect water quality downstream.</p>
 
           </div>
 
@@ -3321,7 +3324,7 @@ n-bottom: 14px;
 
     <div class="journal-label">📓 Field Journal</div>
 
-    <p class="journal-prompt">What is one sign that plant or animal populations are recovering, and one sign they are still struggling? Use evidence from the report.</p>
+    <p class="journal-prompt">What is one sign that plants or animals may be recovering, and one sign they may still be struggling? Use evidence from the report.</p>
 
     <textarea class="journal-textarea" data-key="5b_ecosystem" oninput="autoSave('5b_ecosystem',this.value)" placeholder="One sign of recovery is... One sign the ecosystem still needs help is..."></textarea>
 
@@ -3357,15 +3360,14 @@ n-bottom: 14px;
 
     <ul style="margin:10px 0 14px 24px;color:var(--gray-700);">
 
-      <li>Areas with more homes still standing had less soil washing away.</li>
+      <li>Some areas with more homes still standing also showed less soil movement.</li>
 
-      <li>In places where burned debris was cleared too quickly, more runoff flowed downhill.</li>
+      <li>In some places where debris was cleared quickly, more runoff appeared after rain.</li>
 
     </ul>
 
-    <p class="dialogue">"Everything's connected," Jordan says. "Our recovery plans have to be connected, too."</p>
-
-    <p class="subtle-prompt"><strong>How might one human action change plant or animal populations, and how could those changes affect people again?</strong></p>
+    <p class="dialogue">"We’re starting to see how these pieces might be related," Jordan says. 
+    <p class="subtle-prompt"><strong>How might a human action connect to changes in plants or animals, and how could those changes affect people?</strong></p>
 
   </div>
 
@@ -3417,9 +3419,9 @@ n-bottom: 14px;
 
           <div class="ri-body-inner">
 
-            <p class="ri-evidence">Neighborhoods that combined defensible space with native fire-adapted landscaping saw faster structural and ecological recovery.</p>
+            <p class="ri-evidence">Neighborhoods that combined defensible space with native landscaping showed signs of both structural and ecological recovery.</p>
 
-            <p class="ri-scientist">Working with fire ecology — not against it — protects both homes and habitat.</p>
+            <p class="ri-scientist">In some cases, working with natural systems may support both homes and habitat.</p>
 
           </div>
 
@@ -3443,9 +3445,9 @@ n-bottom: 14px;
 
           <div class="ri-body-inner">
 
-            <p class="ri-evidence">Areas cleared beyond 100 ft experienced severe erosion and slope instability, damaging the very structures they meant to protect.</p>
+            <p class="ri-evidence">Areas cleared beyond 100 ft showed more erosion and slope instability in some areas, damaging the very structures they meant to protect.</p>
 
-            <p class="ri-scientist">Too much clearing trades one risk for another — fire safety for landslide risk.</p>
+            <p class="ri-scientist">In some situations, clearing too much may create new risks.</p>
 
           </div>
 
@@ -3469,9 +3471,9 @@ n-bottom: 14px;
 
           <div class="ri-body-inner">
 
-            <p class="ri-evidence">Communities that included ecologists in their rebuilding plans restored services and stability months ahead of those that didn't.</p>
+            <p class="ri-evidence">Communities that included ecologists in their rebuilding plans often restored services and stability sooner than those that didn’t</p>
 
-            <p class="ri-scientist">Recovery is a system problem — it takes both human and ecological thinking.</p>
+            <p class="ri-scientist">Recovery may involve both human and ecological decisions.</p>
 
           </div>
 
@@ -3487,7 +3489,7 @@ n-bottom: 14px;
 
     <div class="journal-label">📓 Field Journal</div>
 
-    <p class="journal-prompt">How did one human action affect the ecosystem, and how did that change impact people or the community?</p>
+    <p class="journal-prompt">How might one human action affect the ecosystem, and how might that change impact people or the community?</p>
 
     <textarea class="journal-textarea" data-key="5c_integrated" oninput="autoSave('5c_integrated',this.value)" placeholder="One human action affected ecosystem recovery because..."></textarea>
 
