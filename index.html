@@ -635,6 +635,891 @@ body {
 .noaa-legend-item.maple  .swatch { background: #c4860a; }
 .noaa-panel-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; align-items: start; }
 @media (max-width: 660px) { .noaa-panel-grid { grid-template-columns: 1fr; } }
+
+/* ── Forest Glen Field Investigation ── */
+/* ── Forest Glen: section show/hide ── */
+.fg-lesson-section { display: none; }
+.fg-lesson-section.active { display: block; }
+
+n-bottom: 14px;
+
+    }
+
+    /* ============================================================
+
+       NAVIGATION BUTTONS
+
+    ============================================================ */
+
+    .fg-nav-row {
+
+      display: flex;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
+
+      margin-top: 24px;
+
+      align-items: center;
+
+    }
+
+    .fg-btn {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 7px;
+
+      padding: 11px 22px;
+
+      border-radius: 30px;
+
+      font-family: 'Open Sans', Arial, sans-serif;
+
+      font-size: 15px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+      border: none;
+
+      transition: transform 0.15s, box-shadow 0.15s;
+
+      text-decoration: none;
+
+    }
+
+    .fg-btn:active { transform: scale(0.97); }
+
+    .fg-btn-primary {
+
+      background: var(--orange);
+
+      color: #fff;
+
+      box-shadow: 0 4px 14px rgba(245,166,35,0.4);
+
+    }
+
+    .fg-btn-primary:hover {
+
+      background: var(--orange-dark);
+
+      box-shadow: 0 6px 18px rgba(200,125,14,0.45);
+
+    }
+
+    .fg-btn-secondary {
+
+      background: var(--smoke);
+
+      color: var(--text);
+
+      border: 1.5px solid var(--border);
+
+    }
+
+    .fg-btn-secondary:hover { background: #ebe6de; }
+
+    .fg-btn-forest  { background: #2d6a4f; color: #fff; box-shadow: 0 4px 14px rgba(45,106,79,0.35); }
+
+    .fg-btn-forest:hover { background: #1b4332; }
+
+    .fg-btn-town    { background: #3a86d8; color: #fff; box-shadow: 0 4px 14px rgba(58,134,216,0.35); }
+
+    .fg-btn-town:hover   { background: #2563a8; }
+
+    .fg-btn-home    { background: #b5541d; color: #fff; box-shadow: 0 4px 14px rgba(181,84,29,0.35); }
+
+    .fg-btn-home:hover   { background: #8c3d12; }
+
+    /* Back to map button — compact */
+
+    .fg-btn-back {
+
+      background: transparent;
+
+      color: var(--muted);
+
+      border: 1.5px solid var(--border);
+
+      font-size: 13px;
+
+      padding: 7px 16px;
+
+    }
+
+    .fg-btn-back:hover { background: #f0ede8; color: var(--text); }
+
+    /* ============================================================
+
+       INFO BOX (intro sections)
+
+    ============================================================ */
+
+    .info-box {
+
+      background: var(--green-light);
+
+      border-left: 5px solid var(--green);
+
+      border-radius: 0 var(--radius) var(--radius) 0;
+
+      padding: 14px 18px;
+
+      margin: 18px 0;
+
+      font-size: 15px;
+
+      line-height: 1.7;
+
+      color: #1a4a30;
+
+    }
+
+    .info-box strong { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.4px; color: #2d6a4f; margin-bottom: 4px; }
+
+    /* ============================================================
+
+       VOCAB CARDS
+
+    ============================================================ */
+
+    .vocab-grid {
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+
+      gap: 12px;
+
+      margin: 18px 0;
+
+    }
+
+    .vocab-card {
+
+      background: #fff8ee;
+
+      border: 1.5px solid #f5d68a;
+
+      border-radius: var(--radius);
+
+      padding: 14px 16px;
+
+    }
+
+    .vocab-card .word {
+
+      font-size: 15px;
+
+      font-weight: 800;
+
+      color: var(--orange-dark);
+
+      margin-bottom: 4px;
+
+    }
+
+    .vocab-card .def {
+
+      font-size: 13px;
+
+      color: var(--muted);
+
+      line-height: 1.6;
+
+    }
+
+    /* ============================================================
+
+       TRANSITION PROMPT BANNER
+
+    ============================================================ */
+
+    .prompt-banner {
+
+      background: #fff8e7;
+
+      border-left: 5px solid var(--orange);
+
+      border-radius: 0 var(--radius) var(--radius) 0;
+
+      padding: 12px 18px;
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      color: #7a4500;
+
+      margin-bottom: 20px;
+
+    }
+
+    /* ============================================================
+
+       MAP WRAPPER — keeps hotspots glued to the image
+
+    ============================================================ */
+
+    .map-wrapper {
+
+      position: relative;
+
+      display: block;
+
+      width: 100%;
+
+      margin: 0 auto;
+
+      /* Fallback background if image fails to load */
+
+      background: #c8d8b0;
+
+      border-radius: var(--radius);
+
+      overflow: visible; /* allow popups to overflow outside image edge */
+
+    }
+
+    .map-wrapper img {
+
+      width: 100%;
+
+      height: auto;
+
+      display: block;
+
+      border-radius: var(--radius);
+
+      /* Fallback colour so image container is always visible */
+
+      background: #c8d8b0;
+
+      min-height: 200px;
+
+    }
+
+    /* Image placeholder shown while images are absent */
+
+    .map-wrapper .img-placeholder {
+
+      width: 100%;
+
+      min-height: 340px;
+
+      border-radius: var(--radius);
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 15px;
+
+      font-weight: 700;
+
+      color: rgba(0,0,0,0.45);
+
+      gap: 10px;
+
+    }
+
+    .map-wrapper .img-placeholder span { font-size: 48px; }
+
+    /* ============================================================
+
+       HOTSPOT BUTTONS (map nav + investigation clues)
+
+    ============================================================ */
+
+    .hotspot {
+
+      position: absolute;
+
+      width: 48px;
+
+      height: 48px;
+
+      border-radius: 50%;
+
+      border: 3px solid #fff;
+
+      cursor: pointer;
+
+      transform: translate(-50%, -50%);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 20px;
+
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      z-index: 10;
+
+      /* Minimum touch target */
+
+      min-width: 48px;
+
+      min-height: 48px;
+
+      padding: 0;
+
+      line-height: 1;
+
+    }
+
+    .hotspot:focus { outline: 3px solid #fff; outline-offset: 2px; }
+
+    .hotspot:hover,
+
+    .hotspot:focus-visible {
+
+      transform: translate(-50%, -50%) scale(1.18);
+
+    }
+
+    /* ---- Nav hotspots (on the overview map) ---- */
+
+    .hotspot.nav-hotspot {
+
+      background: rgba(245, 166, 35, 0.92);
+
+      box-shadow: 0 0 0 5px rgba(245,166,35,0.35), 0 4px 14px rgba(0,0,0,0.35);
+
+      animation: pulse-glow 2.2s infinite ease-in-out;
+
+    }
+
+    @keyframes pulse-glow {
+
+      0%,100% { box-shadow: 0 0 0 5px rgba(245,166,35,0.35), 0 4px 14px rgba(0,0,0,0.35); }
+
+      50%      { box-shadow: 0 0 0 12px rgba(245,200,50,0.45), 0 4px 18px rgba(0,0,0,0.4); }
+
+    }
+
+    .hotspot.nav-hotspot:hover,
+
+    .hotspot.nav-hotspot:focus-visible {
+
+      animation: none;
+
+      box-shadow: 0 0 0 12px rgba(245,200,50,0.5), 0 6px 20px rgba(0,0,0,0.4);
+
+    }
+
+    /* ---- Investigation clue hotspots ---- */
+
+    .hotspot.clue-hotspot {
+
+      background: rgba(58,134,216,0.88);
+
+      box-shadow: 0 0 0 5px rgba(58,134,216,0.3), 0 4px 14px rgba(0,0,0,0.3);
+
+    }
+
+    .hotspot.clue-hotspot:hover,
+
+    .hotspot.clue-hotspot:focus-visible {
+
+      box-shadow: 0 0 0 10px rgba(58,134,216,0.4), 0 6px 20px rgba(0,0,0,0.35);
+
+    }
+
+    .hotspot.clue-hotspot.active-clue {
+
+      background: rgba(245,166,35,0.95);
+
+      box-shadow: 0 0 0 8px rgba(245,166,35,0.45), 0 4px 16px rgba(0,0,0,0.35);
+
+    }
+
+    /* Hotspot label (shown under nav hotspots) */
+
+    .hotspot-label {
+
+      position: absolute;
+
+      bottom: -26px;
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      white-space: nowrap;
+
+      font-family: 'Open Sans', Arial, sans-serif;
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      background: rgba(0,0,0,0.7);
+
+      color: #fff;
+
+      padding: 2px 8px;
+
+      border-radius: 8px;
+
+      pointer-events: none;
+
+      letter-spacing: 0.2px;
+
+    }
+
+    /* ============================================================
+
+       INVESTIGATION POPUP / TOOLTIP
+
+    ============================================================ */
+
+    .inv-popup {
+
+      display: none;
+
+      position: absolute;
+
+      z-index: 40;
+
+      background: #fff;
+
+      border: 2px solid var(--orange);
+
+      border-radius: var(--radius);
+
+      padding: 16px 18px 14px;
+
+      width: min(270px, 82vw);
+
+      box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+
+      /*
+
+        Default: appear above the hotspot.
+
+        JS will flip to below if too close to top edge.
+
+      */
+
+      transform: translate(-50%, calc(-100% - 22px));
+
+      pointer-events: none;
+
+    }
+
+    .inv-popup.visible {
+
+      display: block;
+
+      pointer-events: auto;
+
+      animation: pop-in 0.18s ease;
+
+    }
+
+    @keyframes pop-in {
+
+      from { opacity: 0; transform: translate(-50%, calc(-100% - 28px)) scale(0.92); }
+
+      to   { opacity: 1; transform: translate(-50%, calc(-100% - 22px)) scale(1); }
+
+    }
+
+    /* Flip variant: shows below the hotspot */
+
+    .inv-popup.flip-down {
+
+      transform: translate(-50%, 22px);
+
+    }
+
+    .inv-popup.flip-down.visible {
+
+      animation: pop-in-down 0.18s ease;
+
+    }
+
+    @keyframes pop-in-down {
+
+      from { opacity: 0; transform: translate(-50%, 28px) scale(0.92); }
+
+      to   { opacity: 1; transform: translate(-50%, 22px) scale(1); }
+
+    }
+
+    /* Small arrow tip */
+
+    .inv-popup::before {
+
+      content: '';
+
+      position: absolute;
+
+      bottom: -10px; left: 50%;
+
+      transform: translateX(-50%);
+
+      border: 5px solid transparent;
+
+      border-top-color: var(--orange);
+
+    }
+
+    .inv-popup.flip-down::before {
+
+      bottom: auto; top: -10px;
+
+      border-top-color: transparent;
+
+      border-bottom-color: var(--orange);
+
+    }
+
+    .inv-popup h4 {
+
+      font-size: 15px;
+
+      font-weight: 800;
+
+      color: #c05800;
+
+      margin-bottom: 10px;
+
+    }
+
+    .inv-popup .notice,
+
+    .inv-popup .think {
+
+      font-size: 14px;
+
+      line-height: 1.6;
+
+      margin-bottom: 8px;
+
+    }
+
+    .inv-popup .notice strong,
+
+    .inv-popup .think strong {
+
+      display: block;
+
+      font-size: 11px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.5px;
+
+      color: #999;
+
+      margin-bottom: 3px;
+
+      font-weight: 800;
+
+    }
+
+    .inv-popup .think { background: #fff8e7; border-radius: 8px; padding: 8px 10px; }
+
+    .inv-popup .close-popup {
+
+      display: block;
+
+      margin: 10px auto 0;
+
+      padding: 6px 20px;
+
+      background: var(--orange);
+
+      color: #fff;
+
+      border: none;
+
+      border-radius: 20px;
+
+      font-family: 'Open Sans', Arial, sans-serif;
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+      transition: background 0.15s;
+
+    }
+
+    .inv-popup .close-popup:hover { background: var(--orange-dark); }
+
+    /* ============================================================
+
+       INVESTIGATION SECTION SHARED
+
+    ============================================================ */
+
+    .investigation-section .fg-section-card { padding-bottom: 28px; }
+
+    .clue-count {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 6px;
+
+      background: #e8f5e9;
+
+      border: 1.5px solid #a5d6a7;
+
+      border-radius: 20px;
+
+      padding: 4px 14px;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      color: #2e7d32;
+
+      margin-bottom: 16px;
+
+    }
+
+    .clue-count .dot {
+
+      width: 8px; height: 8px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      flex-shrink: 0;
+
+    }
+
+    /* ============================================================
+
+       JOURNAL PROMPT
+
+    ============================================================ */
+
+    .fg-journal-prompt {
+
+      background: var(--blue-light);
+
+      border-left: 5px solid var(--blue);
+
+      border-radius: 0 var(--radius) var(--radius) 0;
+
+      padding: 18px 20px 20px;
+
+      margin-top: 28px;
+
+    }
+
+    .fg-journal-prompt .journal-header {
+
+      font-size: 14px;
+
+      font-weight: 800;
+
+      color: var(--blue);
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.4px;
+
+      margin-bottom: 8px;
+
+    }
+
+    .fg-journal-prompt p {
+
+      font-size: 15px;
+
+      font-weight: 700;
+
+      color: #1a3a6b;
+
+      margin-bottom: 14px;
+
+      line-height: 1.6;
+
+    }
+
+    .fg-journal-prompt textarea {
+
+      width: 100%;
+
+      min-height: 100px;
+
+      border: 2px solid #9ec8f0;
+
+      border-radius: var(--radius);
+
+      padding: 10px 14px;
+
+      font-family: 'Open Sans', Arial, sans-serif;
+
+      font-size: 15px;
+
+      resize: vertical;
+
+      color: var(--text);
+
+      background: #fff;
+
+      transition: border-color 0.15s;
+
+    }
+
+    .fg-journal-prompt textarea:focus {
+
+      outline: none;
+
+      border-color: var(--blue);
+
+      box-shadow: 0 0 0 3px rgba(58,134,216,0.15);
+
+    }
+
+    .fg-journal-prompt textarea::placeholder { color: #aac5e0; }
+
+    /* ============================================================
+
+       COMPLETION STAMP
+
+    ============================================================ */
+
+    .completion-stamp {
+
+      display: none;
+
+      background: var(--green-light);
+
+      border: 2px solid var(--green);
+
+      border-radius: var(--radius);
+
+      padding: 12px 18px;
+
+      margin-top: 14px;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      color: #1a4a2e;
+
+      gap: 10px;
+
+      align-items: center;
+
+    }
+
+    .completion-stamp.show { display: flex; }
+
+    /* ============================================================
+
+       SECTION COMPLETE BANNER (on map page)
+
+    ============================================================ */
+
+    .region-status {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-top: 18px;
+
+    }
+
+    .region-chip {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 6px;
+
+      padding: 6px 14px;
+
+      border-radius: 20px;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      border: 2px solid var(--border);
+
+      color: var(--muted);
+
+      background: #f7f5f2;
+
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+
+    }
+
+    .region-chip.done {
+
+      background: var(--green-light);
+
+      border-color: var(--green);
+
+      color: #1a4a2e;
+
+    }
+
+    .region-chip .chip-dot {
+
+      width: 8px; height: 8px;
+
+      border-radius: 50%;
+
+      background: var(--border);
+
+      flex-shrink: 0;
+
+      transition: background 0.3s;
+
+    }
+
+    .region-chip.done .chip-dot { background: var(--green); }
+
+    /* ============================================================
+
+       RESPONSIVE TWEAKS
+
+    ============================================================ */
+
+    @media (max-width: 480px) {
+
+      .fg-section-card { padding: 20px 16px 24px; }
+
+      .fg-nav-row { gap: 8px; }
+
+      .fg-btn { font-size: 14px; padding: 10px 18px; }
+
+    }
+
+  
 </style>
 
 </head>
@@ -1234,102 +2119,748 @@ body {
 
   </div>
 
-  <div class="card" style="background:#eef3ea;border:none;">
-
-    <h3 style="text-align:center;color:#2f4a34;font-size:1.15rem;margin-bottom:6px;">🔥 Forest Glen — After the Wildfire</h3>
-
-    <p style="text-align:center;font-size:0.9rem;color:#4f5f56;margin-bottom:10px;">Explore the map to discover what happened to Forest Glen. As you explore, think about what these clues reveal about how the fire affected different parts of the system.</p>
-
-    <p class="hs-instructions">👆 Your team has marked key investigation zones across Forest Glen. <span>Where will you investigate first?</span></p>
-
-    <div class="hotspot-map-wrap">
-
-      <img class="hotspot-map-img" src="images/EcoResponders_Forest Glen_Map_After.png" alt="Map of Forest Glen after wildfire">
-
-      <button class="hotspot-btn hs-downtown" data-hs-target="hs-panel-downtown" data-hs-location="Downtown District" aria-label="Explore Downtown District"><span class="hs-icon">🏢</span></button>
-
-      <button class="hotspot-btn hs-residential" data-hs-target="hs-panel-residential" data-hs-location="Residential Area" aria-label="Explore Residential Area"><span class="hs-icon">🏠</span></button>
-
-      <button class="hotspot-btn hs-forest" data-hs-target="hs-panel-forest" data-hs-location="Forest Region" aria-label="Explore Forest Region"><span class="hs-icon">🌲</span></button>
-
-      <div class="hs-overlay" id="hsOverlay"></div>
-
-      <div class="hs-info-panel" id="hs-panel-downtown">
-
-        <button class="hs-close-btn" aria-label="Close">&times;</button>
-
-        <img src="images/EvoResponders_Forest Glen_Buisness_After.png" alt="Downtown district after wildfire">
-
-        <div class="hs-info-body">
-
-          <h3>🏢 Downtown District</h3>
-
-          <p>The downtown buildings show heavy fire and smoke damage. Walls are charred, windows shattered, and metal structures have warped from extreme heat.</p>
-
-          <div class="hs-clue-box"><strong>🔍 Science Clue: </strong><span>Fires need three things to burn: <em>fuel, oxygen, and heat</em> (the fire triangle). In a downtown area full of buildings, which of these might have been hardest to remove, and why?</span></div>
-
-        </div>
-
-      </div>
-
-      <div class="hs-info-panel" id="hs-panel-residential">
-
-        <button class="hs-close-btn" aria-label="Close">&times;</button>
-
-        <img src="images/EcoResponders_Forest Glen_Home_After.png" alt="Residential area after wildfire">
-
-        <div class="hs-info-body">
-
-          <h3>🏠 Residential Area</h3>
-
-          <p>Homes in the residential area have been reduced to rubble. Only a stone chimney remains standing among the ash and debris. Personal belongings are scattered.</p>
-
-          <div class="hs-clue-box"><strong>🔍 Science Clue: </strong><span>The stone chimney survived, but wooden walls did not. What property of <em>stone vs. wood</em> explains why one material resisted fire better than the other?</span></div>
-
-        </div>
-
-      </div>
-
-      <div class="hs-info-panel" id="hs-panel-forest">
-
-        <button class="hs-close-btn" aria-label="Close">&times;</button>
-
-        <img src="images/EcoResponders_Forest Glen_Forest_After.png" alt="Forest region after wildfire">
-
-        <div class="hs-info-body">
-
-          <h3>🌲 Forest Region</h3>
-
-          <p>The forest has been devastated. Tree trunks are blackened and bare, fallen logs cover the ground, and thick haze fills the air. The forest floor is coated in ash.</p>
-
-          <div class="hs-clue-box"><strong>🔍 Science Clue: </strong><span>After a wildfire, the first plants to return are often small grasses and wildflowers. Why do you think <em>small plants grow back before big trees</em>?</span></div>
-
-        </div>
-
-      </div>
-
+  <div class="fg-inv">
+    <div style="background:#e8e3da;height:7px;border-radius:4px;margin-bottom:18px;overflow:hidden;">
+      <div id="fg-progress-fill" style="height:100%;background:linear-gradient(90deg,var(--yellow),#f0b429);border-radius:4px;transition:width 0.5s ease;width:0%;"></div>
     </div>
 
-  </div>
+    <!-- ===========================================================
 
-  <div class="card card--journal">
+         SECTION 1 — MAP (Overview with Navigation Hotspots)
 
-    <div class="journal-label">📓 Field Journal</div>
+    =========================================================== -->
 
-    <p class="journal-prompt">What do your observations from Forest Glen suggest about how the fire affected the land, plants, animals, or people—and what evidence supports your thinking?</p>
+    <section id="fg-section-map" class="fg-lesson-section active">
 
-    <textarea class="journal-textarea" data-key="3b1_observations" oninput="autoSave('3b1_observations',this.value)" placeholder="I think the fire affected... I know this because..."></textarea>
+      <div class="fg-section-card">
 
-    <div class="save-indicator" data-save="3b1_observations"></div>
+        <h2>🗺️ Explore Forest Glen</h2>
 
-  </div>
+        <p>
 
-  <div class="btn-row btn-row--between">
+          Click a glowing button on the map to investigate that area.
 
-    <button class="btn btn--back" onclick="goTo('section-2')">← Back</button>
+          Try to visit all three regions!
 
-    <button class="btn btn--primary" onclick="goTo('section-3b2')">Continue →</button>
+        </p>
 
+        <!-- Region progress chips -->
+
+        <div class="region-status">
+
+          <div class="region-chip" id="fg-chip-forest">
+
+            <span class="chip-dot"></span> Forest Region
+
+          </div>
+
+          <div class="region-chip" id="fg-chip-downtown">
+
+            <span class="chip-dot"></span> Downtown District
+
+          </div>
+
+          <div class="region-chip" id="fg-chip-home">
+
+            <span class="chip-dot"></span> Residential Area
+
+          </div>
+
+        </div>
+
+        <!-- ---- MAP IMAGE + HOTSPOTS ---- -->
+
+        <div class="map-wrapper" id="fg-main-map-wrapper" style="margin-top: 20px;">
+
+          <!--
+
+            SWAP THIS: replace the img tag src with your actual map image file.
+
+            Keep the img tag; remove the placeholder div below it.
+
+          -->
+
+          <img
+
+            src="images/EcoResponders_ForestGlen_After Map.png"
+
+            alt="Map of Forest Glen showing the forest, downtown, and residential regions after the fire"
+
+            onerror="this.style.display='none'; document.getElementById('fg-map-placeholder').style.display='flex';"
+
+          />
+
+          <div
+
+            id="fg-map-placeholder"
+
+            class="img-placeholder"
+
+            style="display:none; background:#c8d5b9;"
+
+          >
+
+            <span>🗺️</span>
+
+            <span>Map image not found.<br>Add <strong>EcoResponders_ForestGlen_After Map.png</strong> to your images folder.</span>
+
+          </div>
+
+          <!-- Hotspot 1: Forest Region -->
+
+          <button
+
+            class="hotspot nav-hotspot"
+
+            style="left: 28%; top: 60%;"
+
+            onclick="fgGoTo('fg-section-forest')"
+
+            aria-label="Investigate the Forest Region"
+
+          >
+
+            🌲
+
+            <span class="hotspot-label">Forest</span>
+
+          </button>
+
+          <!-- Hotspot 2: Downtown District -->
+
+          <button
+
+            class="hotspot nav-hotspot"
+
+            style="left: 52%; top: 40%;"
+
+            onclick="fgGoTo('fg-section-downtown')"
+
+            aria-label="Investigate the Downtown District"
+
+          >
+
+            🏢
+
+            <span class="hotspot-label">Downtown</span>
+
+          </button>
+
+          <!-- Hotspot 3: Residential Area -->
+
+          <button
+
+            class="hotspot nav-hotspot"
+
+            style="left: 67%; top: 58%;"
+
+            onclick="fgGoTo('fg-section-home')"
+
+            aria-label="Investigate the Residential Area"
+
+          >
+
+            🏠
+
+            <span class="hotspot-label">Residential</span>
+
+          </button>
+
+        </div><!-- /main-map-wrapper -->
+
+        <div class="fg-nav-row" style="margin-top: 28px;">
+
+          <button class="btn btn--back" onclick="goTo('section-2')">← Back</button>
+
+          <button class="fg-btn fg-btn-primary" id="fg-btn-finish-map" style="display:none;" onclick="goTo('section-3b2')">
+
+            Finish Investigation →
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===========================================================
+
+         SECTION 4 — FOREST INVESTIGATION
+
+    =========================================================== -->
+
+    <section id="fg-section-forest" class="fg-lesson-section investigation-section">
+
+      <div class="fg-section-card">
+
+        <!-- Back + breadcrumb -->
+
+        <button class="fg-btn fg-btn-back" onclick="fgGoTo('fg-section-map')" style="margin-bottom:16px;">
+
+          ← Back to Map
+
+        </button>
+
+        <!-- Part 3: Transition prompt -->
+
+        <div class="prompt-banner">
+
+          🔍 Look closely at this area. What clues can you find?
+
+        </div>
+
+        <h2>🌲 Forest Region</h2>
+
+        <div class="clue-count" id="fg-clue-count-forest">
+
+          <span class="dot"></span>
+
+          <span id="fg-clue-count-forest-text">0 of 3 clues found</span>
+
+        </div>
+
+        <!-- ---- FOREST IMAGE + HOTSPOTS ---- -->
+
+        <div class="map-wrapper" id="fg-forest-wrapper">
+
+          <img
+
+            src="images/EcoResponders_ForestGlen_After Forest Investigation.png"
+
+            alt="Close-up view of the forest region after the fire showing ash, pine cones, and new plant growth"
+
+            onerror="this.style.display='none'; document.getElementById('fg-forest-placeholder').style.display='flex';"
+
+          />
+
+          <div
+
+            id="fg-forest-placeholder"
+
+            class="img-placeholder"
+
+            style="display:none; background:#b7c9a0;"
+
+          >
+
+            <span>🌲</span>
+
+            <span>Forest image not found.<br>Add <strong>EcoResponders_ForestGlen_After Forest Investigation.png</strong></span>
+
+          </div>
+
+          <!-- Clue 1: New Plants -->
+
+          <button
+
+            class="hotspot clue-hotspot"
+
+            style="left: 45%; top: 70%;"
+
+            onclick="fgTogglePopup('fg-popup-forest-plants', this)"
+
+            aria-label="Clue: New Plants"
+
+            data-section="forest"
+
+            data-clue="1"
+
+          >🌱</button>
+
+          <div class="inv-popup" id="fg-popup-forest-plants" style="left: 45%; top: 70%;">
+
+            <h4>🌱 New Plants</h4>
+
+            <p class="notice"><strong>Notice</strong>You see small green plants growing. There are no big plants yet.</p>
+
+            <p class="think"><strong>Think</strong>Why might small plants grow back before big trees?</p>
+
+            <button class="close-popup" onclick="fgClosePopup('fg-popup-forest-plants')">Close ✕</button>
+
+          </div>
+
+          <!-- Clue 2: Pine Cones -->
+
+          <button
+
+            class="hotspot clue-hotspot"
+
+            style="left: 75%; top: 75%;"
+
+            onclick="fgTogglePopup('fg-popup-forest-cones', this)"
+
+            aria-label="Clue: Pine Cones"
+
+            data-section="forest"
+
+            data-clue="2"
+
+          >🌰</button>
+
+          <div class="inv-popup" id="fg-popup-forest-cones" style="left: 75%; top: 75%;">
+
+            <h4>🌰 Pine Cones</h4>
+
+            <p class="notice"><strong>Notice</strong>Some pine cones are open with seeds nearby.</p>
+
+            <p class="think"><strong>Think</strong>What might have caused these cones to open?</p>
+
+            <button class="close-popup" onclick="fgClosePopup('fg-popup-forest-cones')">Close ✕</button>
+
+          </div>
+
+          <!-- Clue 3: Soil -->
+
+          <button
+
+            class="hotspot clue-hotspot"
+
+            style="left: 50%; top: 55%;"
+
+            onclick="fgTogglePopup('fg-popup-forest-soil', this)"
+
+            aria-label="Clue: Soil"
+
+            data-section="forest"
+
+            data-clue="3"
+
+          >🟤</button>
+
+          <div class="inv-popup" id="fg-popup-forest-soil" style="left: 50%; top: 55%;">
+
+            <h4>🟤 Soil</h4>
+
+            <p class="notice"><strong>Notice</strong>The ground looks loose and covered in ash.</p>
+
+            <p class="think"><strong>Think</strong>What might happen if it rains here?</p>
+
+            <button class="close-popup" onclick="fgClosePopup('fg-popup-forest-soil')">Close ✕</button>
+
+          </div>
+
+        </div><!-- /forest-wrapper -->
+
+        <!-- Part 4: Journal Prompt -->
+
+        <div class="fg-journal-prompt">
+
+          <div class="journal-header">📓 Science Journal</div>
+
+          <p>What did you notice in this area? What changed because of the fire? Use at least one piece of evidence from what you observed to explain your thinking.</p>
+
+          <textarea
+
+            id="fg-journal-forest"
+
+            placeholder="Write your observations here…"
+
+            oninput="fgMarkJournalDone('forest')"
+
+          ></textarea>
+
+          <div class="completion-stamp" id="fg-stamp-forest">
+
+            ✅ Nice observation! Head back to the map to explore another area.
+
+          </div>
+
+        </div>
+
+        <div class="fg-nav-row">
+
+          <button class="fg-btn fg-btn-back" onclick="fgGoTo('fg-section-map')">← Back to Map</button>
+
+          <button class="btn btn--primary" onclick="goTo('section-3b2')">Continue →</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===========================================================
+
+         SECTION 5 — DOWNTOWN INVESTIGATION
+
+    =========================================================== -->
+
+    <section id="fg-section-downtown" class="fg-lesson-section investigation-section">
+
+      <div class="fg-section-card">
+
+        <button class="fg-btn fg-btn-back" onclick="fgGoTo('fg-section-map')" style="margin-bottom:16px;">
+
+          ← Back to Map
+
+        </button>
+
+        <div class="prompt-banner">
+
+          🔍 Look closely at this area. What clues can you find?
+
+        </div>
+
+        <h2>🏢 Downtown District</h2>
+
+        <div class="clue-count" id="fg-clue-count-downtown">
+
+          <span class="dot"></span>
+
+          <span id="fg-clue-count-downtown-text">0 of 3 clues found</span>
+
+        </div>
+
+        <!-- ---- DOWNTOWN IMAGE + HOTSPOTS ---- -->
+
+        <div class="map-wrapper" id="fg-downtown-wrapper">
+
+          <img
+
+            src="images/EcoResponders_ForestGlen_After Downtown Investigation2.png"
+
+            alt="Close-up view of the downtown district after the fire showing burned buildings and ash"
+
+            onerror="this.style.display='none'; document.getElementById('fg-downtown-placeholder').style.display='flex';"
+
+          />
+
+          <div
+
+            id="fg-downtown-placeholder"
+
+            class="img-placeholder"
+
+            style="display:none; background:#b0b8c4;"
+
+          >
+
+            <span>🏢</span>
+
+            <span>Downtown image not found.<br>Add <strong>EcoResponders_ForestGlen_After Downtown Investigation2.png</strong></span>
+
+          </div>
+
+          <!-- Clue 1: Burned Building -->
+
+          <button
+
+            class="hotspot clue-hotspot"
+
+            style="left: 25%; top: 45%;"
+
+            onclick="fgTogglePopup('fg-popup-dt-building', this)"
+
+            aria-label="Clue: Burned Building"
+
+            data-section="downtown"
+
+            data-clue="1"
+
+          >🏚️</button>
+
+          <div class="inv-popup" id="fg-popup-dt-building" style="left: 25%; top: 45%;">
+
+            <h4>🏚️ Burned Building</h4>
+
+            <p class="notice"><strong>Notice</strong>Parts of the building are gone, but some parts are still standing.</p>
+
+            <p class="think"><strong>Think</strong>What is different about the parts that burned and the parts that did not?</p>
+
+            <button class="close-popup" onclick="fgClosePopup('fg-popup-dt-building')">Close ✕</button>
+
+          </div>
+
+          <!-- Clue 2: Heat Damage -->
+
+          <button
+
+            class="hotspot clue-hotspot"
+
+            style="left: 48%; top: 38%;"
+
+            onclick="fgTogglePopup('fg-popup-dt-heat', this)"
+
+            aria-label="Clue: Heat Damage"
+
+            data-section="downtown"
+
+            data-clue="2"
+
+          >🔩</button>
+
+          <div class="inv-popup" id="fg-popup-dt-heat" style="left: 40%; top: 25%;">
+
+            <h4>🔩 Heat Damage</h4>
+
+            <p class="notice"><strong>Notice</strong>Some metal looks bent or warped.</p>
+
+            <p class="think"><strong>Think</strong>What does this tell you about how hot the fire was?</p>
+
+            <button class="close-popup" onclick="fgClosePopup('fg-popup-dt-heat')">Close ✕</button>
+
+          </div>
+
+          <!-- Clue 3: Ash + Smoke -->
+
+          <button
+
+            class="hotspot clue-hotspot"
+
+            style="left: 60%; top: 70%;"
+
+            onclick="fgTogglePopup('fg-popup-dt-ash', this)"
+
+            aria-label="Clue: Ash and Smoke Residue"
+
+            data-section="downtown"
+
+            data-clue="3"
+
+          >💨</button>
+
+          <div class="inv-popup" id="fg-popup-dt-ash" style="left: 60%; top: 70%;">
+
+            <h4>💨 Ash + Smoke Residue</h4>
+
+            <p class="notice"><strong>Notice</strong>The ground and buildings are covered in ash.</p>
+
+            <p class="think"><strong>Think</strong>How could this still affect people or the environment?</p>
+
+            <button class="close-popup" onclick="fgClosePopup('fg-popup-dt-ash')">Close ✕</button>
+
+          </div>
+
+        </div><!-- /downtown-wrapper -->
+
+        <div class="fg-journal-prompt">
+
+          <div class="journal-header">📓 Science Journal</div>
+
+          <p>What did you notice in this area? What changed because of the fire? Use at least one piece of evidence from what you observed to explain your thinking.</p>
+
+          <textarea
+
+            id="fg-journal-downtown"
+
+            placeholder="Write your observations here…"
+
+            oninput="fgMarkJournalDone('downtown')"
+
+          ></textarea>
+
+          <div class="completion-stamp" id="fg-stamp-downtown">
+
+            ✅ Nice observation! Head back to the map to explore another area.
+
+          </div>
+
+        </div>
+
+        <div class="fg-nav-row">
+
+          <button class="fg-btn fg-btn-back" onclick="fgGoTo('fg-section-map')">← Back to Map</button>
+
+          <button class="btn btn--primary" onclick="goTo('section-3b2')">Continue →</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===========================================================
+
+         SECTION 6 — RESIDENTIAL INVESTIGATION
+
+    =========================================================== -->
+
+    <section id="fg-section-home" class="fg-lesson-section investigation-section">
+
+      <div class="fg-section-card">
+
+        <button class="fg-btn fg-btn-back" onclick="fgGoTo('fg-section-map')" style="margin-bottom:16px;">
+
+          ← Back to Map
+
+        </button>
+
+        <div class="prompt-banner">
+
+          🔍 Look closely at this area. What clues can you find?
+
+        </div>
+
+        <h2>🏠 Residential Area</h2>
+
+        <div class="clue-count" id="fg-clue-count-home">
+
+          <span class="dot"></span>
+
+          <span id="fg-clue-count-home-text">0 of 3 clues found</span>
+
+        </div>
+
+        <!-- ---- HOME IMAGE + HOTSPOTS ---- -->
+
+        <div class="map-wrapper" id="fg-home-wrapper">
+
+          <img
+
+            src="images/EcoResponders_ForestGlen_After Home Investigation2.png"
+
+            alt="Close-up view of the residential area after the fire showing a chimney, house outline, and belongings"
+
+            onerror="this.style.display='none'; document.getElementById('fg-home-placeholder').style.display='flex';"
+
+          />
+
+          <div
+
+            id="fg-home-placeholder"
+
+            class="img-placeholder"
+
+            style="display:none; background:#c4b89a;"
+
+          >
+
+            <span>🏠</span>
+
+            <span>Residential image not found.<br>Add <strong>EcoResponders_ForestGlen_After Home Investigation2.png</strong></span>
+
+          </div>
+
+          <!-- Clue 1: Chimney -->
+
+          <button
+
+            class="hotspot clue-hotspot"
+
+            style="left: 50%; top: 35%;"
+
+            onclick="fgTogglePopup('fg-popup-home-chimney', this)"
+
+            aria-label="Clue: Chimney"
+
+            data-section="home"
+
+            data-clue="1"
+
+          >🧱</button>
+
+          <div class="inv-popup" id="fg-popup-home-chimney" style="left: 50%; top: 35%;">
+
+            <h4>🧱 Chimney</h4>
+
+            <p class="notice"><strong>Notice</strong>The stone chimney is still standing.</p>
+
+            <p class="think"><strong>Think</strong>Why do you think this part didn't burn?</p>
+
+            <button class="close-popup" onclick="fgClosePopup('fg-popup-home-chimney')">Close ✕</button>
+
+          </div>
+
+          <!-- Clue 2: House Outline -->
+
+          <button
+
+            class="hotspot clue-hotspot"
+
+            style="left: 45%; top: 65%;"
+
+            onclick="fgTogglePopup('fg-popup-home-outline', this)"
+
+            aria-label="Clue: House Outline"
+
+            data-section="home"
+
+            data-clue="2"
+
+          >🏠</button>
+
+          <div class="inv-popup" id="fg-popup-home-outline" style="left: 45%; top: 65%;">
+
+            <h4>🏠 House Outline</h4>
+
+            <p class="notice"><strong>Notice</strong>You can see the shape of the house in the ash.</p>
+
+            <p class="think"><strong>Think</strong>What does this tell you about how the fire burned the house?</p>
+
+            <button class="close-popup" onclick="fgClosePopup('fg-popup-home-outline')">Close ✕</button>
+
+          </div>
+
+          <!-- Clue 3: Belongings -->
+
+          <button
+
+            class="hotspot clue-hotspot"
+
+            style="left: 65%; top: 75%;"
+
+            onclick="fgTogglePopup('fg-popup-home-belongings', this)"
+
+            aria-label="Clue: Belongings"
+
+            data-section="home"
+
+            data-clue="3"
+
+          >📦</button>
+
+          <div class="inv-popup" id="fg-popup-home-belongings" style="left: 65%; top: 75%;">
+
+            <h4>📦 Belongings</h4>
+
+            <p class="notice"><strong>Notice</strong>Some objects are burned and some are not.</p>
+
+            <p class="think"><strong>Think</strong>What does this tell you about how the fire spread?</p>
+
+            <button class="close-popup" onclick="fgClosePopup('fg-popup-home-belongings')">Close ✕</button>
+
+          </div>
+
+        </div><!-- /home-wrapper -->
+
+        <div class="fg-journal-prompt">
+
+          <div class="journal-header">📓 Science Journal</div>
+
+          <p>What did you notice in this area? What changed because of the fire? Use at least one piece of evidence from what you observed to explain your thinking.</p>
+
+          <textarea
+
+            id="fg-journal-home"
+
+            placeholder="Write your observations here…"
+
+            oninput="fgMarkJournalDone('home')"
+
+          ></textarea>
+
+          <div class="completion-stamp" id="fg-stamp-home">
+
+            ✅ Great work! Head back to the map to keep exploring.
+
+          </div>
+
+        </div>
+
+        <div class="fg-nav-row">
+
+          <button class="fg-btn fg-btn-back" onclick="fgGoTo('fg-section-map')">← Back to Map</button>
+
+          <button class="btn btn--primary" onclick="goTo('section-3b2')">Continue →</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+      
   </div>
 
 </div>
@@ -3472,6 +5003,411 @@ function _noaaRedraw() {
 }
 
 window.addEventListener('resize', function() { if (currentIndicator) _noaaRedraw(); });
+
+// ─── Forest Glen Field Investigation ─────────────────────────────────────────
+
+
+    /* ============================================================
+
+       LESSON STATE
+
+       Tracks which sections have been visited and how many
+
+       clues have been opened in each investigation area.
+
+    ============================================================ */
+
+    var fgState = {
+
+      currentSection: 'fg-section-map',
+
+      sectionsVisited: { 'fg-section-map': true },
+
+      /* clues[section][clueNumber] = true when opened */
+
+      clues: { forest: {}, downtown: {}, home: {} },
+
+      /* Whether the journal for each area has text */
+
+      journals: { forest: false, downtown: false, home: false },
+
+      /* Total sections in the lesson (for progress bar) */
+
+      totalSections: 4
+
+    };
+
+    /* Map section IDs to progress step numbers */
+
+    var fgSectionOrder = {
+
+      'fg-section-map':      1,
+
+      'fg-section-forest':   2,
+
+      'fg-section-downtown': 3,
+
+      'fg-section-home':     4
+
+    };
+
+    /* ============================================================
+
+       goTo(sectionId)
+
+       Hides the current section, shows the target section,
+
+       scrolls to the top, and updates the progress bar.
+
+    ============================================================ */
+
+    function fgGoTo(sectionId) {
+
+      /* Hide current */
+
+      var current = document.getElementById(fgState.currentSection);
+
+      if (current) current.classList.remove('active');
+
+      /* Show target */
+
+      var target = document.getElementById(sectionId);
+
+      if (!target) return;
+
+      target.classList.add('active');
+
+      /* Update state */
+
+      fgState.currentSection = sectionId;
+
+      fgState.sectionsVisited[sectionId] = true;
+
+      /* Close any open popups */
+
+      document.querySelectorAll('.inv-popup.visible').forEach(function(p) {
+
+        p.classList.remove('visible');
+
+      });
+
+      /* Update progress bar */
+
+      fgUpdateProgress();
+
+      /* Check if all three investigation areas done — show Finish button */
+
+      fgCheckAllDone();
+
+      /* Scroll to top of the investigation wrapper */
+
+      var fgWrap = document.querySelector('.fg-inv');
+      if (fgWrap) {
+        var topOffset = fgWrap.getBoundingClientRect().top + window.pageYOffset - 12;
+        window.scrollTo({ top: topOffset, behavior: 'smooth' });
+      }
+
+    }
+
+    /* ============================================================
+
+       fgUpdateProgress()
+
+       Sets the width of the orange progress bar based on how
+
+       far along the lesson the student is.
+
+    ============================================================ */
+
+    function fgUpdateProgress() {
+
+      var step = fgSectionOrder[fgState.currentSection] || 1;
+
+      var pct  = Math.round((step / fgState.totalSections) * 100);
+
+      var bar  = document.getElementById('fg-progress-fill');
+
+      if (bar) bar.style.width = pct + '%';
+
+    }
+
+    /* ============================================================
+
+       POPUP SYSTEM
+
+    ============================================================ */
+
+    /*
+
+      togglePopup(id, triggerBtn)
+
+      Opens a popup if closed; closes it if already open.
+
+      Closes any other open popup in the same wrapper first.
+
+    */
+
+    function fgTogglePopup(id, triggerBtn) {
+
+      var target = document.getElementById(id);
+
+      if (!target) return;
+
+      /* Close siblings in the same map wrapper */
+
+      var wrapper = triggerBtn.closest('.map-wrapper');
+
+      if (wrapper) {
+
+        wrapper.querySelectorAll('.inv-popup.visible').forEach(function(p) {
+
+          if (p.id !== id) {
+
+            p.classList.remove('visible');
+
+            /* Remove active state from sibling hotspot */
+
+            var sibling = wrapper.querySelector('[onclick*="' + p.id + '"]');
+
+            if (sibling) sibling.classList.remove('active-clue');
+
+          }
+
+        });
+
+      }
+
+      var isOpen = target.classList.contains('visible');
+
+      if (!isOpen) {
+
+        /* Position check: if hotspot is in top 30% of wrapper, flip popup to below */
+
+        var hotspotTop = parseFloat(triggerBtn.style.top);
+
+        if (hotspotTop < 30) {
+
+          target.classList.add('flip-down');
+
+        } else {
+
+          target.classList.remove('flip-down');
+
+        }
+
+        target.classList.add('visible');
+
+        triggerBtn.classList.add('active-clue');
+
+        /* Record this clue as found */
+
+        var section = triggerBtn.getAttribute('data-section');
+
+        var clue    = triggerBtn.getAttribute('data-clue');
+
+        if (section && clue) {
+
+          fgRecordClue(section, clue);
+
+        }
+
+      } else {
+
+        target.classList.remove('visible');
+
+        triggerBtn.classList.remove('active-clue');
+
+      }
+
+    }
+
+    /* closePopup(id) — called by the Close button inside each popup */
+
+    function fgClosePopup(id) {
+
+      var target = document.getElementById(id);
+
+      if (!target) return;
+
+      target.classList.remove('visible');
+
+      /* Remove active state from the hotspot that owns this popup */
+
+      var btn = document.querySelector('[onclick*="' + id + '"][data-clue]');
+
+      if (btn) btn.classList.remove('active-clue');
+
+    }
+
+    /* Close popups when clicking outside hotspot or popup */
+
+    document.addEventListener('click', function(e) {
+
+      if (!e.target.closest('.hotspot') && !e.target.closest('.inv-popup')) {
+
+        document.querySelectorAll('.inv-popup.visible').forEach(function(p) {
+
+          p.classList.remove('visible');
+
+        });
+
+        document.querySelectorAll('.hotspot.active-clue').forEach(function(h) {
+
+          h.classList.remove('active-clue');
+
+        });
+
+      }
+
+    });
+
+    /* ============================================================
+
+       CLUE TRACKING
+
+       Counts how many clues have been opened in each section
+
+       and updates the clue counter badge.
+
+    ============================================================ */
+
+    function fgRecordClue(section, clueNumber) {
+
+      if (!fgState.clues[section]) fgState.clues[section] = {};
+
+      fgState.clues[section][clueNumber] = true;
+
+      var found = Object.keys(fgState.clues[section]).length;
+
+      var label = document.getElementById('fg-clue-count-' + section + '-text');
+
+      if (label) label.textContent = found + ' of 3 clues found';
+
+    }
+
+    /* ============================================================
+
+       JOURNAL TRACKING
+
+       When a student types in a journal box, show the
+
+       completion stamp and update the map chip.
+
+    ============================================================ */
+
+    function fgMarkJournalDone(section) {
+
+      var ta    = document.getElementById('fg-journal-' + section);
+
+      var stamp = document.getElementById('fg-stamp-' + section);
+
+      var chip  = document.getElementById('fg-chip-' + section);
+
+      if (!ta || !stamp) return;
+
+      var hasText = ta.value.trim().length > 10;
+
+      if (hasText && !fgState.journals[section]) {
+
+        fgState.journals[section] = true;
+
+        stamp.classList.add('show');
+
+        if (chip) chip.classList.add('done');
+
+      } else if (!hasText) {
+
+        fgState.journals[section] = false;
+
+        stamp.classList.remove('show');
+
+        if (chip) chip.classList.remove('done');
+
+      }
+
+      fgCheckAllDone();
+
+    }
+
+    /* ============================================================
+
+       fgCheckAllDone()
+
+       Shows the "Finish Investigation" button on the map page
+
+       once all three journal areas have been filled in.
+
+    ============================================================ */
+
+    function fgCheckAllDone() {
+
+      var btn = document.getElementById('fg-btn-finish-map');
+
+      if (!btn) return;
+
+      var allDone = fgState.journals.forest && fgState.journals.downtown && fgState.journals.home;
+
+      btn.style.display = allDone ? 'inline-flex' : 'none';
+
+    }
+
+    /* ============================================================
+
+       POPUP EDGE CLAMP — MOBILE
+
+       After a popup becomes visible, nudge it left/right if
+
+       it overflows the screen edge.
+
+    ============================================================ */
+
+    document.querySelectorAll('.inv-popup').forEach(function(popup) {
+
+      var observer = new MutationObserver(function() {
+
+        if (!popup.classList.contains('visible')) {
+
+          popup.style.marginLeft = '';
+
+          return;
+
+        }
+
+        /* Wait one frame for layout */
+
+        requestAnimationFrame(function() {
+
+          var rect     = popup.getBoundingClientRect();
+
+          var padding  = 8;
+
+          var overRight = rect.right  - window.innerWidth + padding;
+
+          var overLeft  = padding    - rect.left;
+
+          if      (overRight > 0) popup.style.marginLeft = '-' + overRight + 'px';
+
+          else if (overLeft  > 0) popup.style.marginLeft = overLeft + 'px';
+
+          else                    popup.style.marginLeft = '';
+
+        });
+
+      });
+
+      observer.observe(popup, { attributes: true, attributeFilter: ['class'] });
+
+    });
+
+    /* ============================================================
+
+       INIT — run once on load
+
+    ============================================================ */
+
+    fgUpdateProgress();
+
+  
 
 // ===== FEEDBACK LOOP DRAG & DROP =====
 
