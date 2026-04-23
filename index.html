@@ -5099,9 +5099,13 @@ window.addEventListener('resize', function() { if (currentIndicator) _noaaRedraw
 
       fgCheckAllDone();
 
-      /* Scroll to top smoothly */
+      /* Scroll to top of the investigation wrapper */
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      var fgWrap = document.querySelector('.fg-inv');
+      if (fgWrap) {
+        var topOffset = fgWrap.getBoundingClientRect().top + window.pageYOffset - 12;
+        window.scrollTo({ top: topOffset, behavior: 'smooth' });
+      }
 
     }
 
