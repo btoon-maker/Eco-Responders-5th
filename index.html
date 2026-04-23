@@ -1,1642 +1,3266 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Eco-Responders: After the Fire</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
+
 :root {
+
   --green: #228B22;
+
   --green-dark: #1a6b1a;
+
   --green-light: #e8f5e8;
+
   --blue: #4D6A92;
+
   --blue-light: #e3eaf3;
+
   --yellow: #FFC627;
+
   --yellow-light: #fff8e0;
+
   --black: #000000;
+
   --white: #FFFFFF;
+
   --gray-50: #f8f9fa;
+
   --gray-100: #f0f2f4;
+
   --gray-200: #e2e5e9;
+
   --gray-300: #cdd2d8;
+
   --gray-400: #9aa2ad;
+
   --gray-600: #5a6270;
+
   --gray-700: #3d4450;
+
   --gray-800: #2a2f38;
+
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+
   --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+
   --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+
   --radius: 12px;
+
   --radius-lg: 18px;
+
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 html { scroll-behavior: smooth; }
+
 body {
+
   font-family: 'Open Sans', Arial, sans-serif;
+
   color: var(--black);
+
   background: linear-gradient(180deg, #f0f4e8 0%, #e8eee0 50%, #f5f7f2 100%);
+
   line-height: 1.7;
+
   font-size: 16px;
+
   min-height: 100vh;
+
 }
+
 .lesson-container { max-width: 860px; margin: 0 auto; padding: 20px 16px 60px; }
+
 .section { display: none; animation: fadeSlideIn 0.5s ease forwards; }
+
 .section.active { display: block; }
+
 @keyframes fadeSlideIn {
+
   from { opacity: 0; transform: translateY(20px); }
+
   to { opacity: 1; transform: translateY(0); }
+
 }
+
 .card { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 32px 28px; margin-bottom: 24px; border: 1px solid var(--gray-200); }
+
 .card--hero { background: linear-gradient(135deg, #1a5e1a 0%, #228B22 40%, #2a9a2a 100%); color: var(--white); text-align: center; padding: 60px 36px; border: none; position: relative; overflow: hidden; }
+
 .card--hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 70%, rgba(255,198,39,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 40%); pointer-events: none; }
+
 .card--narrative { border-left: 4px solid var(--green); }
+
 .tts-btn { display: inline-block; }
+
 .card--decision { border-left: 4px solid var(--yellow); background: linear-gradient(135deg, #fffcf0 0%, var(--white) 100%); }
+
 .card--journal { border-left: 4px solid var(--blue); background: linear-gradient(135deg, #f5f8fc 0%, var(--white) 100%); }
+
 .card--challenge { border: 2px dashed var(--yellow); background: var(--yellow-light); }
+
 .title-main { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; position: relative; }
+
 .title-section { font-size: clamp(1.4rem, 3vw, 1.8rem); font-weight: 700; color: var(--green-dark); margin-bottom: 16px; }
+
 .subtitle { font-size: 1.1rem; opacity: 0.92; max-width: 560px; margin: 0 auto; line-height: 1.6; }
+
 .narrative-text { font-size: 1.05rem; margin-bottom: 14px; color: var(--gray-800); }
+
 .narrative-text:last-child { margin-bottom: 0; }
+
 .dialogue { font-style: italic; color: var(--gray-700); padding-left: 16px; border-left: 3px solid var(--green-light); margin: 14px 0; }
+
 .lesson-image { display: block; width: 100%; max-width: 100%; height: auto; border-radius: var(--radius); margin: 16px 0; box-shadow: var(--shadow-sm); object-fit: cover; }
+
 .lesson-image-small { max-width: 280px; margin-left: auto; margin-right: auto; }
+
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border: none; border-radius: 50px; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
+
 .btn:hover { transform: translateY(-2px); }
+
 .btn:active { transform: translateY(0); }
+
 .btn--primary { background: var(--green); color: var(--white); box-shadow: 0 4px 14px rgba(34,139,34,0.35); }
+
 .btn--primary:hover { background: var(--green-dark); box-shadow: 0 6px 20px rgba(34,139,34,0.4); }
+
 .btn--secondary { background: var(--white); color: var(--green-dark); border: 2px solid var(--green); }
+
 .btn--secondary:hover { background: var(--green-light); }
+
 .btn--decision { background: var(--white); color: var(--gray-800); border: 2px solid var(--yellow); padding: 18px 24px; width: 100%; text-align: left; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+
 .btn--decision:hover { border-color: var(--green); background: var(--green-light); box-shadow: var(--shadow-md); }
+
 .btn--back { background: transparent; color: var(--gray-600); border: 1px solid var(--gray-300); padding: 10px 20px; font-size: 0.9rem; }
+
 .btn--back:hover { background: var(--gray-100); }
+
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; align-items: center; }
+
 .btn-row--right { justify-content: flex-end; }
+
 .btn-row--between { justify-content: space-between; }
+
 .btn-row--center { justify-content: center; }
+
 .tts-btn { background: var(--gray-100); border: 1px solid var(--gray-300); border-radius: 20px; padding: 6px 12px; font-size: 0.8rem; cursor: pointer; margin-bottom: 12px; color: var(--gray-700); font-weight: 600; transition: all 0.2s ease; }
+
 .tts-btn:hover { background: var(--gray-200); }
+
 .decision-grid { display: grid; gap: 12px; margin: 20px 0; }
+
 .decision-question { font-size: 1.2rem; font-weight: 700; color: var(--gray-800); margin-bottom: 16px; }
+
 .journal-label { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--blue); margin-bottom: 8px; font-size: 1rem; }
+
 .journal-prompt { font-size: 1rem; color: var(--gray-700); margin-bottom: 12px; }
+
 .journal-textarea { width: 100%; min-height: 120px; padding: 14px 16px; border: 2px solid var(--gray-200); border-radius: var(--radius); font-family: inherit; font-size: 1rem; line-height: 1.6; resize: vertical; transition: border-color 0.2s; background: var(--white); color: var(--gray-800); }
+
 .journal-textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(77,106,146,0.15); }
+
 .save-indicator { font-size: 0.85rem; color: var(--gray-400); margin-top: 6px; min-height: 20px; }
+
 .save-indicator.saved { color: var(--green); }
+
 .expandable { border: 1px solid var(--gray-200); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; background: var(--white); }
+
 .expandable-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; cursor: pointer; font-weight: 700; color: var(--gray-700); background: var(--gray-50); border: none; width: 100%; text-align: left; font-family: inherit; font-size: 0.95rem; transition: background 0.2s; }
+
 .expandable-header:hover { background: var(--gray-100); }
+
 .expandable-arrow { transition: transform 0.3s; font-size: 0.8rem; }
+
 .expandable.open .expandable-arrow { transform: rotate(180deg); }
+
 .expandable-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+
 .expandable.open .expandable-body { max-height: 2000px; }
+
 .expandable-content { padding: 16px 18px; font-size: 0.95rem; color: var(--gray-700); line-height: 1.7; }
+
 .expandable-content p { margin-bottom: 10px; }
+
 .expandable-content ul { padding-left: 20px; margin-bottom: 10px; }
+
 .expandable-content li { margin-bottom: 6px; }
+
 .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
+
 .plan-card { background: var(--white); border: 2px solid var(--gray-200); border-radius: var(--radius); padding: 20px; cursor: pointer; transition: all 0.2s; }
+
 .plan-card:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+
 .plan-card.selected { border-color: var(--green); background: var(--green-light); }
+
 .plan-card h4 { color: var(--green-dark); margin-bottom: 6px; font-size: 1.1rem; }
+
 .plan-card .plan-summary { color: var(--gray-700); font-size: 0.95rem; margin-bottom: 8px; }
+
 .plan-card .plan-science { color: var(--gray-400); font-size: 0.85rem; font-style: italic; }
+
 .interactive-embed { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; margin: 20px 0; background: var(--white); }
+
 .interactive-embed iframe { width: 100%; height: 700px; border: none; }
+
 .feedback-embed iframe { height: 900px; }
+
 .resume-bar { position: fixed; top: 0; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--gray-200); padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; z-index: 100; box-shadow: var(--shadow-sm); flex-wrap: wrap; }
+
 .resume-bar .brand { font-weight: 800; color: var(--green-dark); font-size: 0.9rem; white-space: nowrap; }
+
 .resume-bar .actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
 .resume-bar .btn { padding: 6px 14px; font-size: 0.8rem; border-radius: 8px; }
+
 .resume-code-display { font-family: monospace; background: var(--gray-100); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; color: var(--gray-700); }
+
 .timer-display { font-family: 'Open Sans', Arial, sans-serif; background: var(--green-light); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; color: var(--green-dark); white-space: nowrap; }
+
 .progress-wrap { height: 4px; background: var(--gray-200); position: fixed; top: 48px; left: 0; right: 0; z-index: 99; }
+
 .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--yellow)); transition: width 0.4s ease; border-radius: 0 2px 2px 0; }
+
 .decision-tracker { margin: 74px auto 12px; max-width: 860px; padding: 0 16px; }
+
 .decision-tracker-title { font-weight: 800; color: var(--green-dark); margin-bottom: 10px; font-size: 0.95rem; }
+
 .decision-tracker-path { display: flex; align-items: stretch; gap: 0; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow-sm); }
+
 .tracker-step { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+
 .tracker-step-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--gray-200); color: var(--gray-600); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; flex-shrink: 0; transition: all 0.3s ease; }
+
 .tracker-step-icon.completed { background: var(--green); color: var(--white); }
+
 .tracker-step-body { min-width: 0; }
+
 .tracker-step-label { font-size: 0.72rem; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 1px; }
+
 .tracker-step-value { font-size: 0.82rem; color: var(--gray-600); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
 .tracker-step-value.chosen { color: var(--green-dark); }
+
 .tracker-connector { width: 24px; min-width: 24px; display: flex; align-items: center; justify-content: center; color: var(--gray-300); font-size: 0.85rem; flex-shrink: 0; }
+
 .tracker-connector::after { content: '→'; color: var(--gray-300); font-weight: 700; }
+
 @media (max-width: 700px) {
+
   .decision-tracker-path { flex-direction: column; gap: 8px; }
+
   .tracker-connector { width: 100%; min-width: unset; height: 16px; justify-content: flex-start; padding-left: 14px; }
+
   .tracker-connector::after { content: '↓'; }
+
   .tracker-step-value { white-space: normal; }
+
 }
+
 .lesson-container { padding-top: 68px; }
+
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 200; display: none; }
+
 .modal-overlay.active { display: flex; }
+
 .modal { background: var(--white); border-radius: var(--radius-lg); padding: 32px; max-width: 440px; width: 90%; box-shadow: var(--shadow-lg); }
+
 .modal h3 { margin-bottom: 16px; color: var(--green-dark); }
+
 .modal input[type="text"] { width: 100%; padding: 12px 14px; border: 2px solid var(--gray-200); border-radius: var(--radius); font-family: monospace; font-size: 1.1rem; margin-bottom: 16px; text-align: center; letter-spacing: 2px; }
+
 .modal input[type="text"]:focus { outline: none; border-color: var(--blue); }
+
 @media (max-width: 600px) {
+
   .card { padding: 22px 18px; }
+
   .card--hero { padding: 40px 22px; }
+
   .plan-grid { grid-template-columns: 1fr; }
+
   .btn-row { flex-direction: column; }
+
   .btn-row .btn { width: 100%; justify-content: center; }
+
   .resume-bar { padding: 6px 10px; }
+
 }
 
 /* ===== DECISION POINT 2 CARD ===== */
+
 .dp2-card {
+
   background: var(--white);
+
   border-radius: var(--radius-lg);
+
   box-shadow: var(--shadow-md);
+
   padding: 32px 28px;
+
   margin-bottom: 24px;
+
   border: 1px solid var(--gray-200);
+
 }
+
 .dp2-eyebrow {
+
   font-size: 0.72rem;
+
   font-weight: 700;
+
   letter-spacing: 0.1em;
+
   text-transform: uppercase;
+
   color: var(--gray-400);
+
   margin-bottom: 10px;
+
 }
+
 .dp2-heading {
+
   font-size: clamp(1.3rem, 3vw, 1.75rem);
+
   font-weight: 800;
+
   color: var(--gray-800);
+
   margin-bottom: 10px;
+
   letter-spacing: -0.01em;
+
 }
+
 .dp2-description {
+
   font-size: 1rem;
+
   color: var(--gray-600);
+
   margin-bottom: 24px;
+
   line-height: 1.65;
+
 }
+
 .dp2-options { display: flex; flex-direction: column; gap: 10px; }
+
 .dp2-option {
+
   display: flex;
+
   align-items: center;
+
   gap: 16px;
+
   background: var(--white);
+
   border: 1px solid var(--gray-200);
+
   border-radius: var(--radius);
+
   padding: 16px 18px;
+
   cursor: pointer;
+
   transition: all 0.2s ease;
+
   text-align: left;
+
   font-family: inherit;
+
   width: 100%;
+
   box-shadow: var(--shadow-sm);
+
 }
+
 .dp2-option:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+
 .dp2-option[data-report="human"]:hover  { border-color: #c0583f; background: #faf0ed; }
+
 .dp2-option[data-report="eco"]:hover    { border-color: var(--green); background: var(--green-light); }
+
 .dp2-option[data-report="combined"]:hover { border-color: var(--blue); background: var(--blue-light); }
+
 .dp2-option-icon {
+
   font-size: 1.4rem;
+
   width: 44px; height: 44px;
+
   border-radius: 10px;
+
   background: var(--gray-100);
+
   display: flex; align-items: center; justify-content: center;
+
   flex-shrink: 0;
+
   transition: background 0.2s;
+
 }
+
 .dp2-option[data-report="human"] .dp2-option-icon    { background: #faf0ed; }
+
 .dp2-option[data-report="eco"] .dp2-option-icon      { background: var(--green-light); }
+
 .dp2-option[data-report="combined"] .dp2-option-icon { background: var(--blue-light); }
+
 .dp2-option-body { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+
 .dp2-option-title { font-weight: 700; font-size: 1rem; color: var(--gray-800); }
+
 .dp2-option-sub { font-size: 0.88rem; color: var(--gray-600); }
+
 .dp2-option-arrow { font-size: 1.1rem; color: var(--gray-400); flex-shrink: 0; transition: transform 0.2s, color 0.2s; }
+
 .dp2-option:hover .dp2-option-arrow { transform: translateX(4px); }
+
 .dp2-option[data-report="human"]:hover .dp2-option-arrow    { color: #c0583f; }
+
 .dp2-option[data-report="eco"]:hover .dp2-option-arrow      { color: var(--green-dark); }
+
 .dp2-option[data-report="combined"]:hover .dp2-option-arrow { color: var(--blue); }
 
 /* ===== REPORT ACCORDION (5A / 5B / 5C) ===== */
+
 .report-interactive {
+
   border: 1px solid var(--gray-200);
+
   border-radius: var(--radius-lg);
+
   background: var(--white);
+
   box-shadow: var(--shadow-md);
+
   padding: 24px 24px 20px;
+
   margin-bottom: 24px;
+
 }
+
 .report-badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+
 .ri-badge { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; }
+
 .ri-badge--human    { background: #faf0ed; color: #c0583f; }
+
 .ri-badge--eco      { background: var(--green-light); color: var(--green-dark); }
+
 .ri-badge--combined { background: var(--blue-light); color: var(--blue); }
+
 .ri-title { font-size: 1.2rem; font-weight: 800; color: var(--gray-800); margin-bottom: 4px; }
+
 .ri-subtitle { font-size: 0.9rem; color: var(--gray-600); margin-bottom: 18px; }
+
 .ri-progress { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 0.78rem; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.06em; }
+
 .ri-dots { display: flex; gap: 5px; }
+
 .ri-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-200); transition: background 0.3s; }
+
 .ri-dot.filled--human    { background: #c0583f; }
+
 .ri-dot.filled--eco      { background: var(--green); }
+
 .ri-dot.filled--combined { background: var(--blue); }
+
 .ri-accordion { display: flex; flex-direction: column; gap: 8px; margin-bottom: 0; }
+
 .ri-accordion-item { border: 1.5px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s; }
+
 .ri-accordion--human .ri-accordion-item    { color: #c0583f; }
+
 .ri-accordion--eco .ri-accordion-item      { color: var(--green); }
+
 .ri-accordion--combined .ri-accordion-item { color: var(--blue); }
+
 .ri-accordion-item.ri-open { border-color: currentColor; }
+
 .ri-trigger { width: 100%; display: flex; align-items: center; gap: 12px; padding: 13px 15px; background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.93rem; font-weight: 700; color: var(--gray-800); text-align: left; transition: background 0.15s; }
+
 .ri-trigger:hover { background: var(--gray-50); }
+
 .ri-num { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; flex-shrink: 0; }
+
 .ri-num--human    { background: #faf0ed; color: #c0583f; }
+
 .ri-num--eco      { background: var(--green-light); color: var(--green-dark); }
+
 .ri-num--combined { background: var(--blue-light); color: var(--blue); }
+
 .ri-chevron { margin-left: auto; transition: transform 0.25s ease; font-size: 0.8rem; color: var(--gray-400); }
+
 .ri-accordion-item.ri-open .ri-chevron { transform: rotate(180deg); }
+
 .ri-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+
 .ri-body-inner { padding: 0 16px 16px 53px; }
+
 .ri-evidence { font-size: 0.92rem; line-height: 1.65; color: var(--gray-700); margin-bottom: 10px; }
+
 .ri-scientist { font-size: 0.83rem; color: var(--gray-600); padding: 8px 12px; border-left: 3px solid var(--gray-200); background: var(--gray-50); border-radius: 0 6px 6px 0; font-style: italic; }
 
 /* ===== PSA OPTIONS ===== */
+
 .psa-option-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:12px; margin:16px 0 18px; }
+
 .psa-option-btn { border:2px solid var(--gray-300); background:var(--white); color:var(--gray-800); border-radius:var(--radius); padding:14px 16px; font:inherit; font-weight:700; cursor:pointer; transition:all .2s ease; text-align:center; }
+
 .psa-option-btn:hover, .psa-option-btn.active { border-color:var(--yellow); background:var(--yellow-light); box-shadow:var(--shadow-sm); }
+
 .psa-response-panel { display:none; margin-top:16px; }
+
 .psa-response-panel.active { display:block; }
+
 .psa-field-label { display:block; font-weight:700; margin:14px 0 8px; color:var(--green-dark); }
+
 .psa-text-input { width:100%; border:1px solid var(--gray-300); border-radius:var(--radius); padding:12px 14px; font:inherit; background:var(--white); }
 
 /* ===== HOTSPOT MAP INTERACTIVE ===== */
+
 .hotspot-map-wrap { position: relative; width: 100%; max-width: 780px; margin: 18px auto; border: 3px solid var(--green); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
+
 .hotspot-map-wrap img.hotspot-map-img { display: block; width: 100%; height: auto; }
+
 .hotspot-btn { position: absolute; width: clamp(36px, 7vw, 54px); height: clamp(36px, 7vw, 54px); border-radius: 50%; border: 3px solid var(--yellow); background: rgba(255, 198, 39, 0.35); cursor: pointer; transition: transform .25s, box-shadow .25s, background .25s; display: flex; align-items: center; justify-content: center; z-index: 5; }
+
 .hotspot-btn:hover, .hotspot-btn.hs-active { transform: scale(1.18); background: rgba(255, 198, 39, 0.7); box-shadow: 0 0 18px 4px rgba(255,198,39,0.5); }
+
 .hotspot-btn .hs-icon { font-size: clamp(16px, 3.5vw, 26px); line-height: 1; pointer-events: none; }
+
 .hotspot-btn::before { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid rgba(255,198,39,0.5); animation: hs-pulse 2s ease-out infinite; }
+
 @keyframes hs-pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+
 .hotspot-btn.hs-downtown { top: 36%; left: 40%; }
+
 .hotspot-btn.hs-residential { top: 60%; left: 62%; }
+
 .hotspot-btn.hs-forest { top: 60%; left: 18%; }
+
 .hs-info-panel { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(88%, 440px); max-width: 440px; max-height: 88%; background: var(--white); border: 3px solid var(--green); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); z-index: 20; overflow: hidden; overflow-y: auto; animation: hs-fadeIn .3s ease; }
+
 .hs-info-panel.hs-show { display: block; }
+
 .hs-overlay { display: none; position: absolute; inset: 0; background: rgba(0,0,0,.35); z-index: 15; }
+
 .hs-overlay.hs-show { display: block; }
+
 @keyframes hs-fadeIn { from { opacity: 0; transform: translate(-50%, -45%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+
 .hs-info-panel img { width: 100%; height: 200px; object-fit: cover; display: block; }
+
 .hs-info-body { padding: 14px 18px 18px; }
+
 .hs-info-body h3 { font-size: 1.1rem; color: var(--green-dark); margin-bottom: 6px; }
+
 .hs-info-body p { font-size: 0.92rem; line-height: 1.55; color: var(--gray-700); margin-bottom: 10px; }
+
 .hs-clue-box { background: var(--green-light); border-left: 4px solid var(--green); padding: 10px 14px; border-radius: 0 8px 8px 0; }
+
 .hs-clue-box strong { color: var(--green-dark); font-size: 0.88rem; }
+
 .hs-clue-box span { font-size: 0.88rem; color: var(--gray-700); }
+
 .hs-close-btn { position: absolute; top: 8px; right: 10px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--green); background: rgba(0,0,0,.55); color: var(--white); font-size: 18px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 25; transition: background .2s; }
+
 .hs-close-btn:hover { background: rgba(34,139,34,.6); }
+
 .hs-instructions { text-align: center; margin: 12px 0 14px; font-size: clamp(0.8rem, 2vw, 0.95rem); color: var(--gray-600); }
+
 .hs-instructions span { color: var(--green-dark); font-weight: 600; }
+
 .hotspot-btn.hs-visited { border-color: var(--green); background: rgba(34,139,34,0.25); }
+
 .hotspot-btn.hs-visited::before { border-color: rgba(34,139,34,0.4); }
+
+
+/* ── NOAA Chart Controls ── */
+#noaaChartControls {
+  background: #f4f9f6; border: 1px solid #d8e8df;
+  border-radius: 10px; padding: 12px 14px; margin-bottom: 10px;
+}
+.noaa-ctrl-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.noaa-ctrl-row + .noaa-ctrl-row { margin-top: 8px; }
+.noaa-ctrl-label { font-weight: 700; color: #24423d; font-size: 0.88rem; white-space: nowrap; }
+.noaa-year-select {
+  appearance: none;
+  background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23356257'/%3E%3C/svg%3E") no-repeat right 10px center;
+  border: 2px solid #b8d8cc; border-radius: 8px;
+  padding: 6px 30px 6px 12px; font-family: inherit;
+  font-size: 0.88rem; font-weight: 700; color: #1f4a43;
+  cursor: pointer; transition: border-color 0.2s; min-width: 80px;
+}
+.noaa-year-select:focus { outline: none; border-color: #356257; }
+.noaa-arrow { font-size: 1rem; color: #356257; font-weight: 700; flex-shrink: 0; }
+.noaa-view-badge {
+  font-size: 0.75rem; font-weight: 700;
+  border-radius: 20px; padding: 3px 10px; white-space: nowrap; transition: all 0.25s;
+}
+.noaa-view-badge.yearly { background: #e3edf5; color: #2b5f87; }
+.noaa-view-badge.monthly { background: #d6ede6; color: #1f5c4c; }
+.noaa-compare-label {
+  display: flex; align-items: center; gap: 8px; cursor: pointer;
+  font-size: 0.88rem; color: #24423d; font-weight: 700; user-select: none;
+}
+#noaaCompareToggle { width: 15px; height: 15px; accent-color: #356257; cursor: pointer; flex-shrink: 0; }
+#noaaLegend { display: none; margin-top: 8px; gap: 18px; justify-content: center; flex-wrap: wrap; }
+.noaa-legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.83rem; font-weight: 700; }
+.noaa-legend-item .swatch { display: inline-block; width: 22px; height: 3px; border-radius: 2px; }
+.noaa-legend-item.forest { color: #1f4a43; }
+.noaa-legend-item.forest .swatch { background: #2e7d6e; }
+.noaa-legend-item.maple  { color: #7a5c2e; }
+.noaa-legend-item.maple  .swatch { background: #c4860a; }
+.noaa-panel-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; align-items: start; }
+@media (max-width: 660px) { .noaa-panel-grid { grid-template-columns: 1fr; } }
 </style>
+
 </head>
+
 <body>
+
 <!-- Resume Bar -->
+
 <div class="resume-bar">
+
   <span class="brand">Eco-Responders: After the Fire</span>
+
   <div class="actions">
+
     <span class="resume-code-display" id="resumeCodeDisplay" title="Your resume code"></span>
+
     <span class="timer-display" id="timerDisplay" title="Time on mission" style="display:none;">⏱ 00:00</span>
+
     <button class="btn btn--back" onclick="showResumeModal()">Resume</button>
+
     <button class="btn btn--back" onclick="exportJournal()">Export Journal</button>
+
   </div>
+
 </div>
+
 <div class="progress-wrap"><div class="progress-fill" id="progressBar"></div></div>
+
 <div class="decision-tracker" id="decisionTracker">
+
   <div class="decision-tracker-title">🧭 Your Mission Path</div>
+
   <div class="decision-tracker-path">
+
     <div class="tracker-step" id="tracker-step-dp1">
+
       <div class="tracker-step-icon" id="tracker-icon-dp1">1</div>
+
       <div class="tracker-step-body">
+
         <div class="tracker-step-label">Investigation Start</div>
+
         <div class="tracker-step-value" id="tracker-dp1">Awaiting your choice...</div>
+
       </div>
+
     </div>
+
     <div class="tracker-connector"></div>
+
     <div class="tracker-step" id="tracker-step-dp2">
+
       <div class="tracker-step-icon" id="tracker-icon-dp2">2</div>
+
       <div class="tracker-step-body">
+
         <div class="tracker-step-label">Evidence Focus</div>
+
         <div class="tracker-step-value" id="tracker-dp2">Awaiting your choice...</div>
+
       </div>
+
     </div>
+
     <div class="tracker-connector"></div>
+
     <div class="tracker-step" id="tracker-step-plan">
+
       <div class="tracker-step-icon" id="tracker-icon-plan">3</div>
+
       <div class="tracker-step-body">
+
         <div class="tracker-step-label">Recovery Plan</div>
+
         <div class="tracker-step-value" id="tracker-plan">Awaiting your choice...</div>
+
       </div>
+
     </div>
+
   </div>
+
 </div>
+
 <!-- Resume Modal -->
+
 <div class="modal-overlay" id="resumeModal">
+
   <div class="modal">
+
     <h3>Resume Your Mission</h3>
+
     <p style="margin-bottom:14px;color:var(--gray-600);">Enter your resume code to pick up where you left off.</p>
+
     <input type="text" id="resumeInput" placeholder="Enter code" maxlength="8">
+
     <div class="btn-row">
+
       <button class="btn btn--primary" onclick="loadResumeCode()">Resume</button>
+
       <button class="btn btn--secondary" onclick="closeResumeModal()">Cancel</button>
+
     </div>
+
     <p id="resumeError" style="color:red;font-size:0.85rem;margin-top:10px;"></p>
+
   </div>
+
 </div>
 
 <div class="lesson-container">
 
 <!-- ============ SECTION 0: LAUNCH ============ -->
+
 <div class="section active" id="section-0" data-section="0">
+
   <div class="card card--hero">
+
     <h1 class="title-main">Eco-Responders: After the Fire</h1>
+
     <p class="subtitle">You are part of the Eco-Responders team, called to Forest Glen after a wildfire. <strong>Your mission is to investigate what changed, study the evidence, and figure out how one wildfire could affect an entire ecosystem.</strong></p>
+
     <div class="btn-row btn-row--center" style="margin-top:32px;">
+
       <button class="btn btn--primary" style="background:var(--yellow);color:var(--black);box-shadow:0 4px 14px rgba(255,198,39,0.4);font-size:1.15rem;padding:16px 36px;" onclick="beginLessonTiming(); goTo('section-1')">Start Mission</button>
+
     </div>
+
   </div>
+
   <div class="expandable" id="expand-objectives">
+
     <button class="expandable-header" onclick="toggleExpand('expand-objectives')">Learning Objectives &amp; Instructional Alignment <span class="expandable-arrow">▼</span></button>
+
     <div class="expandable-body"><div class="expandable-content">
+
       <p><strong>Learning Objectives</strong></p>
+
       <p>By the end of this lesson, students will be able to:</p>
+
       <ul>
+
         <li>Identify natural and human factors that influence wildfire risk</li>
+
         <li>Analyze patterns in environmental data</li>
+
         <li>Explain cause-and-effect relationships in ecosystem change</li>
+
         <li>Develop a feedback loop model</li>
+
         <li>Propose evidence-based community solutions</li>
+
         <li>Communicate scientific thinking through reflection and PSA creation</li>
+
       </ul>
+
       <p><strong>Student Learning Outcomes</strong></p>
+
       <p>Students will demonstrate learning by:</p>
+
       <ul>
+
         <li>Making evidence-based decisions</li>
+
         <li>Investigating environmental data</li>
+
         <li>Building feedback loop models</li>
+
         <li>Completing field journal reflections</li>
+
         <li>Creating a Fire-Smart PSA</li>
+
         <li>Reflecting on science-based decision making</li>
+
       </ul>
+
       <p><strong>Instructional Alignment</strong></p>
+
       <p>This lesson aligns with Arizona Science Standard 5.L4U3.11: "Obtain, evaluate, and communicate evidence about how natural and human-caused changes to habitats or climate can impact populations."</p>
+
       <p><strong>NGSS Crosscutting Concepts:</strong> Patterns, Cause and Effect, Systems and System Models, Stability and Change, Energy and Matter</p>
+
     </div></div>
+
   </div>
+
   <footer style="font-size:0.7rem;color:#6b7280;text-align:center;margin:40px auto 20px;padding:10px 20px;line-height:1.4;max-width:700px;">
+
     © 2026 Brooke Toon. All rights reserved. This lesson is part of the Stories in Science (SINS) Framework developed by the author. Generative AI tools were used to support the development of this instructional material. This content may not be reproduced, distributed, modified, or used for commercial purposes without permission.
+
   </footer>
+
 </div>
 
 <!-- ============ SECTION 1: STORY INTRODUCTION ============ -->
+
 <div class="section" id="section-1" data-section="1">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">After the Fire</h2>
+
     <p class="narrative-text">The air smells faintly of pine and smoke, reminders that nature is constantly changing.</p>
+
     <p class="narrative-text">As an Eco-Responder, you've learned that every fire tells two stories: one of loss and one of renewal.</p>
+
     <p class="narrative-text">This week, your team is on alert. Just over the ridge, a town called Forest Glen was hit by a wildfire two weeks ago. Your team must figure out what changed after the fire and what should happen next.</p>
+
     <p class="narrative-text">Your town, Maple Valley, sits just downwind.</p>
+
     <p class="narrative-text">As you explore, pay attention to what changed in the land, plants, animals, and people; you'll use this evidence to make decisions later. At the end of this mission, you'll use your evidence to recommend how Maple Valley should prepare for future fires</p>
+
     <p class="subtle-prompt">What do you think changed the most after the fire—and why?</p>
+
     <img src="images/EcoResponders_MapleValley_Map_01.png" alt="Map showing Forest Glen wildfire and Maple Valley downwind" class="lesson-image">
+
     <img src="images/EcoResponders_TeamBadge_01.png" alt="Eco-Responders team badge" class="lesson-image lesson-image-small">
+
   </div>
+
   <div class="expandable" id="expand-expect">
+
     <button class="expandable-header" onclick="toggleExpand('expand-expect')">What to Expect <span class="expandable-arrow">▼</span></button>
+
     <div class="expandable-body"><div class="expandable-content">
+
       <p>As an Eco-Responder, your job is to find out how wildfires start, spread, and change habitats.</p>
+
       <p>You'll look at real evidence, from NOAA weather data to FEMA field reports, to spot patterns and causes.</p>
+
       <p><strong>🔍 Your Mission</strong></p>
+
       <p>Add notes in your Field Journal as you move through each part of the story. Use your clues and ideas to make a final plan that helps Maple Valley rebuild safely for both people and wildlife.</p>
+
       <p>You'll also make choices that guide what you see and discover along the way.</p>
+
       <p><strong>📓 Field Journal</strong></p>
+
       <p>Your journal entries will help you track evidence, explain your thinking, and prepare your final recommendation for Maple Valley.</p>
+
     </div></div>
+
   </div>
+
   <div class="expandable" id="expand-glossary">
+
     <button class="expandable-header" onclick="toggleExpand('expand-glossary')">Mission Glossary: Key Terms to Know <span class="expandable-arrow">▼</span></button>
+
     <div class="expandable-body"><div class="expandable-content">
+
       <p><strong>⚡ Fuel-Moisture</strong><br>How much water is stored in plants and soil. When it's low, leaves and branches dry out and burn more easily.</p>
+
       <p><strong>🔥 Red Flag Warning</strong><br>A weather alert from NOAA when hot, dry, and windy conditions make wildfires more likely to spread.</p>
+
       <p><strong>🏠 Defensible Space</strong><br>A safety zone (about 30 feet around a home) kept clear of flammable materials to slow or stop wildfire spread.</p>
+
       <p><strong>🏗 Fire-Resistant Materials</strong><br>Building materials (like stucco or metal roofs) that don't easily burn, protecting homes from embers and heat.</p>
+
       <p><strong>♻ Feedback Loop</strong><br>When one change causes another that strengthens or weakens the first — for example, fewer trees → hotter ground → more fires.</p>
+
       <p><strong>🌎 Ecosystem Recovery</strong><br>How plants, animals, and soil rebuild after a disturbance like a wildfire.</p>
+
       <p><strong>🏛 FEMA (Federal Emergency Management Agency)</strong><br>The agency that helps people and communities prepare for and recover from natural disasters.</p>
+
       <p><strong>☁ NOAA (National Oceanic and Atmospheric Administration)</strong><br>The agency that studies Earth's weather and climate to help predict and prevent environmental hazards.</p>
+
     </div></div>
+
   </div>
+
   <div class="expandable" id="expand-more">
+
     <button class="expandable-header" onclick="toggleExpand('expand-more')">Want to Learn More? <span class="expandable-arrow">▼</span></button>
+
     <div class="expandable-body"><div class="expandable-content">
+
       <ul>
+
         <li><strong>Relative Humidity</strong> — How much moisture is in the air compared to what it could hold.</li>
+
         <li><strong>Drought Index</strong> — A number scientists use to show how dry an area is.</li>
+
         <li><strong>Serotinous Cones</strong> — Pine cones that open only when heated by fire.</li>
+
         <li><strong>Native Shrubs</strong> — Local plants that regrow quickly after fires.</li>
+
       </ul>
+
     </div></div>
+
   </div>
+
   <div class="btn-row btn-row--right">
+
     <button class="btn btn--primary" onclick="goTo('section-2')">Begin Mission →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 2: DECISION POINT 1 ============ -->
+
 <div class="section" id="section-2" data-section="2">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Ping! Ping! Ping!</h2>
+
     <img src="images/EcoResponders_TabletAlert_01.png" alt="Student viewing FEMA mentor on tablet" class="lesson-image">
+
     <p class="narrative-text">Your Eco-Responder tablet flashes red.</p>
+
     <p class="narrative-text">Jordan, your FEMA mentor, appears on the screen.</p>
+
     <p class="dialogue">"Forest Glen's fire is finally contained," he says, "but NOAA just issued a Red Flag Warning for Maple Valley."</p>
+
     <p class="narrative-text">Relative humidity is 14%, winds steady at 25 mph, strong enough to push embers a mile.</p>
+
     <p class="dialogue">"We need evidence from Forest Glen before the next spark, and don't forget to bring your field journal," says Jordan.</p>
+
   </div>
+
   <div class="card card--decision">
+
     <p class="decision-question">Your team needs evidence to understand what happened after the fire. Where will you begin your investigation?</p>
+
     <div class="decision-grid">
+
       <button class="btn btn--decision" onclick="makeDecision('dp1','noaa'); goTo('section-3a1')">
+
         <strong>🔍 Analyze NOAA weather data first</strong><br>
+
         <span style="color:var(--gray-600);font-size:0.9rem;">Look for patterns in wind, humidity, and conditions that helped the fire spread.</span>
+
       </button>
+
       <button class="btn btn--decision" onclick="makeDecision('dp1','field'); goTo('section-3b1')">
+
         <strong>🌲 Go straight to the fire zone for field observations</strong><br>
+
         <span style="color:var(--gray-600);font-size:0.9rem;">Observe what changed on the ground—plants, soil, and signs of damage.</span>
+
       </button>
+
     </div>
+
     <p class="subtle-prompt">Both approaches can help your team understand what happened, but they may reveal different clues.</p>
+
   </div>
+
   <div class="btn-row">
+
     <button class="btn btn--back" onclick="goTo('section-1')">← Back</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 3A-1: NOAA DATA PAGE 1 ============ -->
+
 <div class="section" id="section-3a1" data-section="3a1">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">NOAA Data Investigation</h2>
+
     <img src="images/EcoResponders_NOAA_Lab_01.png" alt="Student analyzing NOAA drought data in mobile lab" class="lesson-image">
+
     <p class="narrative-text">You arrive at the mobile lab, and Jordan pulls up the latest weather and fire-condition data on your tablet.</p>
+
     <p class="dialogue">"We don't have time to check everything first," he says. "Choose the clue you think will tell us the most about why fire risk is rising."</p>
+
     <p class="subtle-prompt">Look for patterns in the data that could explain why the fire spread so quickly. <strong>How might these weather conditions affect plants, animals, or people in this area? And how might these conditions change what plants or animals can live in this area?</strong></p>
+
   </div>
+
   <div class="card">
+
     <div id="noaa-simulator">
+
       <div style="background:linear-gradient(135deg,#dfeee6,#edf5f9);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:20px;margin-bottom:18px;">
+
         <h3 style="margin:0 0 6px;font-size:1.4rem;color:#214a42;">NOAA Data Review Simulator</h3>
+
         <p style="margin:0;color:var(--gray-600);">Determine which data you want to prioritize.</p>
+
       </div>
+
       <div id="noaaChoices" class="decision-grid"></div>
+
       <div id="noaaPanel" style="display:none;">
+
         <p class="narrative-text" style="margin:0 0 16px;">With your data uploaded, you now need to understand the field conditions.</p>
-        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:16px;align-items:start;" class="noaa-panel-grid">
+
+        <div class="noaa-panel-grid">
+
           <div class="card" style="margin:0;">
+
             <p id="noaaInvestigating" style="color:#356257;font-size:0.95rem;font-weight:700;text-transform:uppercase;margin-bottom:6px;"></p>
+
             <h3 id="noaaPanelTitle" style="color:#1f4a43;margin-bottom:8px;"></h3>
+
             <p id="noaaExplanation" style="color:var(--gray-600);"></p>
+
             <div style="margin-top:14px;">
+
+              <div id="noaaChartControls">
+                <div class="noaa-ctrl-row">
+                  <span class="noaa-ctrl-label">From</span>
+                  <select id="noaaFromYear" class="noaa-year-select" onchange="onNoaaRangeChange()">
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                  </select>
+                  <span class="noaa-arrow">→</span>
+                  <select id="noaaToYear" class="noaa-year-select" onchange="onNoaaRangeChange()">
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026" selected>2026</option>
+                  </select>
+                  <span id="noaaViewBadge" class="noaa-view-badge yearly">📊 Yearly View</span>
+                </div>
+                <div class="noaa-ctrl-row">
+                  <label class="noaa-compare-label">
+                    <input type="checkbox" id="noaaCompareToggle" onchange="onNoaaCompareToggle(this.checked)">
+                    Compare with Maple Valley
+                  </label>
+                </div>
+              </div>
+
               <canvas id="noaaChart" width="640" height="360" style="width:100%;max-width:100%;height:auto;background:linear-gradient(180deg,#fbfdfc,#f2f7f5);border:1px solid #d8e3dd;border-radius:12px;display:block;"></canvas>
+
+              <div id="noaaLegend">
+                <div class="noaa-legend-item forest"><span class="swatch"></span> Forest Glen (fire occurred)</div>
+                <div class="noaa-legend-item maple"><span class="swatch" style="background:transparent;border-top:2px dashed #c4860a;"></span> Maple Valley (at risk)</div>
+              </div>
+
             </div>
+
             <div style="margin-top:14px;background:#eef6fb;border:1px solid #d6e6f2;border-radius:12px;padding:12px;">
+
               <h4 style="margin:0 0 4px;color:#2b5f87;font-size:0.95rem;">Scientist Tip</h4>
+
               <p id="noaaTip" style="margin:0;color:#45697d;font-size:0.95rem;"></p>
+
             </div>
+
           </div>
+
           <div class="card" style="margin:0;">
+
             <label style="display:block;font-weight:700;margin-bottom:6px;color:#24423d;">Pattern I Notice</label>
-            <textarea id="noaaPattern" class="journal-textarea" data-key="noaa_pattern" placeholder="I notice that..." style="min-height:90px;" oninput="autoSave('noaa_pattern',this.value);updateNoaaPreview()"></textarea>
+
+            <textarea id="noaaPattern" class="journal-textarea" data-key="noaa_pattern" placeholder="I notice that..." style="min-height:90px;" oninput="autoSave('noaa_pattern',this.value);"></textarea>
+
             <label style="display:block;font-weight:700;margin-bottom:6px;margin-top:12px;color:#24423d;">Why This Matters for Fire Risk</label>
-            <textarea id="noaaRisk" class="journal-textarea" data-key="noaa_risk" placeholder="This matters for fire risk because..." style="min-height:90px;" oninput="autoSave('noaa_risk',this.value);updateNoaaPreview()"></textarea>
+
+            <textarea id="noaaRisk" class="journal-textarea" data-key="noaa_risk" placeholder="This matters for fire risk because..." style="min-height:90px;" oninput="autoSave('noaa_risk',this.value);"></textarea>
+
             <div style="margin-top:12px;">
+
               <button class="btn btn--back" onclick="showNoaaChoices()">← Back to Data Choices</button>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
-  <div class="card card--journal">
+
+  <div id="noaaJournal" class="card card--journal" style="display:none;">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">What does your NOAA data suggest about the conditions before the fire, and how might those conditions have helped the fire spread?</p>
+
     <textarea class="journal-textarea" data-key="3a1_reflection" oninput="autoSave('3a1_reflection',this.value)" placeholder="My NOAA clue suggests that..."></textarea>
+
     <div class="save-indicator" data-save="3a1_reflection"></div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-2')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-3a2')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 3A-2: NOAA DATA PAGE 2 ============ -->
+
 <div class="section" id="section-3a2" data-section="3a2">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Satellite Images</h2>
+
     <img src="images/EcoResponders_DryForest_Satellite_01.png" alt="Student reviewing dry satellite terrain" class="lesson-image">
+
     <p class="narrative-text">Jordan closes the graphs.</p>
+
     <p class="dialogue">"If the weather looked like this, what do you think the team in Forest Glen might be seeing on the ground?"</p>
+
     <p class="narrative-text">You pull up the satellite overlay. The hills are dry and tan instead of green.</p>
+
     <p class="narrative-text">The humidity sensor reads 13%.</p>
+
     <p class="dialogue">"Use the data and satellite image to describe what the forest probably looks like," Jordan says.</p>
+
     <p class="dialogue">"What might happen to soil, plants, or wildlife after months of these conditions?"</p>
+
     <p class="narrative-text">Your observations complete the picture. Now it's time to decide what matters most.</p>
+
   </div>
+
   <div class="card card--journal">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">Based on the NOAA data and satellite image, what do you think Forest Glen looked like before the fire, and what evidence supports your idea? Use one clue to support your idea.</p>
+
     <textarea class="journal-textarea" data-key="3a2_inference" oninput="autoSave('3a2_inference',this.value)" placeholder="Based on the NOAA evidence, I think Forest Glen looked like..."></textarea>
+
     <div class="save-indicator" data-save="3a2_inference"></div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-3a1')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-4')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 3B-1: FIELD OBSERVATION PAGE 1 ============ -->
+
 <div class="section" id="section-3b1" data-section="3b1">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Field Observations</h2>
+
     <img src="images/EcoResponders_ForestGlen_FieldDrive_01.png" alt="Students riding into the burned forest area" class="lesson-image">
+
     <p class="narrative-text">You ride beside Ranger Marisol into Forest Glen.</p>
+
     <p class="narrative-text">The air smells like ash and rain. Your tablet displays photos from Ranger Marisol.</p>
+
     <p class="narrative-text">In the photos, you notice:</p>
+
     <ul style="margin:10px 0 14px 24px;color:var(--gray-700);">
+
       <li>Soil dry and crumbly; the organic layer burned away.</li>
+
       <li>Green sprouts poking through black earth.</li>
+
       <li>Metal-roofed homes still standing; wood roofs gone.</li>
+
     </ul>
+
     <p class="dialogue">"Soil's dry," she says. "Thin ash layer, but look, some pine cones cracked open."</p>
+
     <p class="narrative-text">You examine one: resin melted, seeds spilled onto the ground.</p>
+
     <p class="dialogue">"Serotinous cones," she explains. "Some trees need heat to start over."</p>
+
     <p class="narrative-text">Nearby, houses with metal roofs stand untouched; those with wood shingles are gone.</p>
+
   </div>
+
   <div class="card" style="background:#eef3ea;border:none;">
+
     <h3 style="text-align:center;color:#2f4a34;font-size:1.15rem;margin-bottom:6px;">🔥 Forest Glen — After the Wildfire</h3>
+
     <p style="text-align:center;font-size:0.9rem;color:#4f5f56;margin-bottom:10px;">Explore the map to discover what happened to Forest Glen. As you explore, think about what these clues reveal about how the fire affected different parts of the system.</p>
+
     <p class="hs-instructions">👆 Your team has marked key investigation zones across Forest Glen. <span>Where will you investigate first?</span></p>
+
     <div class="hotspot-map-wrap">
+
       <img class="hotspot-map-img" src="images/EcoResponders_Forest Glen_Map_After.png" alt="Map of Forest Glen after wildfire">
+
       <button class="hotspot-btn hs-downtown" data-hs-target="hs-panel-downtown" data-hs-location="Downtown District" aria-label="Explore Downtown District"><span class="hs-icon">🏢</span></button>
+
       <button class="hotspot-btn hs-residential" data-hs-target="hs-panel-residential" data-hs-location="Residential Area" aria-label="Explore Residential Area"><span class="hs-icon">🏠</span></button>
+
       <button class="hotspot-btn hs-forest" data-hs-target="hs-panel-forest" data-hs-location="Forest Region" aria-label="Explore Forest Region"><span class="hs-icon">🌲</span></button>
+
       <div class="hs-overlay" id="hsOverlay"></div>
+
       <div class="hs-info-panel" id="hs-panel-downtown">
+
         <button class="hs-close-btn" aria-label="Close">&times;</button>
+
         <img src="images/EvoResponders_Forest Glen_Buisness_After.png" alt="Downtown district after wildfire">
+
         <div class="hs-info-body">
+
           <h3>🏢 Downtown District</h3>
+
           <p>The downtown buildings show heavy fire and smoke damage. Walls are charred, windows shattered, and metal structures have warped from extreme heat.</p>
+
           <div class="hs-clue-box"><strong>🔍 Science Clue: </strong><span>Fires need three things to burn: <em>fuel, oxygen, and heat</em> (the fire triangle). In a downtown area full of buildings, which of these might have been hardest to remove, and why?</span></div>
+
         </div>
+
       </div>
+
       <div class="hs-info-panel" id="hs-panel-residential">
+
         <button class="hs-close-btn" aria-label="Close">&times;</button>
+
         <img src="images/EcoResponders_Forest Glen_Home_After.png" alt="Residential area after wildfire">
+
         <div class="hs-info-body">
+
           <h3>🏠 Residential Area</h3>
+
           <p>Homes in the residential area have been reduced to rubble. Only a stone chimney remains standing among the ash and debris. Personal belongings are scattered.</p>
+
           <div class="hs-clue-box"><strong>🔍 Science Clue: </strong><span>The stone chimney survived, but wooden walls did not. What property of <em>stone vs. wood</em> explains why one material resisted fire better than the other?</span></div>
+
         </div>
+
       </div>
+
       <div class="hs-info-panel" id="hs-panel-forest">
+
         <button class="hs-close-btn" aria-label="Close">&times;</button>
+
         <img src="images/EcoResponders_Forest Glen_Forest_After.png" alt="Forest region after wildfire">
+
         <div class="hs-info-body">
+
           <h3>🌲 Forest Region</h3>
+
           <p>The forest has been devastated. Tree trunks are blackened and bare, fallen logs cover the ground, and thick haze fills the air. The forest floor is coated in ash.</p>
+
           <div class="hs-clue-box"><strong>🔍 Science Clue: </strong><span>After a wildfire, the first plants to return are often small grasses and wildflowers. Why do you think <em>small plants grow back before big trees</em>?</span></div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
   <div class="card card--journal">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">What do your observations from Forest Glen suggest about how the fire affected the land, plants, animals, or people—and what evidence supports your thinking?</p>
+
     <textarea class="journal-textarea" data-key="3b1_observations" oninput="autoSave('3b1_observations',this.value)" placeholder="I think the fire affected... I know this because..."></textarea>
+
     <div class="save-indicator" data-save="3b1_observations"></div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-2')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-3b2')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 3B-2: FIELD OBSERVATION PAGE 2 ============ -->
+
 <div class="section" id="section-3b2" data-section="3b2">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Field Observations</h2>
+
     <img src="images/EcoResponders_DryForest_FieldClues_01.png" alt="Student examining dry forest and cracked streambed" class="lesson-image">
+
     <p class="dialogue">"We still don't have NOAA's climate data," Marisol says.</p>
+
     <p class="dialogue">"But you've seen the ground. What kind of weather would cause this?"</p>
+
     <p class="narrative-text">You notice brittle leaves that crumble in your hand.</p>
+
     <p class="narrative-text">The streambed nearby is cracked.</p>
+
     <p class="dialogue">"Use your field clues. Was this a wet year or a dry one? Cool or hot?" she asks.</p>
+
     <p class="dialogue">"Explain your reasoning."</p>
+
     <p class="narrative-text">Your observations complete the picture. Now it's time to decide what matters most.</p>
+
     <p class="subtle-prompt"><strong>As you examine the field clues, think about what they reveal about the conditions before the fire—and how those conditions might affect plants and animals.</strong></p>
+
   </div>
+
   <div class="card card--journal">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">What weather conditions likely led to this fire? Use at least two field clues to support your answer. Then explain how those conditions might affect plants or animals in this area.</p>
+
     <textarea class="journal-textarea" data-key="3b2_weather" oninput="autoSave('3b2_weather',this.value)" placeholder="Based on my field clues, I think the weather was... This would affect plants/animals because..."></textarea>
+
     <div class="save-indicator" data-save="3b2_weather"></div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-3b1')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-4')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 4: CONVERGENCE + DECISION 2 ============ -->
+
 <div class="section" id="section-4" data-section="4">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Team Regroup</h2>
+
     <img src="images/EcoResponders_TeamConvergence_02.png" alt="Student regrouping with FEMA mentor and ranger" class="lesson-image">
+
     <p class="narrative-text">You regroup with Jordan and Ranger Marisol.</p>
+
     <p class="narrative-text">The valley stays quiet for a while, and there is not much more to do yet.</p>
+
     <p class="dialogue">"Head home, get some rest, and be ready to return," Marisol says.</p>
+
     <p class="narrative-text">Two weeks later, you meet Jordan and Ranger Marisol again.</p>
+
     <p class="narrative-text">Three new reports appear on your tablet.</p>
+
     <p class="dialogue">"What we do next depends on the evidence we study first," Jordan says.</p>
+
     <img src="images/EcoResponders_Reports_02.png" alt="Student viewing reports on tablet" class="lesson-image">
+
   </div>
 
   <div class="dp2-card">
+
     <p class="dp2-eyebrow">Decision Point 2</p>
+
     <h2 class="dp2-heading">Choose Your Investigation Report</h2>
+
     <p class="dp2-description">Three field reports have come in from the burn zone. Each examines the fire's aftermath through a different lens. Pick the one that matches your investigation focus.</p>
+
     <div class="dp2-options">
+
       <button class="dp2-option" data-report="human" onclick="makeDecision('dp2','human'); goTo('section-5a')">
+
         <span class="dp2-option-icon">🏠</span>
+
         <div class="dp2-option-body">
+
           <span class="dp2-option-title">Human Impact Report</span>
+
           <span class="dp2-option-sub">Structures, materials, and evacuation data</span>
+
         </div>
+
         <span class="dp2-option-arrow">→</span>
+
       </button>
+
       <button class="dp2-option" data-report="eco" onclick="makeDecision('dp2','ecosystem'); goTo('section-5b')">
+
         <span class="dp2-option-icon">🌿</span>
+
         <div class="dp2-option-body">
+
           <span class="dp2-option-title">Ecosystem Report</span>
+
           <span class="dp2-option-sub">Regrowth, erosion, and water quality findings</span>
+
         </div>
+
         <span class="dp2-option-arrow">→</span>
+
       </button>
+
       <button class="dp2-option" data-report="combined" onclick="makeDecision('dp2','both'); goTo('section-5c')">
+
         <span class="dp2-option-icon">🔗</span>
+
         <div class="dp2-option-body">
+
           <span class="dp2-option-title">Combined Analysis</span>
+
           <span class="dp2-option-sub">How human and ecological systems interact</span>
+
         </div>
+
         <span class="dp2-option-arrow">→</span>
+
       </button>
+
     </div>
+
   </div>
 
   <div class="btn-row">
+
     <button class="btn btn--back" onclick="goBack()">← Back</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 5A: HUMAN IMPACTS ============ -->
+
 <div class="section" id="section-5a" data-section="5a">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Human Impacts Report</h2>
+
     <img src="images/EcoResponders_HomeSurvivalGraph_01.png" alt="Student analyzing home survival data" class="lesson-image">
+
     <p class="narrative-text">You open the FEMA report for Forest Glen.</p>
+
     <p class="narrative-text">The report shows that 22 of 30 homes with metal roofs survived, but only 4 of 30 homes with wood-shingle roofs survived.</p>
+
     <p class="dialogue">"Notice the pattern," Jordan says.</p>
+
     <p class="narrative-text">You create a quick bar graph to compare the results.</p>
+
     <p class="subtle-prompt"><strong>What might this pattern mean for people's safety, and how communities prepare for future fires?</strong></p>
+
   </div>
 
   <!-- Evidence Accordion: Human Impact -->
+
   <div class="report-interactive">
+
     <div class="report-badge-row">
+
       <span class="ri-badge ri-badge--human">Field Report</span>
+
     </div>
+
     <p class="ri-title">Human Impact Report</p>
+
     <p class="ri-subtitle">Evidence collected from residential burn zones — tap each item to examine.</p>
+
     <div class="ri-progress">
+
       <div class="ri-dots" id="dots-human">
+
         <span class="ri-dot" data-idx="0"></span>
+
         <span class="ri-dot" data-idx="1"></span>
+
         <span class="ri-dot" data-idx="2"></span>
+
       </div>
+
       <span id="count-human">0 / 3 examined</span>
+
     </div>
+
     <div class="ri-accordion ri-accordion--human" id="ri-accordion-human">
+
       <div class="ri-accordion-item" data-index="0">
+
         <button class="ri-trigger" onclick="toggleRiAccordion(this,'human')">
+
           <span class="ri-num ri-num--human">1</span>
+
           Defensible Space
+
           <span class="ri-chevron">▼</span>
+
         </button>
+
         <div class="ri-body">
+
           <div class="ri-body-inner">
+
             <p class="ri-evidence">Homes with 30 ft of cleared vegetation had a 70% survival rate. Properties without defensible space were nearly all destroyed.</p>
+
             <p class="ri-scientist">"The 30-foot zone is the single biggest predictor of structure survival." — Cal Fire analyst</p>
+
           </div>
+
         </div>
+
       </div>
+
       <div class="ri-accordion-item" data-index="1">
+
         <button class="ri-trigger" onclick="toggleRiAccordion(this,'human')">
+
           <span class="ri-num ri-num--human">2</span>
+
           Roof Materials
+
           <span class="ri-chevron">▼</span>
+
         </button>
+
         <div class="ri-body">
+
           <div class="ri-body-inner">
+
             <p class="ri-evidence">Metal-roofed structures survived at twice the rate of those with wood shingles. Embers landing on wood ignited within minutes.</p>
+
             <p class="ri-scientist">Ember transport can carry fire over a mile ahead of the flame front.</p>
+
           </div>
+
         </div>
+
       </div>
+
       <div class="ri-accordion-item" data-index="2">
+
         <button class="ri-trigger" onclick="toggleRiAccordion(this,'human')">
+
           <span class="ri-num ri-num--human">3</span>
+
           Evacuation Preparedness
+
           <span class="ri-chevron">▼</span>
+
         </button>
+
         <div class="ri-body">
+
           <div class="ri-body-inner">
+
             <p class="ri-evidence">Communities with practiced evacuation plans cleared in under 45 minutes. Unprepared areas took over 2 hours, increasing risk.</p>
+
             <p class="ri-scientist">Preparation time is recovery time — the faster the exit, the faster the return.</p>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
 
   <div class="card card--journal">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">What human choice helped homes survive the fire most? Use one data pattern to explain your answer.</p>
+
     <textarea class="journal-textarea" data-key="5a_impacts" oninput="autoSave('5a_impacts',this.value)" placeholder="The human choice that seems to have helped most was..."></textarea>
+
     <div class="save-indicator" data-save="5a_impacts"></div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-4')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-6')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 5B: ECOSYSTEM RECOVERY ============ -->
+
 <div class="section" id="section-5b" data-section="5b">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Ecosystem Recovery Report</h2>
+
     <img src="images/EcoResponders_EcosystemRecovery_01.png" alt="Ranger showing regrowth and erosion impacts" class="lesson-image">
+
     <p class="narrative-text">You and Marisol walk to the nearby canyon slopes.</p>
+
     <p class="dialogue">"The manzanita's already back," Marisol says. "Roots that stayed alive underground start growing again."</p>
+
     <p class="narrative-text">You notice bare slopes nearby turning to mud after rain.</p>
+
     <p class="dialogue">"No roots, no stability," she explains. "That runoff carries nutrients away."</p>
+
     <p class="narrative-text">A sensor alert pops up: nitrate levels in the creek have doubled since the fire, a sign that nutrients are washing away.</p>
+
     <p class="narrative-text">Back at the mobile lab, Jordan uploads your photos into the shared investigation portal.</p>
+
     <p class="subtle-prompt"><strong>How might these changes affect plants and animals over time in this ecosystem?</strong></p>
+
   </div>
 
   <!-- Evidence Accordion: Ecosystem Recovery -->
+
   <div class="report-interactive">
+
     <div class="report-badge-row">
+
       <span class="ri-badge ri-badge--eco">Field Report</span>
+
     </div>
+
     <p class="ri-title">Ecosystem Recovery Report</p>
+
     <p class="ri-subtitle">Post-fire ecological data from the first 12 months — tap each item to examine.</p>
+
     <div class="ri-progress">
+
       <div class="ri-dots" id="dots-eco">
+
         <span class="ri-dot" data-idx="0"></span>
+
         <span class="ri-dot" data-idx="1"></span>
+
         <span class="ri-dot" data-idx="2"></span>
+
       </div>
+
       <span id="count-eco">0 / 3 examined</span>
+
     </div>
+
     <div class="ri-accordion ri-accordion--eco" id="ri-accordion-eco">
+
       <div class="ri-accordion-item" data-index="0">
+
         <button class="ri-trigger" onclick="toggleRiAccordion(this,'eco')">
+
           <span class="ri-num ri-num--eco">1</span>
+
           Plant Regrowth
+
           <span class="ri-chevron">▼</span>
+
         </button>
+
         <div class="ri-body">
+
           <div class="ri-body-inner">
+
             <p class="ri-evidence">Manzanita resprouted from root crowns within 8 weeks. Lupine seeds, dormant for decades, germinated in the ash-enriched soil.</p>
+
             <p class="ri-scientist">Fire-adapted species treat wildfire as a reset signal, not a catastrophe.</p>
+
           </div>
+
         </div>
+
       </div>
+
       <div class="ri-accordion-item" data-index="1">
+
         <button class="ri-trigger" onclick="toggleRiAccordion(this,'eco')">
+
           <span class="ri-num ri-num--eco">2</span>
+
           Erosion Patterns
+
           <span class="ri-chevron">▼</span>
+
         </button>
+
         <div class="ri-body">
+
           <div class="ri-body-inner">
+
             <p class="ri-evidence">Bare slopes lost up to 12 tons of soil per acre after the first major rainfall. Slopes with surviving root systems lost far less.</p>
+
             <p class="ri-scientist">Without ground cover, rain becomes a second disaster.</p>
+
           </div>
+
         </div>
+
       </div>
+
       <div class="ri-accordion-item" data-index="2">
+
         <button class="ri-trigger" onclick="toggleRiAccordion(this,'eco')">
+
           <span class="ri-num ri-num--eco">3</span>
+
           Water Quality
+
           <span class="ri-chevron">▼</span>
+
         </button>
+
         <div class="ri-body">
+
           <div class="ri-body-inner">
+
             <p class="ri-evidence">Nitrate runoff in streams spiked 4× above baseline in the first month, then gradually declined as vegetation returned.</p>
+
             <p class="ri-scientist">Downstream ecosystems absorb the chemical footprint of upstream fire.</p>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
 
   <div class="card card--journal">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">What is one sign that plant or animal populations are recovering, and one sign they are still struggling? Use evidence from the report.</p>
+
     <textarea class="journal-textarea" data-key="5b_ecosystem" oninput="autoSave('5b_ecosystem',this.value)" placeholder="One sign of recovery is... One sign the ecosystem still needs help is..."></textarea>
+
     <div class="save-indicator" data-save="5b_ecosystem"></div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-4')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-6')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 5C: BOTH PERSPECTIVES ============ -->
+
 <div class="section" id="section-5c" data-section="5c">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Both Perspectives</h2>
+
     <img src="images/EcoResponders_IntegratedData_01.png" alt="Student analyzing combined human and ecosystem data" class="lesson-image">
+
     <p class="narrative-text">You split your tablet screen. One side shows how the fire affected homes. The other shows how the fire affected the land.</p>
+
     <p class="narrative-text">You start matching connections between what people did and how the land responded.</p>
+
     <ul style="margin:10px 0 14px 24px;color:var(--gray-700);">
+
       <li>Areas with more homes still standing had less soil washing away.</li>
+
       <li>In places where burned debris was cleared too quickly, more runoff flowed downhill.</li>
+
     </ul>
+
     <p class="dialogue">"Everything's connected," Jordan says. "Our recovery plans have to be connected, too."</p>
+
     <p class="subtle-prompt"><strong>How might one human action change plant or animal populations, and how could those changes affect people again?</strong></p>
+
   </div>
 
   <!-- Evidence Accordion: Combined Analysis -->
+
   <div class="report-interactive">
+
     <div class="report-badge-row">
+
       <span class="ri-badge ri-badge--combined">Analysis</span>
+
     </div>
+
     <p class="ri-title">Combined Perspective</p>
+
     <p class="ri-subtitle">Where human and ecological recovery intersect — tap each item to examine.</p>
+
     <div class="ri-progress">
+
       <div class="ri-dots" id="dots-combined">
+
         <span class="ri-dot" data-idx="0"></span>
+
         <span class="ri-dot" data-idx="1"></span>
+
         <span class="ri-dot" data-idx="2"></span>
+
       </div>
+
       <span id="count-combined">0 / 3 examined</span>
+
     </div>
+
     <div class="ri-accordion ri-accordion--combined" id="ri-accordion-combined">
+
       <div class="ri-accordion-item" data-index="0">
+
         <button class="ri-trigger" onclick="toggleRiAccordion(this,'combined')">
+
           <span class="ri-num ri-num--combined">1</span>
+
           Fire-Smart Communities
+
           <span class="ri-chevron">▼</span>
+
         </button>
+
         <div class="ri-body">
+
           <div class="ri-body-inner">
+
             <p class="ri-evidence">Neighborhoods that combined defensible space with native fire-adapted landscaping saw faster structural and ecological recovery.</p>
+
             <p class="ri-scientist">Working with fire ecology — not against it — protects both homes and habitat.</p>
+
           </div>
+
         </div>
+
       </div>
+
       <div class="ri-accordion-item" data-index="1">
+
         <button class="ri-trigger" onclick="toggleRiAccordion(this,'combined')">
+
           <span class="ri-num ri-num--combined">2</span>
+
           Over-Clearing Effects
+
           <span class="ri-chevron">▼</span>
+
         </button>
+
         <div class="ri-body">
+
           <div class="ri-body-inner">
+
             <p class="ri-evidence">Areas cleared beyond 100 ft experienced severe erosion and slope instability, damaging the very structures they meant to protect.</p>
+
             <p class="ri-scientist">Too much clearing trades one risk for another — fire safety for landslide risk.</p>
+
           </div>
+
         </div>
+
       </div>
+
       <div class="ri-accordion-item" data-index="2">
+
         <button class="ri-trigger" onclick="toggleRiAccordion(this,'combined')">
+
           <span class="ri-num ri-num--combined">3</span>
+
           Community Recovery Planning
+
           <span class="ri-chevron">▼</span>
+
         </button>
+
         <div class="ri-body">
+
           <div class="ri-body-inner">
+
             <p class="ri-evidence">Communities that included ecologists in their rebuilding plans restored services and stability months ahead of those that didn't.</p>
+
             <p class="ri-scientist">Recovery is a system problem — it takes both human and ecological thinking.</p>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
 
   <div class="card card--journal">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">How did one human action affect the ecosystem, and how did that change impact people or the community?</p>
+
     <textarea class="journal-textarea" data-key="5c_integrated" oninput="autoSave('5c_integrated',this.value)" placeholder="One human action affected ecosystem recovery because..."></textarea>
+
     <div class="save-indicator" data-save="5c_integrated"></div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-4')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-6')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 6: TEAM BRIEFING ============ -->
+
 <div class="section" id="section-6" data-section="6">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Team Briefing</h2>
+
     <img src="images/EcoResponders_TeamBriefing_01.png" alt="Student reviewing team briefing" class="lesson-image">
+
     <p class="narrative-text">A green icon flashes on your tablet: "TEAM BRIEFING IN PROGRESS."</p>
+
     <p class="narrative-text">Based on what your team uncovered, it's time to compare findings with other investigation teams.</p>
+
     <p class="narrative-text">Jordan's voice comes through the speaker.</p>
+
     <p class="dialogue">"Eco-Responders, it's time to share what each investigation team discovered."</p>
+
     <p class="narrative-text">Screens blink on one by one as you compare findings from the Human Impact, Ecosystem, and Combined Analysis Reports.</p>
+
     <p class="subtle-prompt"><strong>As you read the reports, think about how one decision led to changes in the land—and how those changes affected people again.</strong></p>
+
   </div>
+
   <div class="expandable" id="expand-teamA">
+
     <button class="expandable-header" onclick="toggleExpand('expand-teamA')">Team A: Human Impact Report <span class="expandable-arrow">▼</span></button>
+
     <div class="expandable-body"><div class="expandable-content">
+
       <ul>
+
         <li>Homes with defensible space (30 feet of cleared vegetation) had a 70% survival rate.</li>
+
         <li>Metal roofs reflected radiant heat and resisted embers better than wood shingles.</li>
+
         <li>Evacuation drills helped families respond quickly and reduce injuries.</li>
+
       </ul>
+
       <p class="dialogue">Jordan nods. "Human preparation made a measurable difference — but what about the land itself?"</p>
+
     </div></div>
+
   </div>
+
   <div class="expandable" id="expand-teamB">
+
     <button class="expandable-header" onclick="toggleExpand('expand-teamB')">Team B: Ecosystem Report <span class="expandable-arrow">▼</span></button>
+
     <div class="expandable-body"><div class="expandable-content">
+
       <ul>
+
         <li>Fire-adapted plants like manzanita and lupine sprouted within two weeks.</li>
+
         <li>Bare slopes near over-cleared areas eroded after rainfall.</li>
+
         <li>Creek nitrate levels doubled, showing nutrient runoff from ash and soil loss.</li>
+
       </ul>
+
       <p class="dialogue">"Nature's resilient," Marisol says, "but recovery depends on balance — too much clearing can do more harm than good."</p>
+
     </div></div>
+
   </div>
+
   <div class="expandable" id="expand-teamC">
+
     <button class="expandable-header" onclick="toggleExpand('expand-teamC')">Team C: Combined Analysis <span class="expandable-arrow">▼</span></button>
+
     <div class="expandable-body"><div class="expandable-content">
+
       <ul>
+
         <li>Neighborhoods that used fire-smart designs supported faster wildlife return and less erosion.</li>
+
         <li>Over-cleared zones lost both shade and soil stability, making regrowth slower.</li>
+
         <li>Data suggests communities that plan together recover faster than those that rebuild alone.</li>
+
       </ul>
+
       <p class="dialogue">"It's all connected," Jordan concludes. "Climate, humans, and ecosystems form one system. Every action creates a ripple."</p>
+
     </div></div>
+
   </div>
+
   <div class="card card--journal">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">What is one cause-and-effect chain you noticed between a human decision and changes in plant or animal populations?</p>
+
     <textarea class="journal-textarea" data-key="section6_synthesis" oninput="autoSave('section6_synthesis',this.value)" placeholder="One cause-and-effect connection I noticed was..."></textarea>
+
     <div class="save-indicator" data-save="section6_synthesis"></div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goBack()">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-7')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 7: SEEING THE SYSTEM ============ -->
+
 <div class="section" id="section-7" data-section="7">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Seeing the System</h2>
+
     <img src="images/EcoResponders_FireSmartComparison_01.png" alt="Split-screen showing damaged vs fire-smart neighborhood" class="lesson-image">
+
     <p class="narrative-text">After the briefing, two images appear on your tablet: one neighborhood destroyed, another still standing.</p>
+
     <p class="dialogue">"Same fire, same wind," Marisol says. "Different results."</p>
+
     <p class="narrative-text">Areas that cleared brush but kept native shrubs recovered fastest. Over-cleared zones washed away after the first rain.</p>
+
     <p class="dialogue">"Vegetation protects the soil," she reminds you. "Too little cover, and erosion takes over."</p>
+
     <p class="narrative-text"><strong>Forest Glen cannot be undone. But Maple Valley can still learn from what happened here.</strong></p>
+
     <p class="dialogue">"Before we tell Maple Valley anything," Jordan says, "we have to understand how all these pieces connect."</p>
+
     <p class="dialogue">"When one thing changes, soil, plants, weather, or human decisions, it sets off ripples through the whole system."</p>
+
     <p class="narrative-text">Your team has the evidence. Now it's time to see Forest Glen as a system, so you can help Maple Valley plan ahead wisely.</p>
+
   </div>
+
   <div class="card card--journal">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">Choose one change in Forest Glen. What other changes could it cause in the system? Explain how one change leads to another.</p>
+
     <textarea class="journal-textarea" data-key="section7_reflection" oninput="autoSave('section7_reflection',this.value)" placeholder="One change in Forest Glen could lead to..."></textarea>
+
     <div class="save-indicator" data-save="section7_reflection"></div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-6')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-8')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 8: FEEDBACK LOOPS (INTRO) ============ -->
+
 <div class="section" id="section-8" data-section="8">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Feedback Loops</h2>
+
     <p class="narrative-text">Your team gathers back at the command van.</p>
+
     <p class="narrative-text">Jordan leans over your tablet, loading the next model.</p>
+
     <p class="dialogue">"Before we give Maple Valley any advice," Jordan says, "there's something I need you to understand."</p>
+
     <p class="dialogue">"This is a feedback loop. It's how one change in the environment can cause a cycle that keeps repeating and makes the original problem stronger — or weaker."</p>
+
     <img src="images/EcoResponders_FeedbackLoop_Intro_01.png" alt="Initial feedback loop model on tablet" class="lesson-image">
+
     <p class="narrative-text">He taps the screen, and a new loop appears.</p>
+
     <p class="dialogue">"Sometimes humans can break a loop or start a new one."</p>
+
     <p class="dialogue">"Adding trees, improving soil, or creating fire-smart zones can flip a damaging loop into a healing one."</p>
+
     <p class="narrative-text">He glances at you.</p>
+
     <p class="dialogue">"Your next task: figure out how the loops worked in Forest Glen. Once we understand the system, we'll know what to tell Maple Valley."</p>
+
     <p class="subtle-prompt"><strong>Follow the loop step by step: how does one change lead to the next, and how does the cycle continue?</strong></p>
+
     <img src="images/EcoResponders_FeedbackLoop_Expanded_01.png" alt="Expanded feedback loop model showing intervention" class="lesson-image">
+
   </div>
+
   <div class="card card--journal">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">What happens when a feedback loop keeps repeating? How could people change one part of the loop to improve the system?</p>
+
     <textarea class="journal-textarea" data-key="section9_feedback" oninput="autoSave('section9_feedback',this.value)" placeholder="As the loop repeats..."></textarea>
+
     <div class="save-indicator" data-save="section9_feedback"></div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-7')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-9')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 9: FEEDBACK LOOP MODEL (INTERACTIVE) ============ -->
+
 <div class="section" id="section-9" data-section="9">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Feedback Loop Model</h2>
+
     <p class="narrative-text">Back in the command van, you open the modeling app.</p>
+
     <p class="narrative-text">Arrows link climate → vegetation → wildlife → human choices.</p>
+
     <p class="dialogue">"To make the best recommendation, your team needs to see how everything connects. Build the feedback loop," Jordan points out.</p>
+
     <p class="dialogue">"Fewer trees = less shade = hotter ground = drier fuel next season."</p>
+
     <p class="narrative-text">Every loop shows how one small change can ripple through the whole system.</p>
+
     <p class="narrative-text">When your model is ready, your team will bring it to Maple Valley's planners, so they can see the system before they make a decision.</p>
+
     <p class="subtle-prompt"><strong>Start with one change you noticed earlier. Then think step by step: what happens next, and what happens after that?</strong></p>
+
   </div>
+
   <div class="card">
+
     <h3 style="margin-bottom:6px;font-weight:800;">Feedback Loop Model: How One Change Leads to Another</h3>
+
     <p style="color:var(--gray-600);margin-bottom:16px;"><strong style="color:#b45309;">Build Your Eco-Responder Feedback Model</strong>: Use the word bank to fill in the feedback loop and show how one environmental change leads to another. You only need to use 4 boxes to complete your loop.</p>
+
     <p class="subtle-prompt">Try to connect both human actions and environmental changes in your loop.</p>
+
     <div style="display:grid;grid-template-columns:280px 1fr;gap:16px;align-items:start;" class="loop-builder-grid">
+
       <div style="border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;background:var(--gray-50);">
+
         <h4 style="margin:0 0 10px;color:#b45309;">Word Bank</h4>
+
         <div id="wordBank" style="display:flex;flex-wrap:wrap;gap:8px;">
+
           <div class="loop-chip" draggable="true" data-value="Human Action">Human Action</div>
+
           <div class="loop-chip" draggable="true" data-value="Environmental Changes">Environmental Changes</div>
+
           <div class="loop-chip" draggable="true" data-value="Effect on Plants/Animals">Effect on Plants/Animals</div>
+
           <div class="loop-chip" draggable="true" data-value="Effect on People/Community">Effect on People/Community</div>
+
           <div class="loop-chip" draggable="true" data-value="New Conditions / Next Fire Season">New Conditions / Next Fire Season</div>
+
         </div>
+
         <button class="btn btn--back" style="margin-top:12px;" onclick="resetLoop()">Reset Loop</button>
+
         <p style="margin-top:10px;color:var(--gray-400);font-size:0.85rem;">Tip: Drag chips into the boxes. Click × to remove a placed chip.</p>
+
       </div>
+
       <div style="border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;background:var(--gray-50);position:relative;">
+
         <div class="loop-ring-container">
+
           <svg class="loop-arrows-svg" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+
             <defs><marker id="loopArrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#9aa2ad"/></marker></defs>
+
             <path d="M340,95 C430,110 445,180 445,240" fill="none" stroke="#cdd2d8" stroke-width="3" marker-end="url(#loopArrow)"/>
+
             <path d="M445,320 C445,390 420,430 340,445" fill="none" stroke="#cdd2d8" stroke-width="3" marker-end="url(#loopArrow)"/>
+
             <path d="M180,445 C100,430 75,390 75,320" fill="none" stroke="#cdd2d8" stroke-width="3" marker-end="url(#loopArrow)"/>
+
             <path d="M75,240 C75,180 100,110 180,95" fill="none" stroke="#cdd2d8" stroke-width="3" marker-end="url(#loopArrow)"/>
+
           </svg>
+
           <div class="loop-dropzone loop-dz-top" data-zone="step1" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')"><span class="dz-step">Step 1</span><div class="dz-content" data-empty="Drop here"></div></div>
+
           <div class="loop-dropzone loop-dz-right" data-zone="step2" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')"><span class="dz-step">Step 2</span><div class="dz-content" data-empty="Drop here"></div></div>
+
           <div class="loop-dropzone loop-dz-bottom" data-zone="step3" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')"><span class="dz-step">Step 3</span><div class="dz-content" data-empty="Drop here"></div></div>
+
           <div class="loop-dropzone loop-dz-left" data-zone="step4" ondrop="handleLoopDrop(event)" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')"><span class="dz-step">Step 4</span><div class="dz-content" data-empty="Drop here"></div></div>
+
         </div>
+
         <p style="text-align:center;margin:12px 0 0;color:var(--gray-400);font-size:0.9rem;">Step 1 → Step 2 → Step 3 → Step 4 → Step 1 (repeats)</p>
+
         <div style="margin-top:12px;background:rgba(255,255,255,0.75);border:1px solid var(--gray-200);border-radius:10px;padding:10px;font-size:0.9rem;color:var(--gray-600);"><strong>Example:</strong> Over-clearing → erosion → fewer plants → hotter soil → faster next fire</div>
+
       </div>
+
     </div>
+
     <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;" class="loop-reflect-grid">
+
       <div>
+
         <label style="display:block;font-weight:700;margin-bottom:6px;">What happens when your feedback loop repeats over time?</label>
+
         <textarea class="journal-textarea" data-key="loop_repeats" id="loopRepeats" oninput="autoSave('loop_repeats',this.value)" placeholder="When the loop repeats..." style="min-height:100px;"></textarea>
+
       </div>
+
       <div>
+
         <label style="display:block;font-weight:700;margin-bottom:6px;">What is one action that could change part of your loop and improve the system?</label>
+
         <textarea class="journal-textarea" data-key="loop_help" id="loopHelp" oninput="autoSave('loop_help',this.value)" placeholder="One action that could improve the system is..." style="min-height:100px;"></textarea>
+
       </div>
+
     </div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-8')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-10')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 10: PLANNING FORWARD FOR MAPLE VALLEY ============ -->
+
 <div class="section" id="section-10" data-section="10">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Planning Forward for Maple Valley</h2>
+
     <img src="images/EcoResponders_TownHallMeeting_01.png" alt="Mayor presenting to town hall" class="lesson-image">
+
     <p class="narrative-text">Days later, your feedback loop model reaches Maple Valley's town hall.</p>
+
     <p class="narrative-text">The room hums with voices. Families, planners, and neighbors are here because of what happened in Forest Glen.</p>
+
     <p class="narrative-text">Mayor Elena steps to the podium.</p>
+
     <p class="dialogue">"Forest Glen's fire changed more than trees," she begins. "It changed how we think about safety, building, and the land itself."</p>
+
     <p class="dialogue">"Maple Valley wasn't burned — but we were close. Forest Glen's loss is a warning to us."</p>
+
     <p class="dialogue">"If we prepare wisely now, we can protect both our homes and our habitats before the next fire season."</p>
+
     <p class="narrative-text">She points to your feedback loop on the big screen.</p>
+
     <p class="dialogue">"Our Eco-Responders have shown us how one choice leads to another. So let's use that."</p>
+
     <p class="narrative-text">Mayor Elena shares three forward-thinking plans for Maple Valley.</p>
+
     <p class="narrative-text">Each plan balances human needs and environmental health differently.</p>
+
     <p class="subtle-prompt"><strong>Think back to your feedback loop. Which plan breaks harmful cycles or creates a healthier system over time?</strong></p>
+
   </div>
+
   <div class="card card--decision">
+
     <p class="decision-question">Which plan should Maple Valley choose? Use the evidence from Forest Glen and what you learned about feedback loops to decide.</p>
+
     <div class="plan-grid">
+
       <div class="plan-card" onclick="selectPlan(this,'Plan A: Rebuild Fast')" data-plan="A">
+
         <h4>Plan A: Build Fast</h4>
+
         <p class="plan-summary">Expand Maple Valley quickly with few new fire-safety rules.</p>
+
         <p class="plan-science">Feels quick, but sets up loops of erosion and higher future fire risk.</p>
+
       </div>
+
       <div class="plan-card" onclick="selectPlan(this,'Plan B: Rebuild Smarter')" data-plan="B">
+
         <h4>Plan B: Build Smarter</h4>
+
         <p class="plan-summary">Use fire-resistant materials and plant native vegetation.</p>
+
         <p class="plan-science">Breaks ignition loops before a fire starts.</p>
+
       </div>
+
       <div class="plan-card" onclick="selectPlan(this,'Plan C: Balanced Plan')" data-plan="C">
+
         <h4>Plan C: Balanced Plan</h4>
+
         <p class="plan-summary">Prepare in stages, with defensible space and habitat protection.</p>
+
         <p class="plan-science">Supports both people and ecosystems, starts a healing loop.</p>
+
       </div>
+
     </div>
+
   </div>
+
   <div class="card card--journal">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">Which plan do you recommend for Maple Valley? Use evidence to explain how it will protect plant or animal populations.</p>
+
     <textarea class="journal-textarea" data-key="section8_decision" oninput="autoSave('section8_decision',this.value)" placeholder="I recommend Plan _ for Maple Valley because..."></textarea>
+
     <div class="save-indicator" data-save="section8_decision"></div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-9')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-11')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 11: A MESSAGE FOR MAPLE VALLEY (PSA) ============ -->
+
 <div class="section" id="section-11" data-section="11">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">A Message for Maple Valley</h2>
+
     <img src="images/EcoResponders_ForestRecovery_01.png" alt="Student overlooking the valley" class="lesson-image">
+
     <p class="narrative-text">Word spreads fast. Maple Valley neighbors are asking questions — they heard about Forest Glen, and they want to know what they can do.</p>
+
     <p class="dialogue">"You've studied the evidence," Jordan says. "Now it's your turn to help your neighbors get fire-smart before the next fire season."</p>
+
     <p class="narrative-text">Your Eco-Responder team has been asked to create a message for <strong>Maple Valley residents</strong> — a PSA (Public Service Announcement) that uses what Forest Glen taught you.</p>
+
     <p class="subtle-prompt">Use what you learned from Forest Glen and your feedback loop thinking to decide what message will help your community the most.</p>
+
     <p class="narrative-text">You realize your mission was never just about studying a disaster. It's about helping a community prevent the next one.</p>
+
   </div>
+
   <div class="card card--journal">
+
     <div class="journal-label">📓 Field Journal</div>
+
     <p class="journal-prompt">Your Eco-Responder team is sending a fire-smart message to <strong>Maple Valley residents</strong>.</p>
+
     <p class="journal-prompt">Choose the format that will best help Maple Valley residents prepare before the next fire season.</p>
+
     <div class="psa-option-grid">
+
       <button type="button" class="psa-option-btn" data-psa-format="Written PSA">✍️ Written PSA</button>
+
       <button type="button" class="psa-option-btn" data-psa-format="Audio Message Script">🎙️ Audio Message Script</button>
+
       <button type="button" class="psa-option-btn" data-psa-format="Infographic Plan">🖼️ Infographic Plan</button>
+
     </div>
+
     <div id="psa-written-panel" class="psa-response-panel">
+
       <p class="journal-prompt">Write a short PSA for Maple Valley residents. Use evidence from Forest Glen to explain what they should do and why it matters.</p>
+
       <textarea class="journal-textarea" data-key="section11_psa_written" placeholder="Attention Maple Valley! Here's what we learned from Forest Glen — and what we can do now to stay fire-smart..." style="min-height:150px;"></textarea>
+
       <div class="save-indicator" data-save="section11_psa_written"></div>
+
     </div>
+
     <div id="psa-audio-panel" class="psa-response-panel">
+
       <p class="journal-prompt">Write a short public safety script for Maple Valley residents.</p>
+
       <textarea class="journal-textarea" data-key="section11_psa_audio" placeholder="Hello Maple Valley residents. This is your Eco-Responder team. Forest Glen showed us..." style="min-height:150px;"></textarea>
+
       <div class="save-indicator" data-save="section11_psa_audio"></div>
+
     </div>
+
     <div id="psa-infographic-panel" class="psa-response-panel">
+
       <p class="journal-prompt">Plan an infographic that teaches Maple Valley residents how to stay fire-smart before the next fire season.</p>
+
       <label class="psa-field-label" for="section11_psa_info_title">Infographic title</label>
+
       <input id="section11_psa_info_title" class="psa-text-input" type="text" data-key="section11_psa_info_title" placeholder="Fire-Smart Maple Valley">
+
       <div class="save-indicator" data-save="section11_psa_info_title"></div>
+
       <label class="psa-field-label" for="section11_psa_info_points">Three key points</label>
+
       <textarea id="section11_psa_info_points" class="journal-textarea" data-key="section11_psa_info_points" placeholder="1. Clear dry brush around homes&#10;2. Use fire-resistant materials&#10;3. Follow weather alerts"></textarea>
+
       <div class="save-indicator" data-save="section11_psa_info_points"></div>
+
       <label class="psa-field-label" for="section11_psa_info_visuals">Visual ideas (images, symbols, icons)</label>
+
       <textarea id="section11_psa_info_visuals" class="journal-textarea" data-key="section11_psa_info_visuals" placeholder="Flame icon, house with cleared space, weather alert symbol..."></textarea>
+
       <div class="save-indicator" data-save="section11_psa_info_visuals"></div>
+
     </div>
+
   </div>
+
   <div class="btn-row btn-row--between">
+
     <button class="btn btn--back" onclick="goTo('section-10')">← Back</button>
+
     <button class="btn btn--primary" onclick="goTo('section-12')">Continue →</button>
+
   </div>
+
 </div>
 
 <!-- ============ SECTION 12: MISSION DEBRIEF ============ -->
+
 <div class="section" id="section-12" data-section="12">
+
   <div class="card card--narrative">
+
     <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
     <h2 class="title-section">Mission Debrief</h2>
+
     <img src="images/EcoResponders_FireSmartTown_01.png" alt="Student biking past Fire-Smart Zone sign" class="lesson-image">
+
     <p class="narrative-text">A week later, you bike past a brand new sign:</p>
+
     <p class="narrative-text" style="font-size:1.2rem;font-weight:700;color:var(--green-dark);text-align:center;">"Maple Valley — Fire-Smart Zone."</p>
+
     <p class="narrative-text">Forest Glen cannot be undone. But because your team studied it carefully, Maple Valley is planning ahead.</p>
+
     <p class="narrative-text">Jordan sends one last message:</p>
+
     <p class="dialogue">"Outstanding work, Eco-Responder. Science and empathy together, that's real leadership. That's what Eco-Responders do."</p>
+
     <img src="images/EcoResponders_MissionComplete_Badge.png" alt="Mission Complete badge" class="lesson-image lesson-image-small">
+
   </div>
+
   <div class="card card--journal">
+
     <div class="journal-label">📓 Mission Debrief Reflection</div>
+
     <p class="subtle-prompt">Think about what you learned, how your thinking changed, and how your decisions shaped your understanding.</p>
+
     <p>&nbsp;</p>
+
     <p class="journal-prompt"><strong>Pick two of the following reflection questions to answer:</strong></p>
+
     <p class="journal-prompt">1. What evidence from Forest Glen helped you understand how natural and human factors interact?</p>
+
     <p class="journal-prompt">2. How did the choices you made during the investigation influence your final recommendation?</p>
+
     <p class="journal-prompt">3. How can people and ecosystems prepare and recover together?</p>
+
     <textarea class="journal-textarea" data-key="section12_reflection1" oninput="autoSave('section12_reflection1',this.value)" placeholder="Reflection question #__ : ..." style="min-height:130px;"></textarea>
+
     <div class="save-indicator" data-save="section12_reflection1"></div>
+
     <textarea class="journal-textarea" data-key="section12_reflection2" oninput="autoSave('section12_reflection2',this.value)" placeholder="Reflection question #__ : ..." style="min-height:130px;margin-top:12px;"></textarea>
+
     <div class="save-indicator" data-save="section12_reflection2"></div>
+
   </div>
+
   <div class="card card--hero" style="background:linear-gradient(135deg,#1a5e1a,#2a9a2a);">
+
     <h2 style="font-size:1.8rem;margin-bottom:12px;">🏅 Mission Complete!</h2>
+
     <p class="subtitle">You've completed your Eco-Responder mission. Export your Field Journal to save your work.</p>
+
     <div class="btn-row btn-row--center" style="margin-top:24px;">
+
       <button class="btn" style="background:var(--yellow);color:var(--black);font-size:1.1rem;padding:14px 32px;" onclick="exportJournal()">Export Field Journal</button>
+
     </div>
+
   </div>
+
   <div class="btn-row">
+
     <button class="btn btn--back" onclick="goTo('section-11')">← Back</button>
+
   </div>
+
 </div>
 
 </div><!-- end lesson-container -->
+
 <style>
+
 .loop-chip { border: 1px solid rgba(15,23,42,0.18); background: var(--white); color: var(--gray-800); border-radius: 999px; padding: 8px 12px; cursor: grab; user-select: none; font-weight: 700; font-size: 0.88rem; box-shadow: var(--shadow-sm); transition: transform 0.1s; }
+
 .loop-chip:active { cursor: grabbing; transform: scale(0.95); }
+
 .loop-ring-container { position: relative; width: 100%; max-width: 520px; margin: 0 auto; aspect-ratio: 1 / 1; }
+
 .loop-arrows-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
 .loop-dropzone { border: 2px dashed var(--gray-300); border-radius: var(--radius); padding: 10px 12px; background: rgba(255,255,255,0.92); min-height: 70px; width: 180px; transition: all 0.2s; position: absolute; z-index: 2; box-shadow: var(--shadow-sm); }
+
 .loop-dz-top { top: 2%; left: 50%; transform: translateX(-50%); }
+
 .loop-dz-right { right: 2%; top: 50%; transform: translateY(-50%); }
+
 .loop-dz-bottom { bottom: 2%; left: 50%; transform: translateX(-50%); }
+
 .loop-dz-left { left: 2%; top: 50%; transform: translateY(-50%); }
+
 .loop-dropzone.dragover { border-color: var(--green); background: var(--green-light); }
+
 .dz-step { display: block; font-size: 0.8rem; font-weight: 800; color: var(--gray-400); text-transform: uppercase; margin-bottom: 6px; }
+
 .dz-content:empty::before { content: attr(data-empty); color: var(--gray-400); font-size: 0.9rem; }
+
 .dz-placed { display: inline-flex; align-items: center; gap: 6px; background: var(--white); border: 1px solid var(--gray-200); border-radius: 999px; padding: 6px 10px; font-weight: 700; font-size: 0.85rem; }
+
 .dz-placed .remove-x { cursor: pointer; color: var(--gray-400); font-weight: 800; border: 1px solid var(--gray-200); border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; }
+
 .dz-placed .remove-x:hover { color: red; border-color: red; }
+
 @media(max-width:700px) {
+
   .noaa-panel-grid { grid-template-columns: 1fr !important; }
+
   .loop-builder-grid { grid-template-columns: 1fr !important; }
+
   .loop-reflect-grid { grid-template-columns: 1fr !important; }
+
   .loop-ring-container { aspect-ratio: auto; position: static; display: flex; flex-direction: column; gap: 10px; }
+
   .loop-arrows-svg { display: none; }
+
   .loop-dropzone { position: static; transform: none; width: 100%; }
+
   .loop-dz-top::after, .loop-dz-right::after, .loop-dz-bottom::after { content: '↓'; display: block; text-align: center; font-size: 1.3rem; color: var(--gray-300); margin-top: 6px; }
+
   .loop-dz-left::after { content: '↺ back to Step 1'; display: block; text-align: center; font-size: 0.85rem; color: var(--gray-300); margin-top: 6px; }
+
 }
+
 </style>
+
 <script>
+
 // ===== STATE MANAGEMENT =====
+
 let state = {
+
   currentSection: 'section-0',
+
   decisions: {},
+
   journal: {},
+
   history: [],
+
   resumeCode: null,
+
   planChoice: null,
+
   loopModel: {},
+
   elapsedSeconds: 0,
+
   hotspotLocations: [],
+
   lessonStartTime: null,
+
   lessonEndTime: null,
+
   totalTimeOnTask: 0,
+
   timePerSection: {},
+
   currentSectionStart: null,
+
   psaFormat: null,
+
   reportAccordionOpened: { human: [], eco: [], combined: [] }
+
 };
 
 const STORAGE_KEY = 'sins_eco_responders';
 
 function initializeStateDefaults() {
+
   if (!Array.isArray(state.hotspotLocations)) state.hotspotLocations = [];
+
   if (!state.timePerSection || typeof state.timePerSection !== 'object') state.timePerSection = {};
+
   if (!state.decisions || typeof state.decisions !== 'object') state.decisions = {};
+
   if (!state.journal || typeof state.journal !== 'object') state.journal = {};
+
   if (!state.reportAccordionOpened || typeof state.reportAccordionOpened !== 'object') {
+
     state.reportAccordionOpened = { human: [], eco: [], combined: [] };
+
   }
+
 }
 
 function saveState() {
+
   state.journal = collectAllJournals();
+
   initializeStateDefaults();
+
   try {
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
     if (state.resumeCode) {
+
       localStorage.setItem(STORAGE_KEY + '_' + state.resumeCode, JSON.stringify(state));
+
     }
+
   } catch(e) {}
+
 }
 
 function loadState() {
+
   try {
+
     const saved = localStorage.getItem(STORAGE_KEY);
+
     if (saved) {
+
       const parsed = JSON.parse(saved);
+
       Object.assign(state, parsed);
+
       initializeStateDefaults();
+
       return true;
+
     }
+
   } catch(e) {}
+
   return false;
+
 }
 
 function collectAllJournals() {
+
   const entries = {};
+
   document.querySelectorAll('.journal-textarea[data-key]').forEach(ta => {
+
     if (ta.value.trim()) entries[ta.dataset.key] = ta.value.trim();
+
   });
+
   document.querySelectorAll('input[data-key]').forEach(input => {
+
     if (input.value.trim()) entries[input.dataset.key] = input.value.trim();
+
   });
+
   return entries;
+
 }
 
 function restoreJournals() {
+
   if (!state.journal) return;
+
   document.querySelectorAll('.journal-textarea[data-key]').forEach(ta => {
+
     if (state.journal[ta.dataset.key]) ta.value = state.journal[ta.dataset.key];
+
   });
+
   document.querySelectorAll('input[data-key]').forEach(input => {
+
     if (state.journal[input.dataset.key]) input.value = state.journal[input.dataset.key];
+
   });
+
 }
 
 function formatTimestamp(ts) {
+
   if (!ts) return 'N/A';
+
   return new Date(ts).toLocaleString();
+
 }
 
 function trackSectionExit() {
+
   if (!state.currentSection || !state.currentSectionStart) return;
+
   const now = Date.now();
+
   const elapsedSec = Math.max(0, Math.round((now - state.currentSectionStart) / 1000));
+
   if (!state.timePerSection[state.currentSection]) state.timePerSection[state.currentSection] = 0;
+
   state.timePerSection[state.currentSection] += elapsedSec;
+
   state.currentSectionStart = now;
+
 }
 
 function beginLessonTiming() {
+
   const now = Date.now();
+
   if (!state.lessonStartTime) state.lessonStartTime = now;
+
   state.lessonEndTime = null;
+
   state.currentSectionStart = now;
+
   saveState();
+
 }
 
 function finalizeLessonTiming() {
+
   trackSectionExit();
+
   const now = Date.now();
+
   state.lessonEndTime = now;
+
   state.totalTimeOnTask = Object.values(state.timePerSection || {}).reduce((sum, sec) => sum + sec, 0);
+
   saveState();
+
 }
 
 // ===== RESUME CODE =====
+
 function generateResumeCode() {
+
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
   let code = '';
+
   for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
+
   return code;
+
 }
 
 function initResumeCode() {
+
   if (!state.resumeCode) state.resumeCode = generateResumeCode();
+
   document.getElementById('resumeCodeDisplay').textContent = 'Code: ' + state.resumeCode;
+
 }
 
 function showResumeModal() {
+
   document.getElementById('resumeModal').classList.add('active');
+
   document.getElementById('resumeInput').value = '';
+
   document.getElementById('resumeError').textContent = '';
+
 }
 
 function closeResumeModal() {
+
   document.getElementById('resumeModal').classList.remove('active');
+
 }
 
 function loadResumeCode() {
+
   const input = document.getElementById('resumeInput').value.trim().toUpperCase();
+
   if (!input) { document.getElementById('resumeError').textContent = 'Please enter a code.'; return; }
+
   try {
+
     const directData = localStorage.getItem(STORAGE_KEY + '_' + input);
+
     if (directData) {
+
       const parsed = JSON.parse(directData);
+
       if (parsed && parsed.resumeCode === input) {
+
         Object.assign(state, parsed); initializeStateDefaults(); saveState();
+
         restoreJournals(); restoreLoopState(); restoreRiAccordionState();
+
         updateDecisionTracker(); initResumeCode(); goTo(state.currentSection, false);
+
         closeResumeModal(); return;
+
       }
+
     }
+
   } catch(e) {}
+
   try {
+
     for (let i = 0; i < localStorage.length; i++) {
+
       const key = localStorage.key(i);
+
       if (key && key.startsWith(STORAGE_KEY)) {
+
         const data = JSON.parse(localStorage.getItem(key));
+
         if (data && data.resumeCode === input) {
+
           Object.assign(state, data); initializeStateDefaults(); saveState();
+
           restoreJournals(); restoreLoopState(); restoreRiAccordionState();
+
           updateDecisionTracker(); initResumeCode(); goTo(state.currentSection, false);
+
           closeResumeModal(); return;
+
         }
+
       }
+
     }
+
   } catch(e) {}
+
   document.getElementById('resumeError').textContent = 'Code not found. Resume codes work on the same browser/device where the lesson was started.';
+
 }
 
 // ===== NAVIGATION =====
+
 const sectionOrder = ['section-0','section-1','section-2','section-3a1','section-3a2','section-3b1','section-3b2','section-4','section-5a','section-5b','section-5c','section-6','section-7','section-8','section-9','section-10','section-11','section-12'];
+
 const totalSections = sectionOrder.length;
 
 function goTo(sectionId, addHistory = true) {
+
   if (addHistory && state.currentSection) state.history.push(state.currentSection);
+
   if (state.currentSectionStart) trackSectionExit();
+
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
   const target = document.getElementById(sectionId);
+
   if (target) {
+
     target.classList.add('active');
+
     state.currentSection = sectionId;
+
     state.currentSectionStart = Date.now();
+
     if (sectionId === 'section-12') finalizeLessonTiming();
+
     updateProgress();
+
     saveState();
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
   }
+
 }
 
 function goBack() {
+
   if (state.history.length > 0) {
+
     const prev = state.history.pop();
+
     goTo(prev, false);
+
   }
+
 }
 
 function updateProgress() {
+
   const idx = sectionOrder.indexOf(state.currentSection);
+
   const pct = idx >= 0 ? ((idx + 1) / totalSections) * 100 : 0;
+
   document.getElementById('progressBar').style.width = pct + '%';
+
 }
 
 // ===== DECISIONS =====
+
 function makeDecision(dpId, choice) {
+
   state.decisions[dpId] = choice;
+
   if (dpId === 'dp1') {
+
     state.decisions.dp1_label = choice === 'noaa' ? 'Analyze NOAA weather data first' : choice === 'field' ? 'Go straight to the fire zone for field observations' : choice;
+
   }
+
   if (dpId === 'dp2') {
+
     state.decisions.dp2_label = choice === 'human' ? 'Human Impact Report' : choice === 'ecosystem' ? 'Ecosystem Report' : choice === 'both' ? 'Combined Analysis' : choice;
+
   }
+
   updateDecisionTracker();
+
   saveState();
+
 }
 
 // ===== AUTO SAVE =====
+
 let saveTimers = {};
+
 function autoSave(key, value) {
+
   if (saveTimers[key]) clearTimeout(saveTimers[key]);
+
   const indicator = document.querySelector(`[data-save="${key}"]`);
+
   saveTimers[key] = setTimeout(() => {
+
     state.journal[key] = value;
+
     saveState();
+
     if (indicator) {
+
       indicator.textContent = 'Saved';
+
       indicator.classList.add('saved');
+
       setTimeout(() => { indicator.textContent = ''; }, 2000);
+
     }
+
   }, 500);
+
 }
 
 function toggleExpand(id) { document.getElementById(id).classList.toggle('open'); }
 
 function selectPlan(el, planName) {
+
   document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+
   el.classList.add('selected');
+
   state.planChoice = planName;
+
   state.decisions.plan_choice = planName;
+
   autoSave('plan_choice', planName);
+
   updateDecisionTracker();
+
   saveState();
+
 }
 
 function updateDecisionTracker() {
+
   const dp1Val = document.getElementById('tracker-dp1');
+
   const dp2Val = document.getElementById('tracker-dp2');
+
   const planVal = document.getElementById('tracker-plan');
+
   const dp1Icon = document.getElementById('tracker-icon-dp1');
+
   const dp2Icon = document.getElementById('tracker-icon-dp2');
+
   const planIcon = document.getElementById('tracker-icon-plan');
+
   if (dp1Val) {
+
     if (state.decisions.dp1_label) { dp1Val.textContent = state.decisions.dp1_label; dp1Val.classList.add('chosen'); if (dp1Icon) { dp1Icon.classList.add('completed'); dp1Icon.textContent = '✓'; } }
+
     else { dp1Val.textContent = 'Awaiting your choice...'; dp1Val.classList.remove('chosen'); if (dp1Icon) { dp1Icon.classList.remove('completed'); dp1Icon.textContent = '1'; } }
+
   }
+
   if (dp2Val) {
+
     if (state.decisions.dp2_label) { dp2Val.textContent = state.decisions.dp2_label; dp2Val.classList.add('chosen'); if (dp2Icon) { dp2Icon.classList.add('completed'); dp2Icon.textContent = '✓'; } }
+
     else { dp2Val.textContent = 'Awaiting your choice...'; dp2Val.classList.remove('chosen'); if (dp2Icon) { dp2Icon.classList.remove('completed'); dp2Icon.textContent = '2'; } }
+
   }
+
   if (planVal) {
+
     if (state.planChoice) { planVal.textContent = state.planChoice; planVal.classList.add('chosen'); if (planIcon) { planIcon.classList.add('completed'); planIcon.textContent = '✓'; } }
+
     else { planVal.textContent = 'Awaiting your choice...'; planVal.classList.remove('chosen'); if (planIcon) { planIcon.classList.remove('completed'); planIcon.textContent = '3'; } }
+
   }
+
 }
 
 // ===== REPORT ACCORDION (sections 5A / 5B / 5C) =====
+
 const riOpened = { human: new Set(), eco: new Set(), combined: new Set() };
 
 function toggleRiAccordion(trigger, report) {
+
   const item = trigger.closest('.ri-accordion-item');
+
   const accordion = document.getElementById('ri-accordion-' + report);
+
   const index = parseInt(item.dataset.index);
+
   const body = item.querySelector('.ri-body');
+
   const isOpen = item.classList.contains('ri-open');
+
   accordion.querySelectorAll('.ri-accordion-item').forEach(ai => {
+
     ai.classList.remove('ri-open');
+
     ai.querySelector('.ri-body').style.maxHeight = '0';
+
   });
+
   if (!isOpen) {
+
     item.classList.add('ri-open');
+
     body.style.maxHeight = body.scrollHeight + 'px';
+
     riOpened[report].add(index);
+
     updateRiProgress(report);
+
     state.reportAccordionOpened = state.reportAccordionOpened || {};
+
     state.reportAccordionOpened[report] = Array.from(riOpened[report]);
+
     saveState();
+
   }
+
 }
 
 function updateRiProgress(report) {
+
   const opened = riOpened[report];
+
   const dots = document.querySelectorAll('#dots-' + report + ' .ri-dot');
+
   const count = document.getElementById('count-' + report);
+
   dots.forEach(dot => {
+
     const idx = parseInt(dot.dataset.idx);
+
     dot.classList.toggle('filled--' + report, opened.has(idx));
+
   });
+
   if (count) count.textContent = opened.size + ' / 3 examined';
+
 }
 
 function restoreRiAccordionState() {
+
   if (!state.reportAccordionOpened) return;
+
   Object.entries(state.reportAccordionOpened).forEach(([report, indices]) => {
+
     if (!Array.isArray(indices)) return;
+
     indices.forEach(i => riOpened[report].add(i));
+
     updateRiProgress(report);
+
   });
+
 }
 
 // ===== NOAA SIMULATOR =====
-const indicators = {
-  rainfall: { name: "Rainfall", unit: "Inches of Rain", color: "#4d7ea8", explanation: "Rainfall tells us how much water fell from the sky.", tip: "What does the rainfall trend suggest about how dry the land may have been?", years: ["2020","2021","2022","2023","2024","2025","2026"], values: [26,24,21,18,15,13,11] },
-  temperature: { name: "Temperature", unit: "Average Summer °F", color: "#c97a52", explanation: "Temperature shows how warm the area has been.", tip: "What does the temperature trend suggest about how easily plants could dry out?", years: ["2020","2021","2022","2023","2024","2025","2026"], values: [82,84,85,87,89,91,93] },
-  wind: { name: "Wind", unit: "Average Wind Speed (mph)", color: "#5a8f7b", explanation: "Wind conditions change from year to year. Look for patterns and consider what those changes might mean.", tip: "How could strong wind change what happens once a fire starts?", years: ["2020","2021","2022","2023","2024","2025","2026"], values: [9,11,13,10,15,14,18] },
-  fuelMoisture: { name: "Fuel Moisture", unit: "Plant Moisture (%)", color: "#7a9a46", explanation: "Fuel moisture tells us how much water is inside grasses, leaves, and small plants.", tip: "What does low fuel moisture suggest about how easily grasses and leaves could burn?", years: ["2020","2021","2022","2023","2024","2025","2026"], values: [82,78,73,67,61,55,49] }
-};
-let currentIndicator = null;
 
+// ─── Annual datasets ─────────────────────────────────────────────────────────
+const indicators = {
+  rainfall: {
+    name: "Rainfall", unit: "Inches of Rain", color: "#4d7ea8",
+    explanation: "Rainfall tells us how much water fell from the sky.",
+    tip: "What does the rainfall trend suggest about how dry the land may have been?",
+    dataType: "precipitation",
+    years:  [2020,2021,2022,2023,2024,2025,2026],
+    values: [26, 24, 21, 18, 15, 13, 11]
+  },
+  temperature: {
+    name: "Temperature", unit: "Avg Summer \u00b0F", color: "#c97a52",
+    explanation: "Temperature shows how warm the area has been.",
+    tip: "What does the temperature trend suggest about how easily plants could dry out?",
+    dataType: "temperature",
+    years:  [2020,2021,2022,2023,2024,2025,2026],
+    values: [82, 84, 85, 87, 89, 91, 93]
+  },
+  wind: {
+    name: "Wind", unit: "Avg Wind Speed (mph)", color: "#5a8f7b",
+    explanation: "Wind conditions change from year to year.",
+    tip: "How could strong wind change what happens once a fire starts?",
+    dataType: "wind",
+    years:  [2020,2021,2022,2023,2024,2025,2026],
+    values: [9, 11, 13, 10, 15, 14, 18]
+  },
+  fuelMoisture: {
+    name: "Fuel Moisture", unit: "Plant Moisture (%)", color: "#7a9a46",
+    explanation: "Fuel moisture tells us how much water is inside grasses, leaves, and small plants.",
+    tip: "What does low fuel moisture suggest about how easily grasses and leaves could burn?",
+    dataType: "drought",
+    years:  [2020,2021,2022,2023,2024,2025,2026],
+    values: [82, 78, 73, 67, 61, 55, 49]
+  }
+};
+
+// ─── Seasonal multipliers (Jan-Dec) per data type ─────────────────────────────
+const SEASONAL = {
+  temperature:   [0.958,0.963,0.977,0.993,1.015,1.047,1.065,1.060,1.035,1.008,0.978,0.959],
+  precipitation: [1.22, 1.12, 1.06, 0.94, 0.78, 0.62, 0.68, 0.72, 0.82, 0.96, 1.08, 1.20],
+  wind:          [1.04, 1.07, 1.14, 1.12, 1.04, 0.92, 0.88, 0.87, 0.90, 0.94, 0.99, 1.03],
+  drought:       [0.84, 0.86, 0.90, 0.96, 1.02, 1.09, 1.14, 1.16, 1.12, 1.03, 0.91, 0.85]
+};
+
+const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const BASE_YEAR   = 2020;
+
+// ─── State ────────────────────────────────────────────────────────────────────
+var currentIndicator = null;
+var _noaaFromYear    = 2020;
+var _noaaToYear      = 2026;
+var _noaaShowCompare = false;
+
+// ─── Choice buttons ───────────────────────────────────────────────────────────
 function renderNoaaChoices() {
   const grid = document.getElementById('noaaChoices');
   grid.innerHTML = '';
   Object.entries(indicators).forEach(([key, item]) => {
     const btn = document.createElement('button');
     btn.className = 'btn btn--decision';
-    btn.innerHTML = `<strong>📊 ${item.name}</strong><br><span style="color:var(--gray-600);font-size:0.9rem;">${item.explanation}</span>`;
+    btn.innerHTML = '<strong>\u{1F4CA} ' + item.name + '</strong><br><span style="color:var(--gray-600);font-size:0.9rem;">' + item.explanation + '</span>';
     btn.onclick = () => openIndicator(key);
     grid.appendChild(btn);
   });
@@ -1651,321 +3275,710 @@ function openIndicator(key) {
   document.getElementById('noaaPanelTitle').textContent = item.name;
   document.getElementById('noaaExplanation').textContent = item.explanation;
   document.getElementById('noaaTip').textContent = item.tip;
+  document.getElementById('noaaJournal').style.display = 'block';
   autoSave('noaa_indicator', item.name);
-  drawNoaaChart(item);
+  _noaaFromYear = 2020; _noaaToYear = 2026; _noaaShowCompare = false;
+  document.getElementById('noaaFromYear').value = '2020';
+  document.getElementById('noaaToYear').value   = '2026';
+  document.getElementById('noaaCompareToggle').checked = false;
+  document.getElementById('noaaLegend').style.display  = 'none';
+  syncToDropdown();
+  _noaaRedraw();
 }
 
 function showNoaaChoices() {
   document.getElementById('noaaChoices').style.display = '';
   document.getElementById('noaaPanel').style.display = 'none';
+  document.getElementById('noaaJournal').style.display = 'none';
   currentIndicator = null;
 }
 
 function updateNoaaPreview() {}
 
-function drawNoaaChart(item) {
-  const canvas = document.getElementById('noaaChart');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const dpr = window.devicePixelRatio || 1;
-  const rect = canvas.getBoundingClientRect();
-  const cssW = rect.width || 640, cssH = 360;
-  canvas.width = cssW * dpr; canvas.height = cssH * dpr;
-  ctx.setTransform(1,0,0,1,0,0); ctx.scale(dpr, dpr);
-  const w = cssW, h = cssH;
-  const pad = { top:30, right:24, bottom:70, left:58 };
-  const plotW = w - pad.left - pad.right, plotH = h - pad.top - pad.bottom;
-  ctx.clearRect(0,0,w,h);
-  const vals = item.values, yrs = item.years;
-  const minV = Math.min(...vals), maxV = Math.max(...vals);
-  const range = Math.max(1, maxV - minV);
-  const nMin = Math.floor(minV - range*0.15), nMax = Math.ceil(maxV + range*0.15);
-  ctx.strokeStyle = '#cfdad4'; ctx.lineWidth = 1;
-  for (let i=0;i<=4;i++) { const y = pad.top+(plotH/4)*i; ctx.beginPath(); ctx.moveTo(pad.left,y); ctx.lineTo(w-pad.right,y); ctx.stroke(); }
-  ctx.strokeStyle = '#7d948d'; ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(pad.left,pad.top); ctx.lineTo(pad.left,h-pad.bottom); ctx.lineTo(w-pad.right,h-pad.bottom); ctx.stroke();
-  ctx.fillStyle = '#4b605a'; ctx.font = '14px Open Sans, Arial, sans-serif'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-  for (let i=0;i<=4;i++) { const v = nMax-((nMax-nMin)/4)*i; const y = pad.top+(plotH/4)*i; ctx.fillText(Math.round(v), pad.left-8, y); }
-  const xStep = plotW / (yrs.length-1);
-  const pts = vals.map((v,i) => ({ x: pad.left+xStep*i, y: pad.top+((nMax-v)/(nMax-nMin||1))*plotH, v, yr: yrs[i] }));
-  ctx.strokeStyle = item.color; ctx.lineWidth = 4; ctx.beginPath();
-  pts.forEach((p,i) => { if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y); }); ctx.stroke();
-  pts.forEach(p => {
-    ctx.fillStyle = item.color; ctx.beginPath(); ctx.arc(p.x,p.y,6,0,Math.PI*2); ctx.fill();
-    ctx.fillStyle = '#29433d'; ctx.font = '12px Open Sans, Arial, sans-serif'; ctx.textAlign = 'center';
-    ctx.textBaseline = 'top'; ctx.fillText(p.yr, p.x, h-pad.bottom+12);
-    ctx.textBaseline = 'bottom'; ctx.fillText(p.v, p.x, p.y-10);
-  });
-  ctx.save(); ctx.translate(18,h/2); ctx.rotate(-Math.PI/2); ctx.fillStyle = '#29433d'; ctx.font = '14px Open Sans, Arial, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(item.unit,0,0); ctx.restore();
-  ctx.fillStyle = '#29433d'; ctx.font = '15px Open Sans, Arial, sans-serif'; ctx.textAlign = 'center'; ctx.fillText('Year', pad.left+plotW/2, h-18);
+function onNoaaRangeChange() {
+  var from = parseInt(document.getElementById('noaaFromYear').value, 10);
+  var to   = parseInt(document.getElementById('noaaToYear').value,   10);
+  if (to < from) { to = from; document.getElementById('noaaToYear').value = String(to); }
+  _noaaFromYear = from; _noaaToYear = to;
+  syncToDropdown(); updateViewBadge(); _noaaRedraw();
 }
 
+function syncToDropdown() {
+  var toSel = document.getElementById('noaaToYear');
+  Array.from(toSel.options).forEach(function(opt) {
+    opt.disabled = parseInt(opt.value, 10) < _noaaFromYear;
+  });
+  updateViewBadge();
+}
+
+function updateViewBadge() {
+  var span = document.getElementById('noaaViewBadge');
+  var numYears = _noaaToYear - _noaaFromYear + 1;
+  var monthly  = numYears <= 2;
+  span.textContent = monthly ? '\u{1F4C5} Monthly View' : '\u{1F4CA} Yearly View';
+  span.className   = 'noaa-view-badge ' + (monthly ? 'monthly' : 'yearly');
+}
+
+function onNoaaCompareToggle(checked) {
+  _noaaShowCompare = checked;
+  document.getElementById('noaaLegend').style.display = checked ? 'flex' : 'none';
+  _noaaRedraw();
+}
+
+function buildMonthlyData(item, fromYear, toYear) {
+  var seasonal = SEASONAL[item.dataType] || Array(12).fill(1.0);
+  var labels = [], values = [];
+  var numYears = toYear - fromYear + 1;
+  for (var y = 0; y < numYears; y++) {
+    var yr = fromYear + y, yrIdx = yr - BASE_YEAR;
+    var thisVal = item.values[yrIdx];
+    var nextVal = item.values[yrIdx + 1] !== undefined ? item.values[yrIdx + 1] : thisVal;
+    for (var m = 0; m < 12; m++) {
+      labels.push(numYears > 1 ? MONTH_NAMES[m] + " '" + String(yr).slice(2) : MONTH_NAMES[m]);
+      var t = m / 11, base = thisVal + (nextVal - thisVal) * t;
+      values.push(parseFloat((base * seasonal[m]).toFixed(1)));
+    }
+  }
+  return { labels: labels, values: values };
+}
+
+function mapleValleyData(primary, dataType) {
+  var offsets = { wind:-0.09, precipitation:+0.11, temperature:-0.06, drought:-0.10 };
+  var base = offsets[dataType] !== undefined ? offsets[dataType] : -0.07;
+  return primary.map(function(v, i) {
+    return parseFloat((v * (1 + base + Math.sin(i * 0.85 + 1.3) * 0.04)).toFixed(1));
+  });
+}
+
+function _noaaRedraw() {
+  if (!currentIndicator) return;
+  var item = indicators[currentIndicator];
+  var numYears = _noaaToYear - _noaaFromYear + 1;
+  var isMonthly = numYears <= 2;
+  var labels, primary;
+  if (isMonthly) {
+    var md = buildMonthlyData(item, _noaaFromYear, _noaaToYear);
+    labels = md.labels; primary = md.values;
+  } else {
+    var si = _noaaFromYear - BASE_YEAR, ei = _noaaToYear - BASE_YEAR;
+    labels  = item.years.slice(si, ei + 1).map(String);
+    primary = item.values.slice(si, ei + 1);
+  }
+  var maple   = mapleValleyData(primary, item.dataType);
+  var allVals = primary.concat(_noaaShowCompare ? maple : []);
+  var minV = Math.min.apply(null, allVals), maxV = Math.max.apply(null, allVals);
+  var vPad = (maxV - minV) * 0.18 || 2;
+  minV -= vPad; maxV += vPad;
+  var canvas = document.getElementById('noaaChart');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  var cssW = canvas.getBoundingClientRect().width || 640, cssH = 360;
+  canvas.width = cssW * dpr; canvas.height = cssH * dpr;
+  ctx.setTransform(1,0,0,1,0,0); ctx.scale(dpr, dpr);
+  var W = cssW, H = cssH;
+  var pad = { top:36, right:24, bottom:62, left:58 };
+  var gW = W - pad.left - pad.right, gH = H - pad.top - pad.bottom;
+  var n  = labels.length;
+  function xPos(i) { return pad.left + (n > 1 ? (i / (n - 1)) * gW : gW / 2); }
+  function yPos(v) { return pad.top  + gH - ((v - minV) / ((maxV - minV) || 1)) * gH; }
+  ctx.clearRect(0, 0, W, H);
+  var bg = ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#fbfdfc'); bg.addColorStop(1,'#f2f7f5');
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = '#29433d'; ctx.font = 'bold 12px Open Sans, Arial, sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  var rangeLabel = _noaaFromYear === _noaaToYear
+    ? String(_noaaFromYear) + (isMonthly ? ' \u2014 Monthly' : '')
+    : _noaaFromYear + ' \u2013 ' + _noaaToYear + (isMonthly ? ' \u2014 Monthly' : '');
+  ctx.fillText(rangeLabel, pad.left + gW / 2, 6);
+  for (var g = 0; g <= 4; g++) {
+    var gy = pad.top + (g / 4) * gH, gVal = maxV - (g / 4) * (maxV - minV);
+    ctx.strokeStyle = 'rgba(180,210,198,0.55)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad.left, gy); ctx.lineTo(pad.left + gW, gy); ctx.stroke();
+    ctx.fillStyle = '#6b8f86'; ctx.font = 'bold 11px Open Sans, Arial, sans-serif';
+    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText(Math.round(gVal), pad.left - 7, gy);
+  }
+  ctx.strokeStyle = '#7d948d'; ctx.lineWidth = 2; ctx.beginPath();
+  ctx.moveTo(pad.left, pad.top); ctx.lineTo(pad.left, H - pad.bottom);
+  ctx.lineTo(W - pad.right, H - pad.bottom); ctx.stroke();
+  var maxXLabels = isMonthly ? (numYears === 1 ? 12 : 8) : n;
+  var xStep = Math.max(1, Math.ceil(n / maxXLabels));
+  ctx.fillStyle = '#4b605a';
+  ctx.font = isMonthly ? '10px Open Sans, Arial, sans-serif' : '12px Open Sans, Arial, sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  labels.forEach(function(lbl, i) {
+    if (i % xStep !== 0 && i !== n - 1) return;
+    ctx.fillText(lbl, xPos(i), H - pad.bottom + 6);
+  });
+  if (isMonthly && numYears === 2) {
+    var divX = (xPos(11) + xPos(12)) / 2;
+    ctx.save(); ctx.setLineDash([4,4]);
+    ctx.strokeStyle = 'rgba(100,150,130,0.45)'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(divX, pad.top + 2); ctx.lineTo(divX, H - pad.bottom); ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle = 'rgba(53,98,87,0.5)'; ctx.font = 'bold 10px Open Sans, Arial, sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillText(String(_noaaFromYear),     xPos(5),  pad.top + 4);
+    ctx.fillText(String(_noaaFromYear + 1), xPos(17), pad.top + 4);
+  }
+  ctx.save(); ctx.translate(16, pad.top + gH / 2); ctx.rotate(-Math.PI / 2);
+  ctx.font = 'bold 11px Open Sans, Arial, sans-serif';
+  ctx.fillStyle = '#29433d'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(item.unit, 0, 0); ctx.restore();
+  ctx.fillStyle = '#29433d'; ctx.font = '12px Open Sans, Arial, sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.fillText(isMonthly ? 'Month' : 'Year', pad.left + gW / 2, H - 14);
+  function drawSeries(data, strokeColor, fillColor, dashed, dotR) {
+    if (fillColor) {
+      ctx.save(); ctx.beginPath();
+      data.forEach(function(v,i) { if(i===0) ctx.moveTo(xPos(i),yPos(v)); else ctx.lineTo(xPos(i),yPos(v)); });
+      ctx.lineTo(xPos(data.length-1), pad.top+gH); ctx.lineTo(xPos(0), pad.top+gH);
+      ctx.closePath(); ctx.fillStyle = fillColor; ctx.fill(); ctx.restore();
+    }
+    ctx.save(); ctx.strokeStyle = strokeColor; ctx.lineWidth = 2.8;
+    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    if (dashed) ctx.setLineDash([7,4]);
+    ctx.beginPath();
+    data.forEach(function(v,i) { if(i===0) ctx.moveTo(xPos(i),yPos(v)); else ctx.lineTo(xPos(i),yPos(v)); });
+    ctx.stroke(); ctx.restore();
+    if (n <= 24) {
+      data.forEach(function(v,i) {
+        ctx.beginPath(); ctx.arc(xPos(i), yPos(v), dotR||4.5, 0, Math.PI*2);
+        ctx.fillStyle = strokeColor; ctx.fill();
+      });
+    }
+  }
+  function drawValueLabels(data, color) {
+    if (n > 12) return;
+    ctx.fillStyle = color; ctx.font = '12px Open Sans, Arial, sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    data.forEach(function(v,i) { ctx.fillText(Math.round(v), xPos(i), yPos(v) - 8); });
+  }
+  if (_noaaShowCompare) { drawSeries(maple, '#c4860a', 'rgba(196,134,10,0.07)', true, 3); drawValueLabels(maple, '#c4860a'); }
+  var fgFill = ctx.createLinearGradient(0, pad.top, 0, pad.top+gH);
+  fgFill.addColorStop(0, 'rgba(46,125,110,0.18)');
+  fgFill.addColorStop(1, 'rgba(46,125,110,0.02)');
+  drawSeries(primary, '#2e7d6e', fgFill, false, 4.5);
+  if (n <= 24) {
+    primary.forEach(function(v,i) {
+      ctx.beginPath(); ctx.arc(xPos(i), yPos(v), 4.5, 0, Math.PI*2);
+      ctx.fillStyle = '#fff'; ctx.fill();
+      ctx.strokeStyle = '#2e7d6e'; ctx.lineWidth = 2; ctx.stroke();
+    });
+  }
+  drawValueLabels(primary, '#29433d');
+}
+
+window.addEventListener('resize', function() { if (currentIndicator) _noaaRedraw(); });
+
 // ===== FEEDBACK LOOP DRAG & DROP =====
+
 let draggedValue = null;
+
 document.addEventListener('dragstart', e => {
+
   if (e.target.classList.contains('loop-chip')) { draggedValue = e.target.dataset.value; e.dataTransfer.setData('text/plain', draggedValue); e.dataTransfer.effectAllowed = 'move'; }
+
 });
 
 function handleLoopDrop(e) {
+
   e.preventDefault();
+
   const zone = e.currentTarget; zone.classList.remove('dragover');
+
   const val = e.dataTransfer.getData('text/plain') || draggedValue;
+
   if (!val) return;
+
   placeInZone(zone, val);
+
 }
 
 function placeInZone(zone, val) {
+
   const content = zone.querySelector('.dz-content'); content.innerHTML = '';
+
   const chip = document.createElement('div'); chip.className = 'dz-placed';
+
   chip.innerHTML = `<span>${val}</span><span class="remove-x" onclick="removeFromZone(this)">×</span>`;
+
   chip.dataset.value = val; content.appendChild(chip); saveLoopState();
+
 }
 
 function removeFromZone(btn) { btn.closest('.dz-content').innerHTML = ''; saveLoopState(); }
 
 function resetLoop() {
+
   document.querySelectorAll('.loop-dropzone .dz-content').forEach(c => c.innerHTML = '');
+
   const r = document.getElementById('loopRepeats'); if(r) r.value = '';
+
   const h = document.getElementById('loopHelp'); if(h) h.value = '';
+
   saveLoopState();
+
 }
 
 function saveLoopState() {
+
   const model = {};
+
   document.querySelectorAll('.loop-dropzone').forEach(z => { const placed = z.querySelector('.dz-placed'); model[z.dataset.zone] = placed ? placed.dataset.value : ''; });
+
   state.loopModel = model;
+
   autoSave('loop_model', JSON.stringify(model));
+
 }
 
 function restoreLoopState() {
+
   if (!state.loopModel) return;
+
   Object.entries(state.loopModel).forEach(([zone, val]) => {
+
     if (val) { const zoneEl = document.querySelector(`.loop-dropzone[data-zone="${zone}"]`); if (zoneEl) placeInZone(zoneEl, val); }
+
   });
+
 }
 
 // ===== PSA OPTIONS =====
+
 function setupPsaOptions() {
+
   const optionButtons = document.querySelectorAll('.psa-option-btn');
+
   const panels = { 'Written PSA': document.getElementById('psa-written-panel'), 'Audio Message Script': document.getElementById('psa-audio-panel'), 'Infographic Plan': document.getElementById('psa-infographic-panel') };
+
   optionButtons.forEach(btn => {
+
     btn.addEventListener('click', () => {
+
       const format = btn.dataset.psaFormat;
+
       optionButtons.forEach(b => b.classList.remove('active'));
+
       btn.classList.add('active');
+
       Object.values(panels).forEach(panel => panel.classList.remove('active'));
+
       if (panels[format]) panels[format].classList.add('active');
+
       state.psaFormat = format;
+
       autoSave('section11_psa_format', format);
+
       saveState();
+
     });
+
   });
+
   if (state.psaFormat) {
+
     const activeBtn = document.querySelector(`.psa-option-btn[data-psa-format="${state.psaFormat}"]`);
+
     if (activeBtn) activeBtn.click();
+
   }
+
   document.querySelectorAll('#section-11 textarea[data-key], #section-11 input[data-key]').forEach(el => { el.addEventListener('input', () => autoSave(el.dataset.key, el.value)); });
+
 }
 
 // ===== EXPORT JOURNAL =====
+
 function formatTime(totalSeconds) {
+
   const hrs = Math.floor(totalSeconds / 3600), mins = Math.floor((totalSeconds % 3600) / 60), secs = totalSeconds % 60;
+
   if (hrs > 0) return `${hrs}h ${String(mins).padStart(2,'0')}m ${String(secs).padStart(2,'0')}s`;
+
   return `${mins}m ${String(secs).padStart(2,'0')}s`;
+
 }
 
 function exportJournal() {
+
   state.journal = collectAllJournals();
+
   finalizeLessonTiming();
+
   const totalTime = state.elapsedSeconds || 0;
+
   let text = '============================================================\n';
+
   text += '   ECO-RESPONDERS: AFTER THE FIRE — FIELD JOURNAL EXPORT\n';
+
   text += '============================================================\n\n';
+
   text += 'Date: ' + new Date().toLocaleDateString() + '\n';
+
   text += 'Resume Code: ' + (state.resumeCode || 'N/A') + '\n';
+
   text += 'Total Time on Mission Timer: ' + formatTime(totalTime) + '\n\n';
+
   text += '============================================================\n';
+
   text += '   LESSON TIMING DATA\n';
+
   text += '============================================================\n\n';
+
   text += 'Start Time: ' + formatTimestamp(state.lessonStartTime) + '\n';
+
   text += 'End Time: ' + formatTimestamp(state.lessonEndTime) + '\n';
+
   text += 'Total Time on Task: ' + formatTime(state.totalTimeOnTask || 0) + '\n\n';
+
   text += 'Section Time Breakdown:\n';
+
   const visitedSections = Object.entries(state.timePerSection || {}).filter(([, sec]) => sec > 0);
+
   if (visitedSections.length) { visitedSections.forEach(([section, sec]) => { text += '- ' + section + ': ' + formatTime(sec) + '\n'; }); }
+
   else { text += '- No section timing data recorded.\n'; }
+
   text += '\n';
+
   text += '============================================================\n';
+
   text += '   DECISIONS MADE\n';
+
   text += '============================================================\n\n';
+
   if (state.decisions.dp1_label) text += 'Decision 1 — Investigation Start: ' + state.decisions.dp1_label + '\n';
+
   if (state.decisions.dp2_label) text += 'Decision 2 — Report Chosen: ' + state.decisions.dp2_label + '\n';
+
   if (state.planChoice) text += 'Maple Valley Plan Choice: ' + state.planChoice + '\n';
+
   if (!state.decisions.dp1_label && !state.decisions.dp2_label && !state.planChoice) text += 'No tracked decisions recorded.\n';
+
   text += '\n';
+
   if (state.hotspotLocations && state.hotspotLocations.length) {
+
     text += 'Field Investigation Locations Explored:\n';
+
     state.hotspotLocations.forEach(loc => { text += '- ' + loc + '\n'; });
+
     text += '\n';
+
   }
+
   // Report accordion evidence items opened
+
   const reportAccordionItems = {
+
     human: ['Defensible Space', 'Roof Materials', 'Evacuation Preparedness'],
+
     eco: ['Plant Regrowth', 'Erosion Patterns', 'Water Quality'],
+
     combined: ['Fire-Smart Communities', 'Over-Clearing Effects', 'Community Recovery Planning']
+
   };
+
   const chosenReport = state.decisions.dp2 || null;
+
   if (chosenReport && state.reportAccordionOpened && state.reportAccordionOpened[chosenReport] && state.reportAccordionOpened[chosenReport].length > 0) {
+
     text += 'Evidence Items Examined (' + state.decisions.dp2_label + '):\n';
+
     state.reportAccordionOpened[chosenReport].forEach(idx => {
+
       const items = reportAccordionItems[chosenReport];
+
       if (items && items[idx]) text += '- ' + items[idx] + '\n';
+
     });
+
     text += '\n';
+
   }
+
   if (state.psaFormat) text += 'Selected PSA Format: ' + state.psaFormat + '\n\n';
+
   text += '============================================================\n';
+
   text += '   JOURNAL RESPONSES\n';
+
   text += '============================================================\n\n';
+
   const journalEntries = [
+
     { key: 'noaa_indicator', label: 'NOAA Indicator Chosen', prompt: '' },
+
     { key: 'noaa_pattern', label: 'NOAA Pattern Noticed', prompt: 'What pattern do you notice in the data?' },
+
     { key: 'noaa_risk', label: 'Why This Matters for Fire Risk', prompt: 'Why does this matter for fire risk?' },
+
     { key: '3a1_reflection', label: 'NOAA Data Reflection', prompt: 'What does your NOAA data suggest about the conditions before the fire, and how might those conditions have helped the fire spread?' },
+
     { key: '3a2_inference', label: 'Field Prediction from Climate Data', prompt: 'Based on the NOAA data and satellite image, what do you think Forest Glen looked like before the fire?' },
+
     { key: '3b1_observations', label: 'Field Observations', prompt: 'What do your observations from Forest Glen suggest about how the fire affected the land, plants, animals, or people?' },
+
     { key: '3b2_weather', label: 'Weather Conditions Inference', prompt: 'What weather conditions likely led to this fire? Use at least two field clues.' },
+
     { key: '5a_impacts', label: 'Human Impact Report — Journal Response', prompt: 'What human choice helped homes survive the fire most? Use one data pattern to explain your answer.' },
+
     { key: '5b_ecosystem', label: 'Ecosystem Report — Journal Response', prompt: 'What is one sign that plant or animal populations are recovering, and one sign they are still struggling?' },
+
     { key: '5c_integrated', label: 'Combined Analysis — Journal Response', prompt: 'How did one human action affect the ecosystem, and how did that change impact people or the community?' },
+
     { key: 'section6_synthesis', label: 'Team Briefing Synthesis', prompt: 'What is one cause-and-effect chain you noticed between a human decision and changes in plant or animal populations?' },
+
     { key: 'section7_reflection', label: 'Seeing the System Reflection', prompt: 'Choose one change in Forest Glen. What other changes could it cause in the system?' },
+
     { key: 'section9_feedback', label: 'Feedback Loop Analysis', prompt: 'What happens when a feedback loop keeps repeating? How could people change one part of the loop?' },
+
     { key: 'loop_repeats', label: 'When the Loop Repeats', prompt: 'What happens when your feedback loop repeats over time?' },
+
     { key: 'loop_help', label: 'One Action That Could Improve the System', prompt: 'What is one action that could change part of your loop and improve the system?' },
+
     { key: 'section8_decision', label: 'Maple Valley Plan Recommendation', prompt: 'Which plan do you recommend for Maple Valley? Use evidence to explain how it will protect plant or animal populations.' },
+
     { key: 'section11_psa_written', label: 'Written PSA for Maple Valley', prompt: 'Write a short PSA using evidence from Forest Glen.', psaFilter: 'Written PSA' },
+
     { key: 'section11_psa_audio', label: 'Audio Message Script for Maple Valley', prompt: 'Write a short public safety script for Maple Valley residents.', psaFilter: 'Audio Message Script' },
+
     { key: 'section11_psa_info_title', label: 'Infographic Title', prompt: 'Plan an infographic for Maple Valley residents.', psaFilter: 'Infographic Plan' },
+
     { key: 'section11_psa_info_points', label: 'Infographic Key Points', prompt: 'What are the three key points for your infographic?', psaFilter: 'Infographic Plan' },
+
     { key: 'section11_psa_info_visuals', label: 'Infographic Visual Ideas', prompt: 'What visual ideas will you use?', psaFilter: 'Infographic Plan' },
+
     { key: 'section12_reflection1', label: 'Mission Debrief Reflection 1', prompt: 'Pick two reflection questions to answer.' },
+
     { key: 'section12_reflection2', label: 'Mission Debrief Reflection 2', prompt: '(Continued from above)' }
+
   ];
+
   journalEntries.forEach(entry => {
+
     const value = (state.journal || {})[entry.key];
+
     if (!value || !String(value).trim()) return;
+
     if (entry.psaFilter && state.psaFormat !== entry.psaFilter) return;
+
     text += '--- ' + entry.label + ' ---\n';
+
     if (entry.prompt) text += 'Prompt: ' + entry.prompt + '\n';
+
     text += 'Response: ' + value + '\n\n';
+
   });
+
   const blob = new Blob([text], { type: 'text/plain' });
+
   const a = document.createElement('a');
+
   a.href = URL.createObjectURL(blob); a.download = 'EcoResponders_Field_Journal.txt';
+
   document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(a.href);
+
 }
 
 // ===== TIMER =====
+
 let timerInterval = null, timerRunning = false;
+
 function startTimer() {
+
   if (timerRunning) return;
+
   timerRunning = true;
+
   timerInterval = setInterval(() => {
+
     state.elapsedSeconds = (state.elapsedSeconds || 0) + 1;
+
     updateTimerDisplay();
+
     if (state.elapsedSeconds % 30 === 0) saveState();
+
   }, 1000);
+
 }
+
 function stopTimer() {
+
   if (!timerRunning) return;
+
   timerRunning = false; clearInterval(timerInterval); timerInterval = null; saveState();
+
 }
+
 function updateTimerDisplay() {
+
   const el = document.getElementById('timerDisplay');
+
   if (!el) return;
+
   const total = state.elapsedSeconds || 0;
+
   const hrs = Math.floor(total / 3600), mins = Math.floor((total % 3600) / 60), secs = total % 60;
+
   if (hrs > 0) { el.textContent = '⏱ ' + hrs + ':' + String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0'); }
+
   else { el.textContent = '⏱ ' + String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0'); }
+
 }
+
 document.addEventListener('visibilitychange', () => { if (document.hidden) stopTimer(); else startTimer(); });
+
 window.addEventListener('beforeunload', () => { stopTimer(); });
 
 // ===== INIT =====
+
 function init() {
+
   const hasState = loadState();
+
   initResumeCode();
+
   renderNoaaChoices();
+
   setupPsaOptions();
+
   if (hasState && state.currentSection) {
+
     restoreJournals();
+
     restoreLoopState();
+
     restoreRiAccordionState();
+
     if (state.planChoice) {
+
       const planLetter = (state.planChoice.match(/Plan ([ABC])/) || [])[1];
+
       if (planLetter) { document.querySelectorAll('.plan-card').forEach(c => { if (c.dataset.plan === planLetter) c.classList.add('selected'); }); }
+
     }
+
     goTo(state.currentSection, false);
+
     if (state.lessonStartTime && !state.lessonEndTime) state.currentSectionStart = Date.now();
+
   } else {
+
     updateProgress();
+
   }
+
   updateTimerDisplay();
+
   updateDecisionTracker();
+
   startTimer();
+
   window.addEventListener('resize', () => { if (currentIndicator) drawNoaaChart(indicators[currentIndicator]); });
+
 }
 
 // ===== HOTSPOT MAP INTERACTIVE =====
+
 (function initHotspotMap() {
+
   const hsBtns = document.querySelectorAll('.hotspot-btn');
+
   const hsOverlay = document.getElementById('hsOverlay');
+
   function hsCloseAll() {
+
     document.querySelectorAll('.hs-info-panel.hs-show').forEach(p => p.classList.remove('hs-show'));
+
     hsOverlay.classList.remove('hs-show');
+
     hsBtns.forEach(h => h.classList.remove('hs-active'));
+
   }
+
   function trackHotspotLocation(locationName) {
+
     if (!Array.isArray(state.hotspotLocations)) state.hotspotLocations = [];
+
     if (!state.hotspotLocations.includes(locationName)) { state.hotspotLocations.push(locationName); saveState(); }
+
   }
+
   function markVisited() {
+
     if (!Array.isArray(state.hotspotLocations)) return;
+
     hsBtns.forEach(btn => { const loc = btn.getAttribute('data-hs-location'); if (state.hotspotLocations.includes(loc)) btn.classList.add('hs-visited'); });
+
   }
+
   hsBtns.forEach(btn => {
+
     btn.addEventListener('click', function() {
+
       const targetId = this.getAttribute('data-hs-target');
+
       const locationName = this.getAttribute('data-hs-location');
+
       const panel = document.getElementById(targetId);
+
       if (!panel) return;
+
       const isOpen = panel.classList.contains('hs-show');
+
       hsCloseAll();
+
       if (!isOpen) { panel.classList.add('hs-show'); this.classList.add('hs-active'); trackHotspotLocation(locationName); markVisited(); }
+
     });
+
   });
+
   document.querySelectorAll('.hs-close-btn').forEach(b => b.addEventListener('click', hsCloseAll));
+
   hsOverlay.addEventListener('click', hsCloseAll);
+
   setTimeout(markVisited, 200);
+
 })();
 
 // ===== TEXT-TO-SPEECH =====
+
 let isSpeaking = false;
+
 function toggleSpeech(button, container) {
+
   if (!window.speechSynthesis) return;
+
   if (isSpeaking) { speechSynthesis.cancel(); isSpeaking = false; button.innerText = "🔊 Listen"; return; }
+
   const utterance = new SpeechSynthesisUtterance(container.innerText);
+
   const voices = speechSynthesis.getVoices();
+
   const preferredVoice = voices.find(v => v.name.includes('Google')) || voices.find(v => v.name.includes('Female')) || voices.find(v => v.name.includes('Samantha')) || voices.find(v => v.name.includes('Zira')) || voices[0];
+
   if (preferredVoice) utterance.voice = preferredVoice;
+
   utterance.rate = 0.95; utterance.pitch = 1.05;
+
   utterance.onend = () => { isSpeaking = false; button.innerText = "🔊 Listen"; };
+
   isSpeaking = true; button.innerText = "⏹ Stop";
+
   speechSynthesis.cancel(); speechSynthesis.speak(utterance);
+
 }
 
 init();
+
 </script>
+
 </body>
+
 </html>
