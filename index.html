@@ -6262,33 +6262,65 @@ function init() {
 
 // ===== TEXT-TO-SPEECH =====
 
-let isSpeaking = false;
+let currentUtterance = null;
+let currentTtsButton = null;
 
 function toggleSpeech(button, container) {
+  if (!("speechSynthesis" in window)) {
+    alert("Text-to-speech is not supported in this browser.");
+    return;
+  }
 
-  if (!window.speechSynthesis) return;
+  if (speechSynthesis.speaking) {
+    speechSynthesis.cancel();
+    resetTtsButton();
+    return;
+  }
 
-  if (isSpeaking) { speechSynthesis.cancel(); isSpeaking = false; button.innerText = "🔊 Listen"; return; }
+  const textParts = container.querySelectorAll(
+    ".title-section, .narrative-text, .dialogue, .subtle-prompt"
+  );
 
-  const utterance = new SpeechSynthesisUtterance(container.innerText);
+  const text = Array.from(textParts)
+    .map(el => el.innerText.trim())
+    .filter(Boolean)
+    .join(" ");
+
+  if (!text) return;
+
+  currentTtsButton = button;
+  button.innerText = "⏹ Stop";
+
+  currentUtterance = new SpeechSynthesisUtterance(text);
+  currentUtterance.rate = 0.95;
+  currentUtterance.pitch = 1;
 
   const voices = speechSynthesis.getVoices();
+  const preferredVoice =
+    voices.find(v => v.name.includes("Google")) ||
+    voices.find(v => v.name.includes("Samantha")) ||
+    voices.find(v => v.name.includes("Zira")) ||
+    voices[0];
 
-  const preferredVoice = voices.find(v => v.name.includes('Google')) || voices.find(v => v.name.includes('Female')) || voices.find(v => v.name.includes('Samantha')) || voices.find(v => v.name.includes('Zira')) || voices[0];
+  if (preferredVoice) currentUtterance.voice = preferredVoice;
 
-  if (preferredVoice) utterance.voice = preferredVoice;
+  currentUtterance.onend = resetTtsButton;
+  currentUtterance.onerror = resetTtsButton;
 
-  utterance.rate = 0.95; utterance.pitch = 1.05;
-
-  utterance.onend = () => { isSpeaking = false; button.innerText = "🔊 Listen"; };
-
-  isSpeaking = true; button.innerText = "⏹ Stop";
-
-  speechSynthesis.cancel(); speechSynthesis.speak(utterance);
-
+  speechSynthesis.cancel();
+  speechSynthesis.speak(currentUtterance);
 }
 
-init();
+function resetTtsButton() {
+  if (currentTtsButton) currentTtsButton.innerText = "🔊 Listen";
+  currentTtsButton = null;
+  currentUtterance = null;
+}
+
+window.speechSynthesis.onvoiceschanged = () => {
+  speechSynthesis.getVoices();
+};
+
 
 </script>
 
