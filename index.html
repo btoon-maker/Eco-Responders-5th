@@ -6296,11 +6296,9 @@ function toggleSpeech(button, container) {
   currentUtterance.pitch = 1;
 
 const preferredVoice =
-  voices.find(v => v.name.includes("Google US English")) ||
-  voices.find(v => v.name.includes("Google UK English Female")) ||
+  voices.find(v => v.name.includes("Google")) ||
   voices.find(v => v.name.includes("Samantha")) ||
   voices.find(v => v.name.includes("Zira")) ||
-  voices.find(v => v.lang === "en-US") ||
   voices[0];
 
   if (preferredVoice) currentUtterance.voice = preferredVoice;
