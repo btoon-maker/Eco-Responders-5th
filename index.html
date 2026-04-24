@@ -3900,7 +3900,7 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
     </div>
 
-    <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;" class="loop-reflect-grid">
+    <div style="margin-top:16px;display:grid;grid-template-columns:1fr;gap:12px;" class="loop-reflect-grid">
 
       <div>
 
@@ -3910,13 +3910,7 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
       </div>
 
-      <div>
-
-        <label style="display:block;font-weight:700;margin-bottom:6px;">What is one action that could change part of your loop and improve the system?</label>
-
-        <textarea class="journal-textarea" data-key="loop_help" id="loopHelp" oninput="autoSave('loop_help',this.value)" placeholder="One action that could improve the system is..." style="min-height:100px;"></textarea>
-
-      </div>
+      <!-- MOVED TO SECTION 10: "What is one action that could change part of your loop and improve the system?" prompt removed from here -->
 
     </div>
 
@@ -3932,9 +3926,65 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
 </div>
 
-<!-- ============ SECTION 10: PLANNING FORWARD FOR MAPLE VALLEY ============ -->
+<!-- ============ SECTION 10: THE PATTERN DOESN'T STOP ============ -->
 
 <div class="section" id="section-10" data-section="10">
+
+  <div class="card card--narrative">
+
+    <button class="tts-btn" onclick="toggleSpeech(this, this.parentElement)">🔊 Listen</button>
+
+    <h2 class="title-section">The Pattern Doesn't Stop</h2>
+
+    <p class="narrative-text">You step back from your model.</p>
+
+    <p class="narrative-text">The arrows don't stop.</p>
+
+    <p class="narrative-text">Even after the fire is gone… the effects continue.</p>
+
+    <p class="narrative-text">One change leads to another. And then another.</p>
+
+    <p class="narrative-text">You trace the cycle again.</p>
+
+    <p class="narrative-text">If nothing interrupts it, the system keeps going.</p>
+
+    <p class="narrative-text">This wasn't just a one-time event.</p>
+
+    <p class="narrative-text">It's a pattern.</p>
+
+    <p class="narrative-text">And now, you're not just asking what happened.</p>
+
+    <p class="narrative-text">You're asking:</p>
+
+    <p class="subtle-prompt"><strong>What could change it?</strong></p>
+
+  </div>
+
+  <div class="card card--journal">
+
+    <div class="journal-label">📓 Field Journal</div>
+
+    <p class="journal-prompt">What is one action that could change part of your loop and improve the system?</p>
+
+    <textarea class="journal-textarea" data-key="loop_help" id="loopHelp" oninput="autoSave('loop_help',this.value)" placeholder="One action that could improve the system is..."></textarea>
+
+    <div class="save-indicator" data-save="loop_help"></div>
+
+  </div>
+
+  <div class="btn-row btn-row--between">
+
+    <button class="btn btn--back" onclick="goTo('section-9')">← Back</button>
+
+    <button class="btn btn--primary" onclick="goTo('section-11')">Continue →</button>
+
+  </div>
+
+</div>
+
+<!-- ============ SECTION 11: PLANNING FORWARD FOR MAPLE VALLEY ============ -->
+
+<div class="section" id="section-11" data-section="11">
 
   <div class="card card--narrative">
 
@@ -3958,11 +4008,11 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
     <p class="narrative-text">She points to your feedback loop on the big screen.</p>
 
-    <p class="dialogue">“Our Eco-Responders have shown us how one choice can lead to another. Now we have to decide what to do with that.”</p>
+    <p class="dialogue">“Our Eco-Responders have shown us how one choice can lead to another. Now we have to decide where in the system to act.”</p>
 
     <p class="narrative-text">Mayor Elena shares three forward-thinking plans for Maple Valley.</p>
 
-    <p class="narrative-text">Each plan takes a different approach to preparing Maple Valley.</p>
+    <p class="narrative-text">Each plan targets a different intervention point in the cycle.</p>
 
     <p class="subtle-prompt"><strong>Think back to your feedback loop. Which plan breaks harmful cycles or creates a healthier system over time?</strong></p>
 
@@ -3970,7 +4020,7 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
   <div class="card card--decision">
 
-    <p class="decision-question">Which plan should Maple Valley choose? Use the evidence from Forest Glen and what you learned about feedback loops to decide.</p>
+    <p class="decision-question">Where in the system should Maple Valley act? Use the evidence from Forest Glen and your feedback loop to decide which plan best changes the pattern you identified.</p>
 
     <div class="plan-grid">
 
@@ -4006,7 +4056,7 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
     <div class="journal-label">📓 Field Journal</div>
 
-    <p class="journal-prompt">Which plan do you recommend for Maple Valley? Use evidence to explain how it could change the feedback loop and protect plants or animals over time.</p>
+    <p class="journal-prompt">Which plan do you recommend for Maple Valley? Use evidence to explain how it changes the pattern you identified in your feedback loop, and how it could protect plants or animals over time.</p>
 
     <textarea class="journal-textarea" data-key="section8_decision" oninput="autoSave('section8_decision',this.value)" placeholder="I recommend Plan _ for Maple Valley because..."></textarea>
 
@@ -4016,17 +4066,17 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
   <div class="btn-row btn-row--between">
 
-    <button class="btn btn--back" onclick="goTo('section-9')">← Back</button>
+    <button class="btn btn--back" onclick="goTo('section-10')">← Back</button>
 
-    <button class="btn btn--primary" onclick="goTo('section-11')">Continue →</button>
+    <button class="btn btn--primary" onclick="goTo('section-12')">Continue →</button>
 
   </div>
 
 </div>
 
-<!-- ============ SECTION 11: A MESSAGE FOR MAPLE VALLEY (PSA) ============ -->
+<!-- ============ SECTION 12: A MESSAGE FOR MAPLE VALLEY (PSA) ============ -->
 
-<div class="section" id="section-11" data-section="11">
+<div class="section" id="section-12" data-section="12">
 
   <div class="card card--narrative">
 
@@ -4114,17 +4164,17 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
   <div class="btn-row btn-row--between">
 
-    <button class="btn btn--back" onclick="goTo('section-10')">← Back</button>
+    <button class="btn btn--back" onclick="goTo('section-11')">← Back</button>
 
-    <button class="btn btn--primary" onclick="goTo('section-12')">Continue →</button>
+    <button class="btn btn--primary" onclick="goTo('section-13')">Continue →</button>
 
   </div>
 
 </div>
 
-<!-- ============ SECTION 12: MISSION DEBRIEF ============ -->
+<!-- ============ SECTION 13: MISSION DEBRIEF ============ -->
 
-<div class="section" id="section-12" data-section="12">
+<div class="section" id="section-13" data-section="13">
 
   <div class="card card--narrative">
 
@@ -4192,7 +4242,7 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
   <div class="btn-row">
 
-    <button class="btn btn--back" onclick="goTo('section-11')">← Back</button>
+    <button class="btn btn--back" onclick="goTo('section-12')">← Back</button>
 
   </div>
 
@@ -4566,7 +4616,7 @@ function loadResumeCode() {
 
 // ===== NAVIGATION =====
 
-const sectionOrder = ['section-0','section-1','section-2','section-3a1','section-3a2','section-3b1','section-3b2','section-4','section-5a','section-5b','section-5c','section-6','section-7','section-8','section-9','section-10','section-11','section-12'];
+const sectionOrder = ['section-0','section-1','section-2','section-3a1','section-3a2','section-3b1','section-3b2','section-4','section-5a','section-5b','section-5c','section-6','section-7','section-8','section-9','section-10','section-12','section-13'];
 
 const totalSections = sectionOrder.length;
 
