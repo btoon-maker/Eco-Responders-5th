@@ -6262,51 +6262,41 @@ function init() {
 
 // ===== TEXT-TO-SPEECH =====
 
-let voices = [];
 let currentUtterance = null;
 let currentTtsButton = null;
-
-function loadVoices() {
-  voices = speechSynthesis.getVoices();
-}
-
-if (typeof speechSynthesis !== 'undefined') {
-  loadVoices();
-  speechSynthesis.onvoiceschanged = loadVoices;
-}
 
 function toggleSpeech(button, container) {
   if (!("speechSynthesis" in window)) {
     alert("Text-to-speech is not supported in this browser.");
     return;
   }
+
   if (speechSynthesis.speaking) {
     speechSynthesis.cancel();
     resetTtsButton();
     return;
   }
+
   const textParts = container.querySelectorAll(
     ".title-section, .narrative-text, .dialogue, .subtle-prompt"
   );
+
   const text = Array.from(textParts)
     .map(el => el.textContent.trim())
     .filter(Boolean)
     .join(" ");
+
   if (!text) return;
+
   currentTtsButton = button;
   button.textContent = "⏹ Stop";
+
   currentUtterance = new SpeechSynthesisUtterance(text);
   currentUtterance.rate = 0.95;
   currentUtterance.pitch = 1;
-  const allVoices = voices.length ? voices : speechSynthesis.getVoices();
-  const preferredVoice =
-    allVoices.find(v => v.name.includes("Google")) ||
-    allVoices.find(v => v.name.includes("Samantha")) ||
-    allVoices.find(v => v.name.includes("Zira")) ||
-    allVoices[0];
-  if (preferredVoice) currentUtterance.voice = preferredVoice;
   currentUtterance.onend = resetTtsButton;
   currentUtterance.onerror = resetTtsButton;
+
   speechSynthesis.cancel();
   speechSynthesis.speak(currentUtterance);
 }
