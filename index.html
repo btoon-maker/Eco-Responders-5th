@@ -1582,6 +1582,7 @@ n-bottom: 14px;
 
     <button class="btn btn--back" onclick="exportJournal()">Export Journal</button>
 
+    <button class="btn btn--back" onclick="showRestartModal()" style="border-color:#c0392b;color:#c0392b;">↺ Restart Lesson</button>
   </div>
 
 </div>
@@ -1670,8 +1671,18 @@ n-bottom: 14px;
 
 </div>
 
-<div class="lesson-container">
+<div class="modal-overlay" id="restartModal">
+  <div class="modal" style="text-align:center;">
+    <h3 style="color:#c0392b;">⚠ Restart Lesson?</h3>
+    <p style="margin-bottom:24px;color:var(--gray-600);line-height:1.6;">Are you sure you want to restart? Your current progress will be erased.</p>
+    <div class="btn-row btn-row--center" style="flex-direction:column;gap:12px;">
+      <button class="btn btn--primary" style="background:#c0392b;box-shadow:0 4px 14px rgba(192,57,43,0.35);width:100%;justify-content:center;" onclick="confirmRestart()">Yes, Restart Lesson</button>
+      <button class="btn btn--secondary" style="width:100%;justify-content:center;" onclick="closeRestartModal()">No, I do not want to restart the lesson</button>
+    </div>
+  </div>
+</div>
 
+<div class="lesson-container">
 <!-- ============ SECTION 0: LAUNCH ============ -->
 
 <div class="section active" id="section-0" data-section="0">
@@ -3092,8 +3103,7 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
   <div class="btn-row">
 
-    <button class="btn btn--back" onclick="goBack()">← Back</button>
-
+    <button class="btn btn--back" onclick="goTo('section-4')">← Back</button>
   </div>
 
 </div>
@@ -4540,7 +4550,19 @@ function showResumeModal() {
 
 }
 
-function closeResumeModal() {
+function showRestartModal() {
+  document.getElementById('restartModal').classList.add('active');
+}
+
+function closeRestartModal() {
+  document.getElementById('restartModal').classList.remove('active');
+}
+
+function confirmRestart() {
+  localStorage.removeItem('ecoRespondersState');
+  location.reload();
+}
+  function closeResumeModal() {
 
   document.getElementById('resumeModal').classList.remove('active');
 
