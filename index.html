@@ -4553,7 +4553,7 @@ function closeRestartModal() {
 }
 
 function confirmRestart() {
-  localStorage.removeItem('sins_eco_responders');
+  saveState = function() {};
   const keysToDelete = [];
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
