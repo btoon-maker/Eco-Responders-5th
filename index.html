@@ -1943,13 +1943,12 @@ n-bottom: 14px;
 
     <p class="narrative-text">You arrive at the mobile lab, and Jordan pulls up the latest weather and fire-condition data on your tablet.</p>
 
-    <p class="dialogue">"We don't have time to check everything first," he says. "Choose the clue you think will help you understand what was happening before the fire."</p>
+    <p class="dialogue">"We don't have time to check everything first," he says. "Choose the clue you think will help you understand what was happening before the fire in <strong>Forest Glen."</p>
 
-    <p class="subtle-prompt">Look for patterns in the data to understand what conditions were like before the fire. <strong>What patterns do you notice in this data?
+   <p class="narrative-text">He pauses, then adds:</p>
+  <p class="dialogue">“Maple Valley hasn’t burned… but it could. See how the conditions compare.”</p>
 
-What might these patterns suggest about the conditions before the fire?
-
-How could those conditions affect plants, animals, or people in this area?</strong></p>
+    <p class="subtle-prompt">Look for patterns in the data to understand what was happening before the fire. Then use that evidence to decide if similar conditions might exist in < strong>Maple Valley</strong>.</p>
 
   </div>
 
@@ -2069,11 +2068,11 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
           <div class="card" style="margin:0;">
 
-            <label style="display:block;font-weight:700;margin-bottom:6px;color:#24423d;">Pattern I Notice</label>
+            <label style="display:block;font-weight:700;margin-bottom:6px;color:#24423d;">What pattern do you notice in this data over time? Be specific.</label>
 
             <textarea id="noaaPattern" class="journal-textarea" data-key="noaa_pattern" placeholder="I notice that..." style="min-height:90px;" oninput="autoSave('noaa_pattern',this.value);"></textarea>
 
-            <label style="display:block;font-weight:700;margin-bottom:6px;margin-top:12px;color:#24423d;">Why This Matters for Fire Risk</label>
+            <label style="display:block;font-weight:700;margin-bottom:6px;margin-top:12px;color:#24423d;">How could this pattern increase or decrease fire risk? What does this suggest about what happened in Forest Glen?</label>
 
             <textarea id="noaaRisk" class="journal-textarea" data-key="noaa_risk" placeholder="This matters for fire risk because..." style="min-height:90px;" oninput="autoSave('noaa_risk',this.value);"></textarea>
 
@@ -2097,7 +2096,7 @@ How could those conditions affect plants, animals, or people in this area?</stro
 
     <div class="journal-label">📓 Field Journal</div>
 
-    <p class="journal-prompt">What does your NOAA data suggest about the conditions before the fire, and how might those conditions have helped the fire spread?</p>
+    <p class="journal-prompt">What is one pattern you noticed in your NOAA data? What does it tell you about fire conditions in <strong>Forest Glen</strong>? Based on this evidence, could <strong>Maple Valley</strong> be at risk for a similar fire? Explain your thinking.</p>
 
     <textarea class="journal-textarea" data-key="3a1_reflection" oninput="autoSave('3a1_reflection',this.value)" placeholder="My NOAA clue suggests that..."></textarea>
 
@@ -6048,9 +6047,9 @@ function exportJournal() {
 
     { key: 'noaa_pattern', label: 'NOAA Pattern Noticed', prompt: 'What pattern do you notice in the data?' },
 
-    { key: 'noaa_risk', label: 'Why This Matters for Fire Risk', prompt: 'Why does this matter for fire risk?' },
+    { key: 'noaa_risk', label: 'How could this pattern increase or decrease fire risk? What does this suggest about what happened in Forest Glen?', prompt: 'Why does this matter for fire risk?' },
 
-    { key: '3a1_reflection', label: 'NOAA Data Reflection', prompt: 'What does your NOAA data suggest about the conditions before the fire, and how might those conditions have helped the fire spread?' },
+    { key: '3a1_reflection', label: 'NOAA Data Reflection', prompt: 'What is one pattern you noticed in your NOAA data? What does it tell you about fire conditions in Forest Glen? Based on this evidence, could Maple Valley be at risk for a similar fire? Explain your thinking.' },
 
     { key: '3a2_inference', label: 'Field Prediction from Climate Data', prompt: 'Based on the NOAA data and satellite image, what do you think Forest Glen looked like before the fire?' },
 
