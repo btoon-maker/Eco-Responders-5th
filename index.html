@@ -2106,9 +2106,12 @@ n-bottom: 14px;
 
   </div>
 
-  <div class="btn-row">
+<div class="btn-row btn-row--between">
 
     <button class="btn btn--back" onclick="goTo('section-2')">← Back</button>
+
+    <button id="noaaContinueBtn" class="btn btn--primary" onclick="goTo('section-3a2')" style="display:none;">Continue →</button>
+
 
   </div>
 
@@ -5016,6 +5019,8 @@ function openIndicator(key) {
 
   document.getElementById('noaaJournal').style.display = 'block';
 
+  document.getElementById('noaaContinueBtn').style.display = '';
+
   autoSave('noaa_indicator', item.name);
 
   _noaaFromYear = 2020; _noaaToYear = 2026; _noaaShowCompare = false;
@@ -5041,6 +5046,8 @@ function showNoaaChoices() {
   document.getElementById('noaaPanel').style.display = 'none';
 
   document.getElementById('noaaJournal').style.display = 'none';
+
+  document.getElementById('noaaContinueBtn').style.display = 'none';
 
   currentIndicator = null;
 
