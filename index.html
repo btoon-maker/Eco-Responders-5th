@@ -702,6 +702,8 @@ n-bottom: 14px;
 
       align-items: center;
 
+      justify-content: space-between;
+
     }
 
     .fg-btn {
@@ -1358,11 +1360,11 @@ n-bottom: 14px;
 
     .fg-journal-prompt {
 
-      background: var(--blue-light);
+      background: linear-gradient(135deg, #f5f8fc 0%, var(--white) 100%);
 
-      border-left: 5px solid var(--blue);
+      border-left: 4px solid var(--blue);
 
-      border-radius: 0 var(--radius) var(--radius) 0;
+      border-radius: var(--radius);
 
       padding: 18px 20px 20px;
 
@@ -2104,11 +2106,9 @@ n-bottom: 14px;
 
   </div>
 
-  <div class="btn-row btn-row--between">
+  <div class="btn-row">
 
     <button class="btn btn--back" onclick="goTo('section-2')">← Back</button>
-
-    <button class="btn btn--primary" onclick="goTo('section-3a2')">Continue →</button>
 
   </div>
 
