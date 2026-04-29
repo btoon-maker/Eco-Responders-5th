@@ -1584,6 +1584,8 @@ n-bottom: 14px;
 
     <button class="btn btn--back" onclick="exportJournal()">Export Journal</button>
 
+    <button class="btn btn--back" onclick="showGlossaryModal()">📖 Glossary</button>
+
     <button class="btn btn--back" onclick="showRestartModal()" style="border-color:#c0392b;color:#c0392b;">↺ Restart Lesson</button>
   </div>
 
@@ -1680,6 +1682,26 @@ n-bottom: 14px;
     <div class="btn-row btn-row--center" style="flex-direction:column;gap:12px;">
       <button class="btn btn--primary" style="background:#c0392b;box-shadow:0 4px 14px rgba(192,57,43,0.35);width:100%;justify-content:center;" onclick="confirmRestart()">Yes, Restart Lesson</button>
       <button class="btn btn--secondary" style="width:100%;justify-content:center;" onclick="closeRestartModal()">No, I do not want to restart the lesson</button>
+    </div>
+  </div>
+</div>
+<!-- Glossary Modal -->
+<div class="modal-overlay" id="glossaryModal" onclick="handleGlossaryOverlayClick(event)">
+  <div class="modal" style="max-width:520px;max-height:80vh;overflow-y:auto;" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <h3 style="margin:0;">📖 Mission Glossary</h3>
+      <button class="btn btn--back" style="padding:4px 12px;font-size:0.8rem;" onclick="closeGlossaryModal()">✕ Close</button>
+    </div>
+    <p style="margin-bottom:16px;color:var(--gray-600);font-size:0.9rem;">Key terms to know for this mission.</p>
+    <div style="display:flex;flex-direction:column;gap:14px;font-size:0.95rem;color:var(--gray-700);line-height:1.6;">
+      <div><strong>⚡ Fuel-Moisture</strong><br>How much water is stored in plants and soil. When it's low, leaves and branches dry out and burn more easily.</div>
+      <div><strong>🔥 Red Flag Warning</strong><br>A weather alert from NOAA when hot, dry, and windy conditions make wildfires more likely to spread.</div>
+      <div><strong>🏠 Defensible Space</strong><br>A safety zone (about 30 feet around a home) kept clear of flammable materials to slow or stop wildfire spread.</div>
+      <div><strong>🏗 Fire-Resistant Materials</strong><br>Building materials (like stucco or metal roofs) that don't easily burn, protecting homes from embers and heat.</div>
+      <div><strong>♻ Feedback Loop</strong><br>When one change causes another that strengthens or weakens the first — for example, fewer trees → hotter ground → more fires.</div>
+      <div><strong>🌎 Ecosystem Recovery</strong><br>How plants, animals, and soil rebuild after a disturbance like a wildfire.</div>
+      <div><strong>🏛 FEMA (Federal Emergency Management Agency)</strong><br>The agency that helps people and communities prepare for and recover from natural disasters.</div>
+      <div><strong>☁ NOAA (National Oceanic and Atmospheric Administration)</strong><br>The agency that studies Earth's weather and climate to help predict and prevent environmental hazards.</div>
     </div>
   </div>
 </div>
@@ -1810,32 +1832,6 @@ n-bottom: 14px;
       <p><strong>📓 Field Journal</strong></p>
 
       <p>Your journal entries will help you track evidence, explain your thinking, and prepare your final recommendation for Maple Valley.</p>
-
-    </div></div>
-
-  </div>
-
-  <div class="expandable" id="expand-glossary">
-
-    <button class="expandable-header" onclick="toggleExpand('expand-glossary')">Mission Glossary: Key Terms to Know <span class="expandable-arrow">▼</span></button>
-
-    <div class="expandable-body"><div class="expandable-content">
-
-      <p><strong>⚡ Fuel-Moisture</strong><br>How much water is stored in plants and soil. When it's low, leaves and branches dry out and burn more easily.</p>
-
-      <p><strong>🔥 Red Flag Warning</strong><br>A weather alert from NOAA when hot, dry, and windy conditions make wildfires more likely to spread.</p>
-
-      <p><strong>🏠 Defensible Space</strong><br>A safety zone (about 30 feet around a home) kept clear of flammable materials to slow or stop wildfire spread.</p>
-
-      <p><strong>🏗 Fire-Resistant Materials</strong><br>Building materials (like stucco or metal roofs) that don't easily burn, protecting homes from embers and heat.</p>
-
-      <p><strong>♻ Feedback Loop</strong><br>When one change causes another that strengthens or weakens the first — for example, fewer trees → hotter ground → more fires.</p>
-
-      <p><strong>🌎 Ecosystem Recovery</strong><br>How plants, animals, and soil rebuild after a disturbance like a wildfire.</p>
-
-      <p><strong>🏛 FEMA (Federal Emergency Management Agency)</strong><br>The agency that helps people and communities prepare for and recover from natural disasters.</p>
-
-      <p><strong>☁ NOAA (National Oceanic and Atmospheric Administration)</strong><br>The agency that studies Earth's weather and climate to help predict and prevent environmental hazards.</p>
 
     </div></div>
 
@@ -6328,7 +6324,16 @@ function resetTtsButton() {
   currentTtsButton = null;
   currentUtterance = null;
 }
-
+// ===== GLOSSARY MODAL =====
+function showGlossaryModal() {
+  document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+  document.getElementById('glossaryModal').classList.remove('active');
+}
+function handleGlossaryOverlayClick(e) {
+  if (e.target === document.getElementById('glossaryModal')) closeGlossaryModal();
+}
 init();
   document.addEventListener('DOMContentLoaded', init);
 </script>
