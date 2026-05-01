@@ -220,9 +220,14 @@ body {
 
 .feedback-embed iframe { height: 900px; }
 
-.resume-bar { position: fixed; top: 0; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--gray-200); padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; z-index: 100; box-shadow: var(--shadow-sm); flex-wrap: wrap; }
+.resume-bar { position: fixed; top: 0; left: 0; right: 0; background: #1e3a5f; border-bottom: 3px solid #E87722; padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; z-index: 100; box-shadow: var(--shadow-sm); flex-wrap: wrap; }
 
-.resume-bar .brand { font-weight: 800; color: var(--green-dark); font-size: 0.9rem; white-space: nowrap; }
+.resume-bar .brand { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+.resume-bar .brand .sins-badge { background: #E87722; color: #fff; font-weight: 900; font-size: 0.75rem; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; letter-spacing: 0.5px; }
+.resume-bar .brand .brand-text { display: flex; flex-direction: column; }
+.resume-bar .brand .brand-text .brand-series { font-size: 0.65rem; font-weight: 600; color: #a8c4e0; letter-spacing: 1.5px; text-transform: uppercase; }
+.resume-bar .brand .brand-text .brand-title { font-size: 0.9rem; font-weight: 800; color: #ffffff; }
+.resume-bar .actions .btn { color: #fff; border-color: rgba(255,255,255,0.4); }
 
 .resume-bar .actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
@@ -1572,8 +1577,13 @@ n-bottom: 14px;
 
 <div class="resume-bar">
 
-  <span class="brand">Eco-Responders: After the Fire</span>
-
+  <div class="brand">
+    <div class="sins-badge">SINS</div>
+    <div class="brand-text">
+      <span class="brand-series">Stories in Science · Grade 5</span>
+      <span class="brand-title">Eco-Responders: After the Fire</span>
+    </div>
+  </div>
   <div class="actions">
 
     <span class="resume-code-display" id="resumeCodeDisplay" title="Your resume code"></span>
