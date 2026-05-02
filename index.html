@@ -1591,7 +1591,7 @@ n-bottom: 14px;
 
     <button class="btn btn--back" onclick="showResumeModal()">Resume</button>
 
-    <button class="btn btn--back" onclick="exportJournal()">Export Journal</button>
+    <button class="btn btn--back" onclick="showExportModal()">Export Journal</button>
 
     <button class="btn btn--back" onclick="showGlossaryModal()">📖 Glossary</button>
 
@@ -1711,6 +1711,26 @@ n-bottom: 14px;
       <div><strong>🌎 Ecosystem Recovery</strong><br>How plants, animals, and soil rebuild after a disturbance like a wildfire.</div>
       <div><strong>🏛 FEMA (Federal Emergency Management Agency)</strong><br>The agency that helps people and communities prepare for and recover from natural disasters.</div>
       <div><strong>☁ NOAA (National Oceanic and Atmospheric Administration)</strong><br>The agency that studies Earth's weather and climate to help predict and prevent environmental hazards.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EXPORT FILENAME MODAL ============ -->
+<div class="modal-overlay" id="exportModal" onclick="handleExportOverlayClick(event)">
+  <div class="modal">
+    <h3>💾 Export Your Field Journal</h3>
+    <p style="margin-bottom:14px;color:var(--gray-600);">Type your name or identifier below. <strong>EcoRespondersJournal</strong> will be added automatically to the end of the filename.</p>
+    <label style="display:block;font-weight:700;margin-bottom:6px;color:var(--gray-700);font-size:0.9rem;">Your name or ID (optional):</label>
+    <input type="text" id="exportNameInput"
+      placeholder="e.g. Toon"
+      maxlength="40"
+      style="font-family:inherit;letter-spacing:normal;text-align:left;"
+      oninput="updateExportPreview()"
+      onkeydown="if(event.key==='Enter') doExportJournal()">
+    <p id="exportFilenamePreview" style="font-size:0.85rem;color:var(--gray-600);margin-bottom:16px;font-family:monospace;background:var(--gray-100);padding:6px 10px;border-radius:6px;">📄 EcoRespondersJournal.txt</p>
+    <div class="btn-row">
+      <button class="btn btn--primary" onclick="doExportJournal()">⬇ Export</button>
+      <button class="btn btn--secondary" onclick="closeExportModal()">Cancel</button>
     </div>
   </div>
 </div>
@@ -3782,12 +3802,6 @@ n-bottom: 14px;
     <p class="dialogue">"If we can figure out what keeps the cycle going, we can figure out how to change it"</p>
 
 <p class="narrative-text"><strong>Build your loop first. Then watch what happens as the cycle repeats.</strong></p>
-  </div>
-
-  <div class="card card--journal">
-
-    <div class="save-indicator" data-save="section9_feedback"></div>
-
   </div>
 
   <div class="btn-row btn-row--between">
@@ -5927,200 +5941,214 @@ function setupPsaOptions() {
 // ===== EXPORT JOURNAL =====
 
 function formatTime(totalSeconds) {
-
+  if (!totalSeconds || totalSeconds < 0) return '0m 00s';
   const hrs = Math.floor(totalSeconds / 3600), mins = Math.floor((totalSeconds % 3600) / 60), secs = totalSeconds % 60;
-
   if (hrs > 0) return `${hrs}h ${String(mins).padStart(2,'0')}m ${String(secs).padStart(2,'0')}s`;
-
   return `${mins}m ${String(secs).padStart(2,'0')}s`;
-
 }
 
-function exportJournal() {
+// ----- Export modal helpers -----
 
+function sanitizeFilename(str) {
+  // Remove spaces, path separators, and unsafe filename characters; keep alphanumeric, dash, underscore
+  return (str || '').replace(/[^a-zA-Z0-9_\-]/g, '');
+}
+
+function showExportModal() {
+  const modal = document.getElementById('exportModal');
+  if (!modal) return;
+  document.getElementById('exportNameInput').value = '';
+  document.getElementById('exportFilenamePreview').textContent = '\uD83D\uDCC4 EcoRespondersJournal.txt';
+  modal.classList.add('active');
+  setTimeout(() => { const inp = document.getElementById('exportNameInput'); if (inp) inp.focus(); }, 100);
+}
+
+function closeExportModal() {
+  const modal = document.getElementById('exportModal');
+  if (modal) modal.classList.remove('active');
+}
+
+function updateExportPreview() {
+  const raw = document.getElementById('exportNameInput').value;
+  const clean = sanitizeFilename(raw);
+  const filename = (clean ? clean : '') + 'EcoRespondersJournal.txt';
+  document.getElementById('exportFilenamePreview').textContent = '\uD83D\uDCC4 ' + filename;
+}
+
+function doExportJournal() {
+  const raw = document.getElementById('exportNameInput').value;
+  const clean = sanitizeFilename(raw);
+  const filename = (clean ? clean : '') + 'EcoRespondersJournal.txt';
+  closeExportModal();
+  exportJournal(filename);
+}
+
+// ----- Core export function -----
+
+function exportJournal(filename) {
+  if (!filename) filename = 'EcoRespondersJournal.txt';
+
+  // Collect latest DOM values and merge into state
   const domJournals = collectAllJournals();
-state.journal = Object.assign({}, state.journal, domJournals);
+  state.journal = Object.assign({}, state.journal, domJournals);
 
   finalizeLessonTiming();
 
   const totalTime = state.elapsedSeconds || 0;
+  const j = state.journal || {};
+  const dec = state.decisions || {};
 
   let text = '============================================================\n';
-
   text += '   ECO-RESPONDERS: AFTER THE FIRE — FIELD JOURNAL EXPORT\n';
-
   text += '============================================================\n\n';
-
+  text += 'File: ' + filename + '\n';
   text += 'Date: ' + new Date().toLocaleDateString() + '\n';
-
   text += 'Resume Code: ' + (state.resumeCode || 'N/A') + '\n';
-
   text += 'Total Time on Mission Timer: ' + formatTime(totalTime) + '\n\n';
 
+  // ── TIMING DATA ─────────────────────────────────────────────────────────────
   text += '============================================================\n';
-
   text += '   LESSON TIMING DATA\n';
-
   text += '============================================================\n\n';
-
   text += 'Start Time: ' + formatTimestamp(state.lessonStartTime) + '\n';
-
   text += 'End Time: ' + formatTimestamp(state.lessonEndTime) + '\n';
-
   text += 'Total Time on Task: ' + formatTime(state.totalTimeOnTask || 0) + '\n\n';
-
   text += 'Section Time Breakdown:\n';
 
-  const visitedSections = Object.entries(state.timePerSection || {}).filter(([, sec]) => sec > 0);
-
-  if (visitedSections.length) { visitedSections.forEach(([section, sec]) => { text += '- ' + section + ': ' + formatTime(sec) + '\n'; }); }
-
-  else { text += '- No section timing data recorded.\n'; }
-
+  const allSectionTimes = Object.entries(state.timePerSection || {});
+  if (allSectionTimes.length) {
+    allSectionTimes.forEach(([section, sec]) => {
+      text += '- ' + section + ': ' + (sec > 0 ? formatTime(sec) : 'Not recorded') + '\n';
+    });
+  } else {
+    text += '- No section timing data recorded.\n';
+  }
   text += '\n';
 
+  // ── DECISIONS ────────────────────────────────────────────────────────────────
   text += '============================================================\n';
-
   text += '   DECISIONS MADE\n';
-
   text += '============================================================\n\n';
 
-  if (state.decisions.dp1_label) text += 'Decision 1 — Investigation Start: ' + state.decisions.dp1_label + '\n';
+  // Decision Point 1
+  if (dec.dp1) {
+    text += 'Decision Point 1 — Investigation Method: ' + (dec.dp1_label || dec.dp1) + '\n';
 
-  if (state.decisions.dp2_label) text += 'Decision 2 — Report Chosen: ' + state.decisions.dp2_label + '\n';
-
-  if (state.planChoice) text += 'Maple Valley Plan Choice: ' + state.planChoice + '\n';
-
-  if (!state.decisions.dp1_label && !state.decisions.dp2_label && !state.planChoice) text += 'No tracked decisions recorded.\n';
-
-  text += '\n';
-
-  if (state.hotspotLocations && state.hotspotLocations.length) {
-
-    text += 'Field Investigation Locations Explored:\n';
-
-    state.hotspotLocations.forEach(loc => { text += '- ' + loc + '\n'; });
-
+    if (dec.dp1 === 'noaa') {
+      // NOAA path — show which specific indicator was selected
+      const noaaChosen = j['noaa_indicator'] || null;
+      if (noaaChosen) {
+        text += '  NOAA Data Type Selected: ' + noaaChosen + '\n';
+      } else {
+        text += '  NOAA Data Type Selected: Not recorded\n';
+      }
+    } else if (dec.dp1 === 'field') {
+      // Field Observations path — show which zones were actually visited (have journal content)
+      const zoneMap = { forest: 'Forest Region', downtown: 'Downtown District', home: 'Residential Area' };
+      const visitedZones = Object.entries(zoneMap)
+        .filter(([key]) => j['fg_journal_' + key] && String(j['fg_journal_' + key]).trim())
+        .map(([, label]) => label);
+      if (visitedZones.length) {
+        text += '  Field Observation Zone(s) Visited:\n';
+        visitedZones.forEach(zone => { text += '    - ' + zone + '\n'; });
+      } else {
+        text += '  Field Observation Zone(s) Visited: None recorded\n';
+      }
+    }
     text += '\n';
+  }
 
+  // Decision Point 2
+  if (dec.dp2) {
+    text += 'Decision Point 2 — Report Chosen: ' + (dec.dp2_label || dec.dp2) + '\n\n';
+  }
+
+  // Recovery Plan
+  if (state.planChoice) {
+    text += 'Recovery Plan Choice: ' + state.planChoice + '\n\n';
+  }
+
+  // PSA Format
+  if (state.psaFormat) {
+    text += 'PSA / Communication Format: ' + state.psaFormat + '\n\n';
+  }
+
+  if (!dec.dp1 && !dec.dp2 && !state.planChoice) {
+    text += 'No tracked decisions recorded.\n\n';
   }
 
   // Report accordion evidence items opened
-
   const reportAccordionItems = {
-
-    human: ['Defensible Space', 'Roof Materials', 'Evacuation Preparedness'],
-
-    eco: ['Plant Regrowth', 'Erosion Patterns', 'Water Quality'],
-
+    human:    ['Defensible Space', 'Roof Materials', 'Evacuation Preparedness'],
+    eco:      ['Plant Regrowth', 'Erosion Patterns', 'Water Quality'],
     combined: ['Fire-Smart Communities', 'Over-Clearing Effects', 'Community Recovery Planning']
-
   };
-
-  const chosenReport = state.decisions.dp2 || null;
-
+  const chosenReport = dec.dp2 || null;
   if (chosenReport && state.reportAccordionOpened && state.reportAccordionOpened[chosenReport] && state.reportAccordionOpened[chosenReport].length > 0) {
-
-    text += 'Evidence Items Examined (' + state.decisions.dp2_label + '):\n';
-
+    text += 'Evidence Items Examined (' + (dec.dp2_label || chosenReport) + '):\n';
     state.reportAccordionOpened[chosenReport].forEach(idx => {
-
       const items = reportAccordionItems[chosenReport];
-
-      if (items && items[idx]) text += '- ' + items[idx] + '\n';
-
+      if (items && items[idx] !== undefined) text += '- ' + items[idx] + '\n';
     });
-
     text += '\n';
-
   }
 
-  if (state.psaFormat) text += 'Selected PSA Format: ' + state.psaFormat + '\n\n';
-
+  // ── JOURNAL RESPONSES ────────────────────────────────────────────────────────
   text += '============================================================\n';
-
   text += '   JOURNAL RESPONSES\n';
-
   text += '============================================================\n\n';
 
+  // NOTE: section9_feedback removed — the card was empty (no textarea existed).
+  // All remaining active journal prompts are listed below.
   const journalEntries = [
-
-    { key: 'noaa_indicator', label: 'NOAA Indicator Chosen', prompt: '' },
-
-    { key: 'noaa_pattern', label: 'NOAA Pattern Noticed', prompt: 'What pattern do you notice in the data?' },
-
-    { key: 'noaa_risk', label: 'How could this pattern increase or decrease fire risk? ', prompt: 'Why does this matter for fire risk?' },
-
-    { key: '3a1_reflection', label: 'NOAA Data Reflection', prompt: 'What is one pattern you noticed in your NOAA data? What does it tell you about fire conditions in Forest Glen? Based on this evidence, could Maple Valley be at risk for a similar fire? Explain your thinking.' },
-
-    { key: '3a2_inference', label: 'Field Prediction from Climate Data', prompt: 'Based on the NOAA data and satellite image, what do you think Forest Glen looked like before the fire?' },
-
-    { key: 'fg_journal_forest',   label: 'Forest Glen — Forest Area Observations',   prompt: 'What did you notice in this area, and what does it tell you about how the fire affected this environment? Based on your observations, do you think a similar impact could happen in Maple Valley? Explain your thinking using evidence from what you saw.' },
-
-    { key: 'fg_journal_downtown', label: 'Forest Glen — Downtown Area Observations',  prompt: 'What did you notice in this area, and what does it tell you about how the fire affected this environment? Based on your observations, do you think a similar impact could happen in Maple Valley? Explain your thinking using evidence from what you saw.' },
-
-    { key: 'fg_journal_home',     label: 'Forest Glen — Home Area Observations',      prompt: 'What did you notice in this area? What changed because of the fire? Use at least one piece of evidence from what you observed to explain why you think that change happened.' },
-
-    { key: '3b2_weather', label: 'Weather Conditions Inference', prompt: 'What weather conditions likely led to this fire? Use at least two field clues.' },
-
-    { key: '5a_impacts', label: 'Human Impact Report — Journal Response', prompt: 'What human choice helped homes survive the fire most? Use one data pattern to explain your answer.' },
-
-    { key: '5b_ecosystem', label: 'Ecosystem Report — Journal Response', prompt: 'What is one sign that plant or animal populations are recovering, and one sign they are still struggling?' },
-
-    { key: '5c_integrated', label: 'Combined Analysis — Journal Response', prompt: 'How did one human action affect the ecosystem, and how did that change impact people or the community?' },
-
-    { key: 'section6_synthesis', label: 'Team Briefing Synthesis', prompt: 'What is one cause-and-effect chain you noticed between a human decision and changes in plant or animal populations?' },
-
-    { key: 'section7_reflection', label: 'Seeing the System Reflection', prompt: 'Choose one change in Forest Glen. What other changes could it cause in the system?' },
-
-    { key: 'section9_feedback', label: 'Feedback Loop Analysis', prompt: 'What happens when a feedback loop keeps repeating? How could people change one part of the loop?' },
-
-    { key: 'loop_repeats', label: 'When the Loop Repeats', prompt: 'What happens when your feedback loop repeats over time?' },
-
-    { key: 'loop_help', label: 'One Action That Could Improve the System', prompt: 'What is one action that could interrupt or improve your feedback loop? How would that change what happens next in the system??' },
-
-    { key: 'section8_decision', label: 'Maple Valley Plan Recommendation', prompt: 'Which plan do you recommend for Maple Valley? Which plan do you recommend for Maple Valley? Use evidence to explain how it could change the feedback loop and protect plants or animals over time.' },
-
-    { key: 'section11_psa_written', label: 'Written PSA for Maple Valley', prompt: 'Write a short PSA using evidence from Forest Glen.', psaFilter: 'Written PSA' },
-
-    { key: 'section11_psa_audio', label: 'Audio Message Script for Maple Valley', prompt: 'Write a short public safety script for Maple Valley residents.', psaFilter: 'Audio Message Script' },
-
-    { key: 'section11_psa_info_title', label: 'Infographic Title', prompt: 'Plan an infographic for Maple Valley residents.', psaFilter: 'Infographic Plan' },
-
-    { key: 'section11_psa_info_points', label: 'Infographic Key Points', prompt: 'What are the three key points for your infographic?', psaFilter: 'Infographic Plan' },
-
-    { key: 'section11_psa_info_visuals', label: 'Infographic Visual Ideas', prompt: 'What visual ideas will you use?', psaFilter: 'Infographic Plan' },
-
-    { key: 'section12_reflection1', label: 'Mission Debrief Reflection 1', prompt: 'Pick two reflection questions to answer.' },
-
-    { key: 'section12_reflection2', label: 'Mission Debrief Reflection 2', prompt: '(Continued from above)' }
-
+    { key: 'noaa_pattern',        label: 'NOAA — Pattern Noticed',                     prompt: 'What pattern do you notice in the data?' },
+    { key: 'noaa_risk',           label: 'NOAA — Fire Risk Connection',                 prompt: 'How could this pattern increase or decrease fire risk?' },
+    { key: '3a1_reflection',      label: 'NOAA Data Reflection',                        prompt: 'What is one pattern you noticed in your NOAA data? What does it tell you about fire conditions in Forest Glen? Based on this evidence, could Maple Valley be at risk for a similar fire? Explain your thinking.' },
+    { key: '3a2_inference',       label: 'Field Prediction from Climate Data',          prompt: 'What do the data and satellite image show about conditions in Forest Glen before the fire? What is one piece of evidence that supports your thinking? Based on this, could Maple Valley be at risk for a similar fire?' },
+    { key: 'fg_journal_forest',   label: 'Forest Region — Field Observations',          prompt: 'What did you notice in this area, and what does it tell you about how the fire affected this environment? Based on your observations, do you think a similar impact could happen in Maple Valley?' },
+    { key: 'fg_journal_downtown', label: 'Downtown District — Field Observations',      prompt: 'What did you notice in this area, and what does it tell you about how the fire affected this environment? Based on your observations, do you think a similar impact could happen in Maple Valley?' },
+    { key: 'fg_journal_home',     label: 'Residential Area — Field Observations',       prompt: 'What did you notice in this area? What changed because of the fire? Use at least one piece of evidence from what you observed to explain why you think that change happened.' },
+    { key: '3b2_weather',         label: 'Weather Conditions Inference',                prompt: 'What do your field clues suggest about the conditions before the fire in Forest Glen? Use at least two pieces of evidence from what you observed. Based on these conditions, do you think a similar fire could happen in Maple Valley?' },
+    { key: '5a_impacts',          label: 'Human Impact Report — Journal Response',      prompt: 'What human choices seemed to help homes survive the fire in Forest Glen? Use evidence from the report. Based on this, what is one action people in Maple Valley could take to reduce fire risk?' },
+    { key: '5b_ecosystem',        label: 'Ecosystem Recovery Report — Journal Response', prompt: 'What is one sign the ecosystem in Forest Glen is recovering, and one sign it is still struggling? Use evidence from the report. Based on these patterns, what might happen over time if similar conditions existed in Maple Valley?' },
+    { key: '5c_integrated',       label: 'Combined Perspective — Journal Response',      prompt: 'How does one human action connect to changes in the ecosystem in Forest Glen? Use evidence from the report. Based on this connection, how could similar actions impact both the environment and people in Maple Valley?' },
+    { key: 'section6_synthesis',  label: 'Team Briefing Synthesis',                     prompt: 'What is one cause-and-effect connection you noticed between a human action and changes in plants or animals? Based on this connection, what might happen if similar actions occurred in Maple Valley?' },
+    { key: 'section7_reflection', label: 'Seeing the System Reflection',                prompt: 'Choose one change in Forest Glen. What other changes could it cause in the system? Explain how one change leads to another.' },
+    { key: 'loop_repeats',        label: 'Feedback Loop — When the Loop Repeats',       prompt: 'What happens when your feedback loop repeats over time? How might the system change as the cycle continues?' },
+    { key: 'loop_help',           label: 'Feedback Loop — Action to Improve the System', prompt: 'What is one action that could interrupt or improve your feedback loop? How would that change what happens next in the system?' },
+    { key: 'section8_decision',   label: 'Maple Valley Plan Recommendation',            prompt: 'Which plan do you recommend for Maple Valley? Use evidence from Forest Glen and your feedback loop to explain how your plan interrupts harmful cycles or creates a healthier system over time.' },
+    { key: 'section11_psa_written',     label: 'PSA — Written',             prompt: 'Write a short PSA for Maple Valley residents. Use evidence from Forest Glen to explain what people should do, and how those actions could change the system over time.', psaFilter: 'Written PSA' },
+    { key: 'section11_psa_audio',       label: 'PSA — Audio Message Script', prompt: 'Write a short public safety script for Maple Valley residents.', psaFilter: 'Audio Message Script' },
+    { key: 'section11_psa_info_title',  label: 'PSA — Infographic Title',    prompt: 'Plan an infographic that teaches Maple Valley residents how to stay fire-smart before the next fire season.', psaFilter: 'Infographic Plan' },
+    { key: 'section11_psa_info_points', label: 'PSA — Infographic Key Points', prompt: 'What are the three key action points for your infographic?', psaFilter: 'Infographic Plan' },
+    { key: 'section11_psa_info_visuals',label: 'PSA — Infographic Visual Ideas', prompt: 'What visual ideas will you use in your infographic?', psaFilter: 'Infographic Plan' },
+    { key: 'section12_reflection1', label: 'Mission Debrief — Reflection 1', prompt: 'What changed your thinking the most during this investigation, and why?' },
+    { key: 'section12_reflection2', label: 'Mission Debrief — Reflection 2', prompt: 'How does this change how you think about human impact on the environment?' }
   ];
 
+  let journalCount = 0;
   journalEntries.forEach(entry => {
-
-    const value = (state.journal || {})[entry.key];
-
+    const value = j[entry.key];
     if (!value || !String(value).trim()) return;
-
     if (entry.psaFilter && state.psaFormat !== entry.psaFilter) return;
-
     text += '--- ' + entry.label + ' ---\n';
-
     if (entry.prompt) text += 'Prompt: ' + entry.prompt + '\n';
-
     text += 'Response: ' + value + '\n\n';
-
+    journalCount++;
   });
 
+  if (journalCount === 0) {
+    text += 'No journal responses recorded yet.\n\n';
+  }
+
   const blob = new Blob([text], { type: 'text/plain' });
-
   const a = document.createElement('a');
-
-  a.href = URL.createObjectURL(blob); a.download = 'EcoResponders_Field_Journal.txt';
-
-  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(a.href);
-
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
 }
 
 // ===== TIMER =====
@@ -6340,6 +6368,9 @@ function closeGlossaryModal() {
 }
 function handleGlossaryOverlayClick(e) {
   if (e.target === document.getElementById('glossaryModal')) closeGlossaryModal();
+}
+function handleExportOverlayClick(e) {
+  if (e.target === document.getElementById('exportModal')) closeExportModal();
 }
 init();
   document.addEventListener('DOMContentLoaded', init);
