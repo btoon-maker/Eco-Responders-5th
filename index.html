@@ -200,6 +200,75 @@ body {
 
 .expandable-content li { margin-bottom: 6px; }
 
+    /* ── Instructional Alignment professional grid layout ── */
+    .align-overview {
+      font-size: 0.95rem; color: var(--gray-700); line-height: 1.75;
+      margin-bottom: 20px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .align-section-label {
+      font-size: 9px; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--green-dark);
+      margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .align-section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--gray-200);
+    }
+    .align-objectives-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; margin-bottom: 18px;
+    }
+    .align-obj-card {
+      background: var(--green-light);
+      border: 1px solid rgba(34,139,34,0.25);
+      border-radius: var(--radius); padding: 14px 16px;
+    }
+    .align-obj-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--green); color: #fff;
+      font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 10px;
+    }
+    .align-obj-text {
+      font-size: 13.5px; color: var(--gray-800); line-height: 1.65;
+    }
+    .align-meta-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; margin-bottom: 18px;
+    }
+    .align-meta-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius); padding: 14px 16px;
+    }
+    .align-meta-heading {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.10em;
+      text-transform: uppercase; color: var(--green-dark); margin-bottom: 7px;
+    }
+    .align-meta-body {
+      font-size: 13px; color: var(--gray-700); line-height: 1.65;
+    }
+    .align-sins-card {
+      background: var(--yellow-light);
+      border: 1px solid rgba(255,198,39,0.5);
+      border-left: 4px solid var(--yellow);
+      border-radius: var(--radius); padding: 14px 18px;
+    }
+    .align-sins-heading {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.10em;
+      text-transform: uppercase; color: #92400e; margin-bottom: 7px;
+    }
+    .align-sins-body {
+      font-size: 13.5px; color: var(--gray-700); line-height: 1.65;
+    }
+    @media (max-width: 680px) {
+      .align-objectives-grid { grid-template-columns: 1fr 1fr; }
+      .align-meta-grid        { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 420px) {
+      .align-objectives-grid { grid-template-columns: 1fr; }
+    }
+
 .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
 
 .plan-card { background: var(--white); border: 2px solid var(--gray-200); border-radius: var(--radius); padding: 20px; cursor: pointer; transition: all 0.2s; }
@@ -1760,51 +1829,56 @@ n-bottom: 14px;
 
     <div class="expandable-body"><div class="expandable-content">
 
-      <p><strong>Learning Objectives</strong></p>
+      <p class="align-overview">In this lesson, students investigate wildfire evidence from Forest Glen to develop evidence-based explanations for how natural and human factors affect ecosystems — and to propose solutions that help Maple Valley rebuild safely for both people and wildlife.</p>
 
-      <p>By the end of this lesson, students will be able to:</p>
+      <div class="align-section-label">Learning Objectives</div>
+      <div class="align-objectives-grid">
+        <div class="align-obj-card">
+          <div class="align-obj-num">1</div>
+          <div class="align-obj-text">Identify natural and human factors that influence wildfire risk.</div>
+        </div>
+        <div class="align-obj-card">
+          <div class="align-obj-num">2</div>
+          <div class="align-obj-text">Analyze patterns in environmental data to explain cause-and-effect relationships in ecosystem change.</div>
+        </div>
+        <div class="align-obj-card">
+          <div class="align-obj-num">3</div>
+          <div class="align-obj-text">Develop a feedback loop model connecting wildfire conditions, ecosystem impacts, and recovery.</div>
+        </div>
+        <div class="align-obj-card">
+          <div class="align-obj-num">4</div>
+          <div class="align-obj-text">Propose evidence-based community solutions for wildfire resilience.</div>
+        </div>
+        <div class="align-obj-card">
+          <div class="align-obj-num">5</div>
+          <div class="align-obj-text">Communicate scientific thinking through field journal reflections and PSA creation.</div>
+        </div>
+        <div class="align-obj-card">
+          <div class="align-obj-num">6</div>
+          <div class="align-obj-text">Make evidence-based decisions and reflect on science-based problem solving.</div>
+        </div>
+      </div>
 
-      <ul>
+      <div class="align-section-label">Standards &amp; Practices</div>
+      <div class="align-meta-grid">
+        <div class="align-meta-card">
+          <div class="align-meta-heading">📐 Arizona Science Standard</div>
+          <div class="align-meta-body"><strong>5.L4U3.11</strong> — Obtain, evaluate, and communicate evidence about how natural and human-caused changes to habitats or climate can impact populations.</div>
+        </div>
+        <div class="align-meta-card">
+          <div class="align-meta-heading">🔬 Science &amp; Engineering Practices</div>
+          <div class="align-meta-body">Analyzing and Interpreting Data · Developing and Using Models · Constructing Explanations · Obtaining, Evaluating, and Communicating Information</div>
+        </div>
+        <div class="align-meta-card">
+          <div class="align-meta-heading">🔗 Crosscutting Concepts</div>
+          <div class="align-meta-body">Patterns · Cause and Effect · Systems and System Models · Stability and Change · Energy and Matter</div>
+        </div>
+      </div>
 
-        <li>Identify natural and human factors that influence wildfire risk</li>
-
-        <li>Analyze patterns in environmental data</li>
-
-        <li>Explain cause-and-effect relationships in ecosystem change</li>
-
-        <li>Develop a feedback loop model</li>
-
-        <li>Propose evidence-based community solutions</li>
-
-        <li>Communicate scientific thinking through reflection and PSA creation</li>
-
-      </ul>
-
-      <p><strong>Student Learning Outcomes</strong></p>
-
-      <p>Students will demonstrate learning by:</p>
-
-      <ul>
-
-        <li>Making evidence-based decisions</li>
-
-        <li>Investigating environmental data</li>
-
-        <li>Building feedback loop models</li>
-
-        <li>Completing field journal reflections</li>
-
-        <li>Creating a Fire-Smart PSA</li>
-
-        <li>Reflecting on science-based decision making</li>
-
-      </ul>
-
-      <p><strong>Instructional Alignment</strong></p>
-
-      <p>This lesson aligns with Arizona Science Standard 5.L4U3.11: "Obtain, evaluate, and communicate evidence about how natural and human-caused changes to habitats or climate can impact populations."</p>
-
-      <p><strong>NGSS Crosscutting Concepts:</strong> Patterns, Cause and Effect, Systems and System Models, Stability and Change, Energy and Matter</p>
+      <div class="align-sins-card">
+        <div class="align-sins-heading">⭐ SINS Framework Alignment</div>
+        <div class="align-sins-body">Students enter through a narrative role as Eco-Responders, choose investigation pathways (NOAA data vs. field observation), analyze real-world evidence, build feedback loop models, propose community solutions, create a Fire-Smart PSA, and export a Field Journal artifact.</div>
+      </div>
 
     </div></div>
 
