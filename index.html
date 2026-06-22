@@ -1635,6 +1635,47 @@ n-bottom: 14px;
 
   
 
+/* ── Lesson Eyebrow (Stories in Science banner) ── */
+.lesson-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 4px 0 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--gray-200);
+}
+.lesson-eyebrow .sis-pill {
+  flex-shrink: 0;
+  background: var(--green);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 10px 22px;
+  border-radius: 50px;
+  box-shadow: 0 2px 8px rgba(34,139,34,0.25);
+}
+.lesson-eyebrow .eyebrow-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.25;
+}
+.lesson-eyebrow .eyebrow-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+}
+.lesson-eyebrow .eyebrow-title {
+  font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+  font-weight: 800;
+  color: var(--green-dark);
+}
+@media (max-width: 480px) {
+  .lesson-eyebrow { gap: 12px; }
+  .lesson-eyebrow .sis-pill { padding: 8px 16px; font-size: 0.85rem; }
+}
 </style>
 
 </head>
@@ -1804,6 +1845,14 @@ n-bottom: 14px;
 </div>
 
 <div class="lesson-container">
+  <!-- ============ LESSON EYEBROW ============ -->
+<div class="lesson-eyebrow">
+  <span class="sis-pill">Stories in Science</span>
+  <div class="eyebrow-text">
+    <span class="eyebrow-label">Arizona Grade 5</span>
+    <span class="eyebrow-title">Eco-Responders: After the Fire</span>
+  </div>
+</div>
 <!-- ============ SECTION 0: LAUNCH ============ -->
 
 <div class="section active" id="section-0" data-section="0">
