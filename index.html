@@ -1792,15 +1792,29 @@ n-bottom: 14px;
 <div class="modal-overlay" id="exportModal" onclick="handleExportOverlayClick(event)">
   <div class="modal">
     <h3>💾 Export Your Field Journal</h3>
-    <p style="margin-bottom:14px;color:var(--gray-600);">Type your name or identifier below. <strong>EcoRespondersJournal</strong> will be added automatically to the end of the filename.</p>
-    <label style="display:block;font-weight:700;margin-bottom:6px;color:var(--gray-700);font-size:0.9rem;">Your name or ID (optional):</label>
+
+    <p style="margin-bottom:14px;color:var(--gray-600);">
+      Have a study ID? Enter it here. You will upload this Field Journal in your engagement survey.
+      No study ID? Enter your name or follow your teacher’s directions.
+      Save your Field Journal for the post-lesson debrief.
+      <strong>EcoRespondersJournal</strong> will be added automatically to the end of the filename.
+    </p>
+
+    <label style="display:block;font-weight:700;margin-bottom:6px;color:var(--gray-700);font-size:0.9rem;">
+      Study ID or name:
+    </label>
+
     <input type="text" id="exportNameInput"
-      placeholder="e.g. Toon"
+      placeholder="e.g. SIS-001 or Toon"
       maxlength="40"
       style="font-family:inherit;letter-spacing:normal;text-align:left;"
       oninput="updateExportPreview()"
       onkeydown="if(event.key==='Enter') doExportJournal()">
-    <p id="exportFilenamePreview" style="font-size:0.85rem;color:var(--gray-600);margin-bottom:16px;font-family:monospace;background:var(--gray-100);padding:6px 10px;border-radius:6px;">📄 EcoRespondersJournal.txt</p>
+
+    <p id="exportFilenamePreview" style="font-size:0.85rem;color:var(--gray-600);margin-bottom:16px;font-family:monospace;background:var(--gray-100);padding:6px 10px;border-radius:6px;">
+      📄 EcoRespondersJournal.txt
+    </p>
+
     <div class="btn-row">
       <button class="btn btn--primary" onclick="doExportJournal()">⬇ Export</button>
       <button class="btn btn--secondary" onclick="closeExportModal()">Cancel</button>
