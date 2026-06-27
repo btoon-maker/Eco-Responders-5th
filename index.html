@@ -1793,10 +1793,24 @@ n-bottom: 14px;
   <div class="modal">
     <h3>💾 Export Your Field Journal</h3>
 
-    <p style="margin-bottom:14px;color:var(--gray-600);">
-      Have a study ID? Enter it here. You will upload this Field Journal in your engagement survey.
-      No study ID? Enter your name or follow your teacher’s directions.
-      Save your Field Journal for the post-lesson debrief.
+    <div style="background:var(--gray-100);padding:12px 14px;border-radius:12px;margin-bottom:14px;color:var(--gray-700);line-height:1.45;">
+      <p style="margin:0 0 10px 0;">
+        <strong>Have a study ID?</strong><br>
+        Enter it below. You will upload this Field Journal in your engagement survey.
+      </p>
+
+      <p style="margin:0 0 10px 0;">
+        <strong>No study ID?</strong><br>
+        Enter your name or follow your teacher’s directions.
+      </p>
+
+      <p style="margin:0;">
+        <strong>Save your journal.</strong><br>
+        It will help during your post-lesson debrief.
+      </p>
+    </div>
+
+    <p style="margin-bottom:14px;color:var(--gray-600);font-size:0.9rem;">
       <strong>EcoRespondersJournal</strong> will be added automatically to the end of the filename.
     </p>
 
@@ -1805,7 +1819,7 @@ n-bottom: 14px;
     </label>
 
     <input type="text" id="exportNameInput"
-      placeholder="e.g. SIS-001 or Toon"
+      placeholder="e.g. SIS-001 or Jordan"
       maxlength="40"
       style="font-family:inherit;letter-spacing:normal;text-align:left;"
       oninput="updateExportPreview()"
