@@ -1826,7 +1826,7 @@ n-bottom: 14px;
       onkeydown="if(event.key==='Enter') doExportJournal()">
 
     <p id="exportFilenamePreview" style="font-size:0.85rem;color:var(--gray-600);margin-bottom:16px;font-family:monospace;background:var(--gray-100);padding:6px 10px;border-radius:6px;">
-      📄 EcoRespondersJournal.txt
+      📄 EcoRespondersJournal.html
     </p>
 
     <div class="btn-row">
@@ -5938,7 +5938,7 @@ function showExportModal() {
   const modal = document.getElementById('exportModal');
   if (!modal) return;
   document.getElementById('exportNameInput').value = '';
-  document.getElementById('exportFilenamePreview').textContent = '\uD83D\uDCC4 EcoRespondersJournal.txt';
+  document.getElementById('exportFilenamePreview').textContent = '\uD83D\uDCC4 EcoRespondersJournal.html';
   modal.classList.add('active');
   setTimeout(() => { const inp = document.getElementById('exportNameInput'); if (inp) inp.focus(); }, 100);
 }
@@ -5951,22 +5951,22 @@ function closeExportModal() {
 function updateExportPreview() {
   const raw = document.getElementById('exportNameInput').value;
   const clean = sanitizeFilename(raw);
-  const filename = (clean ? clean : '') + 'EcoRespondersJournal.txt';
+  const filename = (clean ? clean : '') + 'EcoRespondersJournal.html';
   document.getElementById('exportFilenamePreview').textContent = '\uD83D\uDCC4 ' + filename;
 }
 
 function doExportJournal() {
   const raw = document.getElementById('exportNameInput').value;
   const clean = sanitizeFilename(raw);
-  const filename = (clean ? clean : '') + 'EcoRespondersJournal.txt';
+  const filename = (clean ? clean : '') + 'EcoRespondersJournal.html';
   closeExportModal();
-  exportJournal(filename);
+  exportJournal(filename, raw);
 }
 
 // ----- Core export function -----
 
-function exportJournal(filename) {
-  if (!filename) filename = 'EcoRespondersJournal.txt';
+function exportJournal(filename, displayName) {
+  if (!filename) filename = 'EcoRespondersJournal.html';
 
   // Collect latest DOM values and merge into state
   const domJournals = collectAllJournals();
@@ -5974,112 +5974,11 @@ function exportJournal(filename) {
 
   finalizeLessonTiming();
 
-  const totalTime = state.elapsedSeconds || 0;
   const j = state.journal || {};
   const dec = state.decisions || {};
+  const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  let text = '============================================================\n';
-  text += '   ECO-RESPONDERS: AFTER THE FIRE — FIELD JOURNAL EXPORT\n';
-  text += '============================================================\n\n';
-  text += 'File: ' + filename + '\n';
-  text += 'Date: ' + new Date().toLocaleDateString() + '\n';
-  text += 'Resume Code: ' + (state.resumeCode || 'N/A') + '\n';
-  text += 'Total Time on Mission Timer: ' + formatTime(totalTime) + '\n\n';
-
-  // ── TIMING DATA ─────────────────────────────────────────────────────────────
-  text += '============================================================\n';
-  text += '   LESSON TIMING DATA\n';
-  text += '============================================================\n\n';
-  text += 'Start Time: ' + formatTimestamp(state.lessonStartTime) + '\n';
-  text += 'End Time: ' + formatTimestamp(state.lessonEndTime) + '\n';
-  text += 'Total Time on Task: ' + formatTime(state.totalTimeOnTask || 0) + '\n\n';
-  text += 'Section Time Breakdown:\n';
-
-  const allSectionTimes = Object.entries(state.timePerSection || {});
-  if (allSectionTimes.length) {
-    allSectionTimes.forEach(([section, sec]) => {
-      text += '- ' + section + ': ' + (sec > 0 ? formatTime(sec) : 'Not recorded') + '\n';
-    });
-  } else {
-    text += '- No section timing data recorded.\n';
-  }
-  text += '\n';
-
-  // ── DECISIONS ────────────────────────────────────────────────────────────────
-  text += '============================================================\n';
-  text += '   DECISIONS MADE\n';
-  text += '============================================================\n\n';
-
-  // Decision Point 1
-  if (dec.dp1) {
-    text += 'Decision Point 1 — Investigation Method: ' + (dec.dp1_label || dec.dp1) + '\n';
-
-    if (dec.dp1 === 'noaa') {
-      // NOAA path — show which specific indicator was selected
-      const noaaChosen = j['noaa_indicator'] || null;
-      if (noaaChosen) {
-        text += '  NOAA Data Type Selected: ' + noaaChosen + '\n';
-      } else {
-        text += '  NOAA Data Type Selected: Not recorded\n';
-      }
-    } else if (dec.dp1 === 'field') {
-      // Field Observations path — show which zones were actually visited (have journal content)
-      const zoneMap = { forest: 'Forest Region', downtown: 'Downtown District', home: 'Residential Area' };
-      const visitedZones = Object.entries(zoneMap)
-        .filter(([key]) => j['fg_journal_' + key] && String(j['fg_journal_' + key]).trim())
-        .map(([, label]) => label);
-      if (visitedZones.length) {
-        text += '  Field Observation Zone(s) Visited:\n';
-        visitedZones.forEach(zone => { text += '    - ' + zone + '\n'; });
-      } else {
-        text += '  Field Observation Zone(s) Visited: None recorded\n';
-      }
-    }
-    text += '\n';
-  }
-
-  // Decision Point 2
-  if (dec.dp2) {
-    text += 'Decision Point 2 — Report Chosen: ' + (dec.dp2_label || dec.dp2) + '\n\n';
-  }
-
-  // Recovery Plan
-  if (state.planChoice) {
-    text += 'Recovery Plan Choice: ' + state.planChoice + '\n\n';
-  }
-
-  // PSA Format
-  if (state.psaFormat) {
-    text += 'PSA / Communication Format: ' + state.psaFormat + '\n\n';
-  }
-
-  if (!dec.dp1 && !dec.dp2 && !state.planChoice) {
-    text += 'No tracked decisions recorded.\n\n';
-  }
-
-  // Report accordion evidence items opened
-  const reportAccordionItems = {
-    human:    ['Defensible Space', 'Roof Materials', 'Evacuation Preparedness'],
-    eco:      ['Plant Regrowth', 'Erosion Patterns', 'Water Quality'],
-    combined: ['Fire-Smart Communities', 'Over-Clearing Effects', 'Community Recovery Planning']
-  };
-  const chosenReport = dec.dp2 || null;
-  if (chosenReport && state.reportAccordionOpened && state.reportAccordionOpened[chosenReport] && state.reportAccordionOpened[chosenReport].length > 0) {
-    text += 'Evidence Items Examined (' + (dec.dp2_label || chosenReport) + '):\n';
-    state.reportAccordionOpened[chosenReport].forEach(idx => {
-      const items = reportAccordionItems[chosenReport];
-      if (items && items[idx] !== undefined) text += '- ' + items[idx] + '\n';
-    });
-    text += '\n';
-  }
-
-  // ── JOURNAL RESPONSES ────────────────────────────────────────────────────────
-  text += '============================================================\n';
-  text += '   JOURNAL RESPONSES\n';
-  text += '============================================================\n\n';
-
-  // NOTE: section9_feedback removed — the card was empty (no textarea existed).
-  // All remaining active journal prompts are listed below.
+  // Single source for prompts/labels in the readable journal
   const journalEntries = [
     { key: 'noaa_pattern',        label: 'NOAA — Pattern Noticed',                     prompt: 'What pattern do you notice in the data?' },
     { key: 'noaa_risk',           label: 'NOAA — Fire Risk Connection',                 prompt: 'How could this pattern increase or decrease fire risk?' },
@@ -6105,23 +6004,146 @@ function exportJournal(filename) {
     { key: 'section12_reflection1', label: 'Mission Debrief — Reflection 1', prompt: 'What changed your thinking the most during this investigation, and why?' },
     { key: 'section12_reflection2', label: 'Mission Debrief — Reflection 2', prompt: 'How does this change how you think about human impact on the environment?' }
   ];
+  const byKey = {};
+  journalEntries.forEach(e => { byKey[e.key] = e; });
 
-  let journalCount = 0;
-  journalEntries.forEach(entry => {
-    const value = j[entry.key];
-    if (!value || !String(value).trim()) return;
-    if (entry.psaFilter && state.psaFormat !== entry.psaFilter) return;
-    text += '--- ' + entry.label + ' ---\n';
-    if (entry.prompt) text += 'Prompt: ' + entry.prompt + '\n';
-    text += 'Response: ' + value + '\n\n';
-    journalCount++;
-  });
+  // Decision labels
+  const dp1Label = dec.dp1_label || dec.dp1 || '—';
+  const dp2Label = dec.dp2_label || dec.dp2 || '—';
+  const planLabel = state.planChoice || '—';
+  const psaLabel = state.psaFormat || '—';
 
-  if (journalCount === 0) {
-    text += 'No journal responses recorded yet.\n\n';
+  // DP1 extra detail (NOAA indicator or field zones visited)
+  let dp1Extra = '';
+  if (dec.dp1 === 'noaa' && j['noaa_indicator']) {
+    dp1Extra = 'NOAA data examined: ' + esc(j['noaa_indicator']);
+  } else if (dec.dp1 === 'field') {
+    const zoneMap = { forest: 'Forest Region', downtown: 'Downtown District', home: 'Residential Area' };
+    const visited = Object.entries(zoneMap)
+      .filter(([k]) => j['fg_journal_' + k] && String(j['fg_journal_' + k]).trim())
+      .map(([, l]) => l);
+    if (visited.length) dp1Extra = 'Zones visited: ' + visited.map(esc).join(', ');
   }
 
-  const blob = new Blob([text], { type: 'text/plain' });
+  // DP2 extra detail (evidence items examined)
+  let dp2Extra = '';
+  const reportAccordionItems = {
+    human:    ['Defensible Space', 'Roof Materials', 'Evacuation Preparedness'],
+    eco:      ['Plant Regrowth', 'Erosion Patterns', 'Water Quality'],
+    combined: ['Fire-Smart Communities', 'Over-Clearing Effects', 'Community Recovery Planning']
+  };
+  const chosenReport = dec.dp2 || null;
+  if (chosenReport && state.reportAccordionOpened && state.reportAccordionOpened[chosenReport] && state.reportAccordionOpened[chosenReport].length) {
+    const items = state.reportAccordionOpened[chosenReport]
+      .map(idx => (reportAccordionItems[chosenReport] || [])[idx])
+      .filter(Boolean);
+    if (items.length) dp2Extra = 'Evidence examined: ' + items.map(esc).join(', ');
+  }
+
+  // Builders
+  const entryHTML = (key) => {
+    const e = byKey[key]; if (!e) return '';
+    const v = j[key]; if (!v || !String(v).trim()) return '';
+    if (e.psaFilter && state.psaFormat !== e.psaFilter) return '';
+    return '<div class="entry"><h3 class="q">' + esc(e.prompt || e.label) + '</h3><p class="a">' + esc(v) + '</p></div>';
+  };
+  const dpHTML = (n, label, value, extra) => '<div class="dp-head"><span class="dp-n">' + n + '</span><div>'
+    + '<div class="dp-t">' + esc(label) + '</div>'
+    + (value ? '<div class="dp-c">You chose: <b>' + esc(value) + '</b></div>' : '')
+    + (extra ? '<div class="dp-x">' + extra + '</div>' : '')
+    + '</div></div>';
+
+  // Chronological flow: each decision, then the prompts that followed it
+  let flow = '';
+  if (dec.dp1) flow += dpHTML(1, 'Investigation method', dp1Label, dp1Extra);
+  ['noaa_pattern', 'noaa_risk', '3a1_reflection', '3a2_inference',
+   'fg_journal_forest', 'fg_journal_downtown', 'fg_journal_home', '3b2_weather'].forEach(k => flow += entryHTML(k));
+  if (dec.dp2) flow += dpHTML(2, 'Report chosen', dp2Label, dp2Extra);
+  ['5a_impacts', '5b_ecosystem', '5c_integrated', 'section6_synthesis', 'section7_reflection', 'loop_repeats', 'loop_help'].forEach(k => flow += entryHTML(k));
+  if (state.planChoice) flow += dpHTML(3, 'Recovery plan', planLabel, '');
+  flow += entryHTML('section8_decision');
+  if (state.psaFormat) flow += dpHTML(4, 'Communication format', psaLabel, '');
+  ['section11_psa_written', 'section11_psa_audio', 'section11_psa_info_title', 'section11_psa_info_points', 'section11_psa_info_visuals'].forEach(k => flow += entryHTML(k));
+  const hasDebrief = (j['section12_reflection1'] && j['section12_reflection1'].trim()) || (j['section12_reflection2'] && j['section12_reflection2'].trim());
+  if (hasDebrief) flow += dpHTML(5, 'Mission debrief', '', '');
+  ['section12_reflection1', 'section12_reflection2'].forEach(k => flow += entryHTML(k));
+  if (!flow.trim()) flow = '<p class="empty">No journal responses were recorded yet.</p>';
+
+  // Timing rows
+  const timingRows = Object.entries(state.timePerSection || {}).map(([sec, val]) =>
+    '<tr><td>' + esc(sec) + '</td><td class="t">' + (val > 0 ? formatTime(val) : 'Not recorded') + '</td></tr>'
+  ).join('') || '<tr><td>No section timing recorded</td><td class="t">&mdash;</td></tr>';
+  const totalOnTask = state.totalTimeOnTask || 0;
+
+  const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
+    + '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+    + '<title>Eco-Responders \u2014 Field Journal' + (displayName ? ' \u2014 ' + esc(displayName) : '') + '</title>'
+    + '<link rel="preconnect" href="https://fonts.googleapis.com">'
+    + '<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">'
+    + '<style>'
+    + ':root{--green:#228B22;--green-dark:#1a6b1a;--green-light:#e8f5e8;--blue:#4D6A92;--blue-light:#e3eaf3;--yellow:#FFC627;--g50:#f8f9fa;--g100:#f0f2f4;--g200:#e2e5e9;--g600:#5a6270;--g700:#3d4450;--g800:#2a2f38;}'
+    + '*{box-sizing:border-box;}'
+    + 'body{margin:0;background:var(--g50);color:var(--g800);font-family:\'Open Sans\',Arial,sans-serif;line-height:1.6;font-size:16px;}'
+    + '.wrap{max-width:760px;margin:0 auto;padding:28px 20px 60px;}'
+    + '.hero{background:#fff;border:1px solid var(--g200);border-left:6px solid var(--green);border-radius:14px;padding:24px;}'
+    + '.hero h1{margin:0;font-size:25px;color:var(--green-dark);}'
+    + '.hero .sub{color:var(--blue);font-weight:700;}'
+    + '.meta{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--g600);}'
+    + '.meta b{color:var(--g800);}'
+    + '.std{margin-top:14px;background:var(--green-light);border-radius:10px;padding:10px 13px;font-size:13.5px;}'
+    + 'h1,h2,h3{font-weight:700;}'
+    + '.section-label{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--g600);font-weight:700;margin:30px 0 12px;}'
+    + '.quick{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 4px;}'
+    + '.qcard{flex:1;min-width:140px;background:#fff;border:1px solid var(--g200);border-radius:12px;padding:12px 14px;border-top:4px solid var(--green);}'
+    + '.qcard .step{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--g600);}'
+    + '.qcard .pick{font-weight:700;font-size:15px;margin-top:3px;color:var(--green-dark);}'
+    + '.qcard.time{border-top-color:var(--blue);}.qcard.time .pick{color:var(--blue);}'
+    + '.dp-head{display:flex;gap:12px;align-items:flex-start;background:var(--green-light);border:1px solid var(--green);border-radius:12px;padding:12px 16px;margin:26px 0 14px;}'
+    + '.dp-head .dp-n{width:30px;height:30px;flex:none;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;}'
+    + '.dp-head .dp-t{font-weight:700;color:var(--green-dark);font-size:17px;}'
+    + '.dp-head .dp-c{font-size:14px;color:var(--g800);}'
+    + '.dp-head .dp-x{font-size:13px;color:var(--g600);margin-top:2px;}'
+    + '.entry{background:#fff;border:1px solid var(--g200);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:15px 18px;margin-bottom:14px;}'
+    + '.entry h3.q{margin:0 0 8px;color:var(--blue);font-weight:700;font-size:15px;}'
+    + '.entry .a{margin:0;white-space:pre-wrap;}'
+    + '.empty{color:var(--g600);font-style:italic;}'
+    + '.timing{background:#fff;border:1px solid var(--g200);border-radius:12px;padding:8px 4px;}'
+    + '.timing table{width:100%;border-collapse:collapse;font-size:14px;}'
+    + '.timing td{padding:7px 14px;border-bottom:1px solid var(--g200);}'
+    + '.timing tr:last-child td{border-bottom:none;}'
+    + '.timing td.t{text-align:right;color:var(--green-dark);font-weight:700;white-space:nowrap;}'
+    + '.timing .total td{font-weight:700;background:var(--green-light);}'
+    + '.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}'
+    + '.foot{margin-top:34px;padding-top:16px;border-top:1px solid var(--g200);font-size:12px;color:var(--g600);text-align:center;}'
+    + '@media print{body{background:#fff;}.wrap{max-width:none;padding:0;}.entry,.dp-head,.hero{break-inside:avoid;page-break-inside:avoid;}}'
+    + '</style></head><body><div class="wrap">'
+    + '<div class="hero"><h1>Eco-Responders: After the Fire</h1><div class="sub">Field Journal</div>'
+    + '<div class="meta">'
+    + '<span><b>Investigator:</b> ' + (displayName ? esc(displayName) : '(not given)') + '</span>'
+    + '<span><b>Resume code:</b> ' + esc(state.resumeCode || 'N/A') + '</span>'
+    + '<span><b>Exported:</b> ' + esc(new Date().toLocaleString()) + '</span>'
+    + '</div>'
+    + '<div class="std"><b>Arizona Grade 5 \u00b7 5.L4U3.11</b> \u2014 How natural and human-caused changes to habitats or climate can impact populations.</div>'
+    + '</div>'
+    + '<div class="quick" aria-label="Quick summary">'
+    + '<div class="qcard"><div class="step">1 \u00b7 Investigate</div><div class="pick">' + esc(dp1Label) + '</div></div>'
+    + '<div class="qcard"><div class="step">2 \u00b7 Report</div><div class="pick">' + esc(dp2Label) + '</div></div>'
+    + '<div class="qcard"><div class="step">Recovery plan</div><div class="pick">' + esc(planLabel) + '</div></div>'
+    + '<div class="qcard"><div class="step">PSA format</div><div class="pick">' + esc(psaLabel) + '</div></div>'
+    + '<div class="qcard time"><div class="step">Total time on task</div><div class="pick">' + formatTime(totalOnTask) + '</div></div>'
+    + '</div>'
+    + '<h2 class="section-label">Field journal</h2>'
+    + flow
+    + '<h2 class="section-label">Lesson data</h2>'
+    + '<div class="timing"><table><caption class="sr-only">Time spent on each section of the lesson.</caption><tbody>'
+    + timingRows
+    + '<tr class="total"><td>Total time on task</td><td class="t">' + formatTime(totalOnTask) + '</td></tr>'
+    + '</tbody></table></div>'
+    + '<p style="font-size:12.5px;color:var(--g600);margin-top:8px;">Started ' + esc(formatTimestamp(state.lessonStartTime)) + ' \u00b7 ended ' + esc(formatTimestamp(state.lessonEndTime)) + ' \u00b7 mission timer ' + formatTime(state.elapsedSeconds || 0) + '</p>'
+    + '<div class="foot">\u00a9 2026 Brooke Toon \u00b7 Stories in Science Framework \u00b7 Generative AI tools were used to support development of this instructional material.</div>'
+    + '</div></body></html>';
+
+  const blob = new Blob([html], { type: 'text/html' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = filename;
