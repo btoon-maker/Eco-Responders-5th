@@ -6053,13 +6053,33 @@ function exportJournal(filename, displayName) {
     + (extra ? '<div class="dp-x">' + extra + '</div>' : '')
     + '</div></div>';
 
+  // Student-built Feedback Loop Model (Step 1 -> Step 2 -> Step 3 -> Step 4)
+  const lm = state.loopModel || {};
+  const loopHasAny = ['step1','step2','step3','step4'].some(k => lm[k] && String(lm[k]).trim());
+  const loopCell = (n, key) => {
+    const v = lm[key] && String(lm[key]).trim() ? esc(lm[key]) : '<span class="empty">[empty]</span>';
+    return '<div class="lstep"><span class="ln">Step ' + n + '</span><span class="lv">' + v + '</span></div>';
+  };
+  const loopModelHTML = '<div class="model accent"><div class="model-h">\u21ba Feedback Loop Model \u2014 student-built</div>'
+    + '<div class="loop-grid">'
+    + loopCell(1,'step1') + '<span class="larrow">\u2192</span>'
+    + loopCell(2,'step2') + '<span class="larrow">\u2192</span>'
+    + loopCell(3,'step3') + '<span class="larrow">\u2192</span>'
+    + loopCell(4,'step4') + '<span class="larrow">\u21ba</span>'
+    + '</div>'
+    + '<div class="loop-note">Step 1 \u2192 Step 2 \u2192 Step 3 \u2192 Step 4 \u2192 Step 1 (repeats)</div>'
+    + (loopHasAny ? '' : '<div class="loop-note empty">No loop steps were placed.</div>')
+    + '</div>';
+
   // Chronological flow: each decision, then the prompts that followed it
   let flow = '';
   if (dec.dp1) flow += dpHTML(1, 'Investigation method', dp1Label, dp1Extra);
   ['noaa_pattern', 'noaa_risk', '3a1_reflection', '3a2_inference',
    'fg_journal_forest', 'fg_journal_downtown', 'fg_journal_home', '3b2_weather'].forEach(k => flow += entryHTML(k));
   if (dec.dp2) flow += dpHTML(2, 'Report chosen', dp2Label, dp2Extra);
-  ['5a_impacts', '5b_ecosystem', '5c_integrated', 'section6_synthesis', 'section7_reflection', 'loop_repeats', 'loop_help'].forEach(k => flow += entryHTML(k));
+  ['5a_impacts', '5b_ecosystem', '5c_integrated', 'section6_synthesis', 'section7_reflection'].forEach(k => flow += entryHTML(k));
+  flow += loopModelHTML;
+  ['loop_repeats', 'loop_help'].forEach(k => flow += entryHTML(k));
   if (state.planChoice) flow += dpHTML(3, 'Recovery plan', planLabel, '');
   flow += entryHTML('section8_decision');
   if (state.psaFormat) flow += dpHTML(4, 'Communication format', psaLabel, '');
@@ -6107,6 +6127,16 @@ function exportJournal(filename, displayName) {
     + '.entry h3.q{margin:0 0 8px;color:var(--blue);font-weight:700;font-size:15px;}'
     + '.entry .a{margin:0;white-space:pre-wrap;}'
     + '.empty{color:var(--g600);font-style:italic;}'
+    + '.model{background:#fff;border:1px solid var(--g200);border-radius:12px;padding:16px 18px;margin-bottom:14px;}'
+    + '.model.accent{border:2px solid var(--green);background:var(--green-light);}'
+    + '.model-h{font-weight:700;color:var(--green-dark);margin-bottom:12px;font-size:15px;}'
+    + '.loop-grid{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;}'
+    + '.lstep{flex:1;min-width:120px;background:#fff;border:1px solid var(--g200);border-radius:8px;padding:10px;}'
+    + '.lstep .ln{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--g600);font-weight:700;margin-bottom:3px;}'
+    + '.lstep .lv{font-weight:700;color:var(--green-dark);}'
+    + '.larrow{display:flex;align-items:center;color:var(--green);font-weight:700;}'
+    + '.loop-note{font-size:13px;color:var(--g600);margin-top:10px;text-align:center;}'
+    + '@media(max-width:560px){.loop-grid{flex-direction:column;}.larrow{justify-content:center;transform:rotate(90deg);}}'
     + '.timing{background:#fff;border:1px solid var(--g200);border-radius:12px;padding:8px 4px;}'
     + '.timing table{width:100%;border-collapse:collapse;font-size:14px;}'
     + '.timing td{padding:7px 14px;border-bottom:1px solid var(--g200);}'
