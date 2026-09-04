@@ -1664,7 +1664,7 @@ n-bottom: 14px;
 
     <button class="btn btn--back" onclick="showResumeModal()">Resume</button>
 
-    <button class="btn btn--back" onclick="showExportModal()">Export Journal</button>
+    <button class="btn btn--back" onclick="showExportModal()">Save Field Journal as PDF</button>
 
     <button class="btn btn--back" onclick="showGlossaryModal()">📖 Glossary</button>
 
@@ -1791,12 +1791,12 @@ n-bottom: 14px;
 <!-- ============ EXPORT FILENAME MODAL ============ -->
 <div class="modal-overlay" id="exportModal" onclick="handleExportOverlayClick(event)">
   <div class="modal">
-    <h3>💾 Export Your Field Journal</h3>
+    <h3>💾 Save Your Field Journal as PDF</h3>
 
     <div style="background:var(--gray-100);padding:12px 14px;border-radius:12px;margin-bottom:14px;color:var(--gray-700);line-height:1.45;">
       <p style="margin:0 0 10px 0;">
-        <strong>Use your classroom login/study ID as the file name.</strong><br>
-        Enter it below. You will upload this Field Journal to your engagement survey.
+        <strong>Use your classroom login/study ID as the file name — not your name.</strong><br>
+        Enter it below. The styled Field Journal will open in the browser print window; choose <strong>Save as PDF</strong>.
       </p>
       
       <p style="margin:0;">
@@ -1806,26 +1806,26 @@ n-bottom: 14px;
     </div>
 
     <p style="margin-bottom:14px;color:var(--gray-600);font-size:0.9rem;">
-      <strong>EcoRespondersJournal</strong> will be added automatically to the end of the filename.
+      <strong>EcoRespondersJournal</strong> will be added automatically to the end of the PDF filename.
     </p>
 
     <label style="display:block;font-weight:700;margin-bottom:6px;color:var(--gray-700);font-size:0.9rem;">
-      login/study ID or name:
+      Classroom login/study ID:
     </label>
 
     <input type="text" id="exportNameInput"
-      placeholder="e.g. SIS-001 or Jordan"
+      placeholder="e.g. SIS-001"
       maxlength="40"
       style="font-family:inherit;letter-spacing:normal;text-align:left;"
       oninput="updateExportPreview()"
       onkeydown="if(event.key==='Enter') doExportJournal()">
 
     <p id="exportFilenamePreview" style="font-size:0.85rem;color:var(--gray-600);margin-bottom:16px;font-family:monospace;background:var(--gray-100);padding:6px 10px;border-radius:6px;">
-      📄 EcoRespondersJournal.html
+      📄 EcoRespondersJournal.pdf
     </p>
 
     <div class="btn-row">
-      <button class="btn btn--primary" onclick="doExportJournal()">⬇ Export</button>
+      <button class="btn btn--primary" onclick="doExportJournal()">Save Field Journal as PDF</button>
       <button class="btn btn--secondary" onclick="closeExportModal()">Cancel</button>
     </div>
   </div>
@@ -4215,15 +4215,18 @@ n-bottom: 14px;
 
     <p class="subtitle">You used evidence, patterns, and systems thinking to help a community make decisions.</p>
 
-    <p class="subtitle">Follow both steps below to finish. Do them in order.</p>
-
-    <p class="subtitle" style="font-size:0.9rem;opacity:0.9;">You'll need your classroom login/study ID to save your journal and take the survey.</p>
+    <div style="max-width:680px;margin:20px auto 0;text-align:left;">
+      <p class="subtitle" style="max-width:none;margin:0 0 8px;"><strong>Step 1: Save Your Field Journal as PDF</strong></p>
+      <p class="subtitle" style="max-width:none;margin:0 0 18px;">Select <strong>Save Field Journal as PDF</strong>. In the print window, choose <strong>Save as PDF</strong> and save the file using your classroom login/study ID — not your name.</p>
+      <p class="subtitle" style="max-width:none;margin:0 0 8px;"><strong>Step 2: Complete the Lesson Engagement Survey</strong></p>
+      <p class="subtitle" style="max-width:none;margin:0;">Continue to the survey and upload your PDF journal when prompted.</p>
+    </div>
 
     <div class="btn-row btn-row--center" style="margin-top:24px;flex-direction:column;align-items:center;gap:12px;">
 
-      <button class="btn" style="background:var(--yellow);color:var(--black);font-size:1.1rem;padding:14px 32px;width:100%;max-width:340px;" onclick="showExportModal()">Step 1 · Export Field Journal</button>
+      <button class="btn" style="background:var(--yellow);color:var(--black);font-size:1.1rem;padding:14px 32px;width:100%;max-width:340px;" onclick="showExportModal()">Save Field Journal as PDF</button>
 
-      <a href="https://asu.questionpro.com/t/AdPa5Z9Jcm" target="_blank" rel="noopener" class="btn" style="background:transparent;color:var(--white);border:2px solid var(--white);font-size:1.1rem;padding:14px 32px;width:100%;max-width:340px;box-sizing:border-box;text-decoration:none;">Step 2 · Lesson Engagement Survey ↗</a>
+      <a href="https://asu.questionpro.com/t/AdPa5Z9Jcm" target="_blank" rel="noopener" class="btn" style="background:transparent;color:var(--white);border:2px solid var(--white);font-size:1.1rem;padding:14px 32px;width:100%;max-width:340px;box-sizing:border-box;text-decoration:none;">Continue to Lesson Engagement Survey ↗</a>
 
     </div>
 
@@ -5939,7 +5942,7 @@ function showExportModal() {
   const modal = document.getElementById('exportModal');
   if (!modal) return;
   document.getElementById('exportNameInput').value = '';
-  document.getElementById('exportFilenamePreview').textContent = '\uD83D\uDCC4 EcoRespondersJournal.html';
+  document.getElementById('exportFilenamePreview').textContent = '\uD83D\uDCC4 EcoRespondersJournal.pdf';
   modal.classList.add('active');
   setTimeout(() => { const inp = document.getElementById('exportNameInput'); if (inp) inp.focus(); }, 100);
 }
@@ -5952,22 +5955,27 @@ function closeExportModal() {
 function updateExportPreview() {
   const raw = document.getElementById('exportNameInput').value;
   const clean = sanitizeFilename(raw);
-  const filename = (clean ? clean : '') + 'EcoRespondersJournal.html';
+  const filename = (clean ? clean : '') + 'EcoRespondersJournal.pdf';
   document.getElementById('exportFilenamePreview').textContent = '\uD83D\uDCC4 ' + filename;
 }
 
 function doExportJournal() {
   const raw = document.getElementById('exportNameInput').value;
   const clean = sanitizeFilename(raw);
-  const filename = (clean ? clean : '') + 'EcoRespondersJournal.html';
+  const filename = (clean ? clean : '') + 'EcoRespondersJournal.pdf';
+  const printWindow = window.open('', '_blank');
+  if (!printWindow) {
+    alert('Please allow pop-ups for this lesson so the PDF print window can open.');
+    return;
+  }
   closeExportModal();
-  exportJournal(filename, raw);
+  exportJournal(filename, raw, printWindow);
 }
 
 // ----- Core export function -----
 
-function exportJournal(filename, displayName) {
-  if (!filename) filename = 'EcoRespondersJournal.html';
+function exportJournal(filename, displayName, printWindow) {
+  if (!filename) filename = 'EcoRespondersJournal.pdf';
 
   // Collect latest DOM values and merge into state
   const domJournals = collectAllJournals();
@@ -6098,7 +6106,7 @@ function exportJournal(filename, displayName) {
 
   const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
     + '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
-    + '<title>Eco-Responders \u2014 Field Journal' + (displayName ? ' \u2014 ' + esc(displayName) : '') + '</title>'
+    + '<title>' + esc(filename.replace(/\.pdf$/i, '')) + '</title>'
     + '<link rel="preconnect" href="https://fonts.googleapis.com">'
     + '<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">'
     + '<style>'
@@ -6146,11 +6154,19 @@ function exportJournal(filename, displayName) {
     + '.timing .total td{font-weight:700;background:var(--green-light);}'
     + '.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}'
     + '.foot{margin-top:34px;padding-top:16px;border-top:1px solid var(--g200);font-size:12px;color:var(--g600);text-align:center;}'
-    + '@media print{body{background:#fff;}.wrap{max-width:none;padding:0;}.entry,.dp-head,.hero{break-inside:avoid;page-break-inside:avoid;}}'
+    + '@page{size:auto;margin:0.5in;}'
+    + '@media print{'
+    + 'html,body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}'
+    + 'body{background:#fff;margin:0;}'
+    + '.wrap{max-width:none;padding:0;}'
+    + '.hero,.qcard,.dp-head,.entry,.model,.timing{break-inside:avoid;page-break-inside:avoid;}'
+    + '.section-label{break-after:avoid;page-break-after:avoid;}'
+    + '.no-print,button,.btn,.resume-bar,.progress-wrap,.decision-tracker{display:none!important;}'
+    + '}'
     + '</style></head><body><div class="wrap">'
     + '<div class="hero"><h1>Eco-Responders: After the Fire</h1><div class="sub">Field Journal</div>'
     + '<div class="meta">'
-    + '<span><b>Investigator:</b> ' + (displayName ? esc(displayName) : '(not given)') + '</span>'
+    + '<span><b>Classroom login/study ID:</b> ' + (displayName ? esc(displayName) : '(not given)') + '</span>'
     + '<span><b>Resume code:</b> ' + esc(state.resumeCode || 'N/A') + '</span>'
     + '<span><b>Exported:</b> ' + esc(new Date().toLocaleString()) + '</span>'
     + '</div>'
@@ -6174,14 +6190,32 @@ function exportJournal(filename, displayName) {
     + '<div class="foot">\u00a9 2026 Brooke Toon \u00b7 Stories in Science Framework \u00b7 Generative AI tools were used to support development of this instructional material.</div>'
     + '</div></body></html>';
 
-  const blob = new Blob([html], { type: 'text/html' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(a.href);
+  const target = printWindow || window.open('', '_blank');
+  if (!target) {
+    alert('Please allow pop-ups for this lesson so the PDF print window can open.');
+    return;
+  }
+
+  target.document.open();
+  target.document.write(html);
+  target.document.close();
+
+  const openPrintDialog = () => {
+    try {
+      target.document.title = filename.replace(/\.pdf$/i, '');
+      target.focus();
+      target.print();
+    } catch (err) {
+      console.error('Unable to open print dialog:', err);
+    }
+  };
+
+  // Wait for the styled journal (including the web font) before opening Print / Save as PDF.
+  if (target.document.fonts && target.document.fonts.ready) {
+    target.document.fonts.ready.then(() => setTimeout(openPrintDialog, 150));
+  } else {
+    target.addEventListener('load', () => setTimeout(openPrintDialog, 150), { once: true });
+  }
 }
 
 // ===== TIMER =====
